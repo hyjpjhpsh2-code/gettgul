@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
+User-agent: NaverAdBot
+Allow: /
+
+Sitemap: https://getggul.com/sitemap.xml
