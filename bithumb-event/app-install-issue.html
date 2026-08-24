@@ -160,7 +160,8 @@
                 </div>
                 <span class="text-xl font-black text-white group-hover:text-yellow-300 transition-colors">GETGGUL</span>
             </a>
-            <nav class="flex items-center space-x-6 text-sm font-bold">
+            <!-- 데스크톱 전용 네비게이션 (모바일 숨김: hidden md:flex) -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-bold">
                 <a href="../bithumb-event/index.html" class="flex flex-col text-left leading-tight group">
                     <div class="flex items-center gap-1">
                         <i class="fas fa-gift text-yellow-400 text-xs"></i>
@@ -179,6 +180,34 @@
                 </a>
                 <a href="../finance-tips/index.html" class="flex items-center gap-1 text-slate-300 hover:text-indigo-300 transition-colors">
                     <i class="fas fa-coins text-indigo-400 text-xs"></i>
+                    <span>재테크 소식</span>
+                </a>
+            </nav>
+
+            <!-- 모바일 전용 햄버거 토글 버튼 (데스크톱 숨김: md:hidden) -->
+            <button id="menu-toggle" class="md:hidden text-white text-xl p-2 focus:outline-none transition-transform active:scale-95" aria-label="메뉴 열기">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- 모바일 펼침 드롭다운 메뉴 (기본 hidden) -->
+            <nav id="mobile-nav" class="hidden absolute top-full left-0 w-full bg-slate-900/98 backdrop-blur-2xl border-b border-slate-800 p-5 space-y-3 md:hidden shadow-2xl text-sm font-bold z-50">
+                <a href="../bithumb-event/index.html" class="flex items-center justify-between p-3.5 bg-slate-800/80 hover:bg-slate-800 rounded-2xl text-white transition-all">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fas fa-gift text-yellow-400 text-base"></i>
+                        <span>빗썸 7만원 이벤트 (오류해결)</span>
+                    </div>
+                    <span class="bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm">HOT</span>
+                </a>
+                <a href="../korean-stock/index.html" class="flex items-center gap-2.5 p-3.5 text-slate-200 hover:bg-slate-800/60 rounded-2xl transition-all">
+                    <i class="fas fa-chart-line text-emerald-400 text-base"></i>
+                    <span>국내주식 이슈</span>
+                </a>
+                <a href="../crypto/index.html" class="flex items-center gap-2.5 p-3.5 text-slate-200 hover:bg-slate-800/60 rounded-2xl transition-all">
+                    <i class="fab fa-bitcoin text-amber-400 text-base"></i>
+                    <span>가상화폐 이슈</span>
+                </a>
+                <a href="../finance-tips/index.html" class="flex items-center gap-2.5 p-3.5 text-slate-200 hover:bg-slate-800/60 rounded-2xl transition-all">
+                    <i class="fas fa-coins text-indigo-400 text-base"></i>
                     <span>재테크 소식</span>
                 </a>
             </nav>
@@ -339,5 +368,29 @@
             });
         }
     </script>
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                if (mobileNav.classList.contains('hidden')) {
+                    icon.classList.replace('fa-times', 'fa-bars');
+                } else {
+                    icon.classList.replace('fa-bars', 'fa-times');
+                }
+            }
+        });
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('hidden');
+                const icon = menuToggle.querySelector('i');
+                if (icon) icon.classList.replace('fa-times', 'fa-bars');
+            });
+        });
+    }
+</script>
 </body>
 </html>
