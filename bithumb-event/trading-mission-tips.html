@@ -154,6 +154,19 @@
                 color: #1a202c !important;
             }
         }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
     </style>
     <!-- Microsoft Clarity Tracking Code -->
     <script type="text/javascript">
@@ -169,58 +182,86 @@
 <body class="min-h-screen flex flex-col justify-between">
 
     <!-- index.html 100% 동일 상단 헤더 -->
+    <!-- v3 메인(v3/index.html) 100% 동일 상단 네비게이션 헤더 -->
     <header class="bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800 text-white" id="site-header">
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex justify-between items-center h-16">
                 
                 <!-- 로고 영역 -->
                 <div class="logo-container flex items-center">
-                    <a href="../index.html" class="logo-main text-white font-black text-[12px] md:text-sm tracking-tighter italic hover:opacity-80 transition mr-2 md:mr-4">
-                        GETGGUL 겟꿀
-                    </a>
-                    <a href="../index.html" class="logo-sub text-yellow-400 font-black text-lg md:text-2xl tracking-tighter italic hover:opacity-80 transition">
-                        빗썸 7만원 이벤트
+                    <a href="../index.html" class="flex items-center gap-2 group">
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center text-slate-950 font-black shadow-md">
+                            <i class="fas fa-bolt text-xs"></i>
+                        </div>
+                        <span class="text-xl font-black text-white group-hover:text-yellow-300 transition-colors">
+                            GETGGUL
+                        </span>
+                        <span class="hidden sm:inline-block bg-white/10 text-yellow-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-yellow-300/30">
+                            금융허브
+                        </span>
                     </a>
                 </div>
 
                 <!-- 햄버거 버튼 -->
-                <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none transition-transform active:scale-90" aria-label="메뉴 열기">
+                <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none transition-transform active:scale-90 p-1" aria-label="메뉴 열기">
                     <i class="fas fa-bars"></i>
                 </button>
 
-                <!-- 네비게이션 리스트 (index.html 100% 동일) -->
-                <nav id="mobile-nav" class="nav-list-wrapper hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-3xl md:static md:block md:w-auto md:bg-transparent md:backdrop-blur-none shadow-xl md:shadow-none" role="navigation">
-                    <ul class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 p-6 md:p-0 list-none m-0">
+                <!-- 대분류 4대 네비게이션 (v3 100% 동일 구조) -->
+                <nav id="mobile-nav" class="nav-list-wrapper hidden absolute top-full left-0 w-full bg-slate-900/98 backdrop-blur-3xl md:static md:block md:w-auto md:bg-transparent md:backdrop-blur-none border-b border-slate-800 md:border-none shadow-2xl md:shadow-none" role="navigation">
+                    <ul class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-7 p-6 md:p-0 list-none m-0">
+                        
+                        <!-- 1. 빗썸 7만원 이벤트 (2줄 구조 + HOT 뱃지) -->
                         <li>
-                            <a href="../event.html" class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
-                                이벤트모음<span class="ml-1 px-1 bg-red-500 text-white text-[8px] rounded-sm py-0.5 shadow-sm">HOT</span>
+                            <a href="../bithumb-event/index.html" class="flex flex-col items-center md:items-start text-center md:text-left leading-tight py-1 group transition-transform hover:-translate-y-0.5">
+                                <div class="flex items-center gap-1.5">
+                                    <i class="fas fa-gift text-yellow-400 text-xs"></i>
+                                    <span class="text-[14px] md:text-[15px] font-black text-white group-hover:text-yellow-300 transition-colors">
+                                        빗썸 7만원 이벤트
+                                    </span>
+                                    <span class="bg-red-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded shadow-sm animate-pulse">
+                                        HOT
+                                    </span>
+                                </div>
+                                <span class="text-[10px] md:text-[11px] font-bold text-yellow-300/90 tracking-tight mt-0.5 pl-4">
+                                    궁금증 및 오류 해결
+                                </span>
                             </a>
                         </li>
+
+                        <!-- 2. 국내주식 이슈 (아이콘 + KOSPI 뱃지) -->
                         <li>
-                            <a href="../support.html" class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
-                                고객센터 <span class="ml-1 px-1 bg-slate-500 text-white text-[8px] rounded-sm py-0.5 shadow-sm">24H</span>
+                            <a href="../korean-stock/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-emerald-300 transition-all hover:-translate-y-0.5">
+                                <i class="fas fa-chart-line text-emerald-400 text-xs"></i>
+                                <span>국내주식 이슈</span>
+                                <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    KOSPI
+                                </span>
                             </a>
                         </li>
+
+                        <!-- 3. 가상화폐 이슈 (아이콘 + BTC 뱃지) -->
                         <li>
-                            <a href="../trust.html" class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
-                                수령인증 <span class="ml-1 px-1 bg-green-500 text-white text-[8px] rounded-sm py-0.5 border border-white/20 shadow-sm">CHECK</span>
+                            <a href="../crypto/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-amber-300 transition-all hover:-translate-y-0.5">
+                                <i class="fab fa-bitcoin text-amber-400 text-sm"></i>
+                                <span>가상화폐 이슈</span>
+                                <span class="bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    BTC
+                                </span>
                             </a>
                         </li>
+
+                        <!-- 4. 재테크 소식 (아이콘 + NEW 뱃지) -->
                         <li>
-                            <a href="../benefits.html" class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-900 md:text-white">
-                                추가혜택 <span class="ml-1 px-1 bg-yellow-400 text-slate-900 text-[8px] rounded-sm py-0.5 shadow-sm">HOT</span>
+                            <a href="../finance-tips/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-indigo-300 transition-all hover:-translate-y-0.5">
+                                <i class="fas fa-coins text-indigo-400 text-xs"></i>
+                                <span>재테크 소식</span>
+                                <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    NEW
+                                </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="../guide/index.html" class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
-                                입문가이드 <span class="ml-1 px-1 bg-green-500 text-white text-[8px] rounded-sm py-0.5 border border-white/20 shadow-sm">BEST</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../compare.html" class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
-                                거래소비교 <span class="ml-1 px-1 bg-yellow-400 text-slate-900 text-[8px] rounded-sm py-0.5 shadow-sm">NEW</span>
-                            </a>
-                        </li>
+
                     </ul>
                 </nav>
             </div>
