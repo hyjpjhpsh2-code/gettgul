@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Y028BWS46H');
+    </script>
+
+    <link rel="canonical" href="https://getggul.com/guide/coin-basics-4.html">
+
+    <title>코인 투자 기초 4편 | 국내외 거래소 차이점 및 나에게 맞는 거래소 찾기 (겟꿀)</title>
+    <meta name="description"
+        content="업비트, 빗썸, 코인원 등 국내 거래소 비교부터 바이낸스, 바이비트 등 해외 거래소를 이용해야 하는 이유(레버리지, 공매도, 상장 전 선점)를 완벽 정리합니다.">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon.ico">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, #6e5ce6 0%, #a259ff 25%, #f8fafc 50%);
+            word-break: keep-all;
+            color: #1a202c;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #edf2f7;
+        }
+
+        header.site-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 2rem;
+            font-weight: 800;
+            font-size: 13px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .home-btn:hover {
+            background: #ffeb3b;
+            color: #1a202c;
+            border-color: #ffeb3b;
+        }
+
+        .toc-item {
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .toc-item.active {
+            border-color: #6e5ce6;
+            background: #f5f3ff;
+            color: #6e5ce6;
+        }
+
+        .toc-item:hover:not(.active) {
+            transform: translateX(8px);
+            background: #f8fafc;
+        }
+
+        .concept-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .concept-table th {
+            background: #f8fafc;
+            padding: 1.2rem;
+            font-weight: 900;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .concept-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="leading-snug">
+    <header class="site-header">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="flex flex-col leading-none">
+                <span class="text-white font-black text-[10px] tracking-tighter italic opacity-80">GETGGUL 겟꿀</span>
+                <h2 class="text-yellow-400 font-black text-lg tracking-tighter italic">입문자 가이드</h2>
+            </a>
+            <a href="/" class="home-btn flex items-center gap-2">
+                <i class="fas fa-home"></i> 홈으로
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto pb-32 px-6 fade-in pt-32">
+
+        <section class="text-center mb-16 text-white">
+            <div
+                class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-2xl text-[12px] font-black mb-6 shadow-xl italic">
+                Guide Part 04</div>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-tight italic">
+                국내 vs 해외 거래소<br><span class="text-yellow-400">나에게 맞는 파트너는?</span>
+            </h1>
+            <p class="text-white/80 font-bold italic leading-relaxed">"어떤 코인거래소를 이용해야 할까요?"</p>
+        </section>
+
+        <section class="guide-card p-8 md:p-12 mb-16 bg-white">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="text-xl font-black text-slate-900 italic tracking-tighter">🚀 목차 안내 (클릭 시 이동)</h3>
+            </div>
+            <div class="grid grid-cols-1 gap-3">
+                <a href="/guide/coin-basics-1.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">1. 비트코인이 무엇이길래 가격이 오르는걸까?</span>
+                    <i class="fas fa-chevron-left text-slate-300"></i>
+                </a>
+                <a href="/guide/coin-basics-2.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">2. 알트코인이란? 비트코인의 한계를 넘는 기술</span>
+                    <i class="fas fa-chevron-left text-slate-300"></i>
+                </a>
+                <a href="/guide/coin-basics-3.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">3. 코인투자에 대한 기본상식편</span>
+                    <i class="fas fa-chevron-left text-slate-300"></i>
+                </a>
+                <a href="#" class="toc-item active p-5 rounded-2xl flex justify-between items-center font-black italic">
+                    <span class="text-sm md:text-base">4. 국내 거래소, 해외 거래소 정리. 그 차이점은? 👈 현재 글</span>
+                    <i class="fas fa-check-circle text-indigo-600"></i>
+                </a>
+                <a href="/guide/coin-basics-5.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">5. 코인으로 돈 버는 방법 총 정리 (현물, 선물, 스테이킹 등)</span>
+                    <i class="fas fa-chevron-right text-slate-300"></i>
+                </a>
+            </div>
+        </section>
+
+        <article class="guide-card p-10 md:p-20 space-y-16">
+
+            <div class="prose prose-slate max-w-none">
+                <p class="text-slate-600 text-lg leading-relaxed font-medium">
+                    가상자산 투자를 결심하고 가장 먼저 마주하는 고민은 바로 '어떤 코인거래소를 이용해야 하는가'입니다. 국내외에 수많은 거래소가 존재하지만, 각 플랫폼마다 상장된 코인 종류, 수수료
+                    체계, 그리고 제공하는 투자 도구가 크게 다릅니다.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    1. 국내 코인거래소 비교분석: 업비트 vs 빗썸 vs 코인원
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    대한민국에서 가장 안전하게 가상화폐를 사는 방법은 정부의 정식 인가를 받은 원화 거래소를 이용하는 것입니다.
+                </p>
+
+                <div class="overflow-x-auto">
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>거래소</th>
+                                <th>국내 점유율</th>
+                                <th>주요 특징</th>
+                                <th>비추천 투자자</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-black">업비트</td>
+                                <td class="text-slate-500">약 70~80% (1위)</td>
+                                <td class="text-indigo-600 font-bold">압도적인 거래량과 유동성. 케이뱅크 연동 및 가장 직관적인 모바일 UI 제공.</td>
+                                <td class="text-slate-500">신규 알트코인을 선점하고 싶은 공격적인 투자자 (심사가 보수적임)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black">빗썸</td>
+                                <td class="text-slate-500">약 15~20% (2위)</td>
+                                <td class="text-indigo-600 font-bold">적극적인 신규 코인 상장. 국민은행 연동 및 수수료 무료/증정 이벤트 활발. (신규가입
+                                    7만원 진행 중)</td>
+                                <td class="text-slate-500">변동성이 적어 안정적인 투자를 원하는 투자자 (신규 상장 코인의 변동성이 큼)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black">코인원</td>
+                                <td class="text-slate-500">약 3~5% (3위)</td>
+                                <td class="text-indigo-600 font-bold">카카오뱅크 연동의 높은 접근성. 스테이킹 서비스 등 장기 보유자를 위한 인프라 우수.
+                                </td>
+                                <td class="text-slate-500">수억 원 이상의 대규모 자금으로 단기 매매를 하는 큰 손 투자자 (슬리피지 위험)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100 italic font-bold">
+                    💡 투자 시작 전 체크포인트: 빗썸은 특정 조건 충족 시 최대 7만원 상당의 혜택을 제공합니다. 최신 이벤트 정리 자료를 참고하여 가장 유리한 조건에서 시작하세요.
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    2. 전문 트레이더들이 해외 거래소를 병행하는 이유
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    원화 입출금의 편의성을 넘어, 해외 거래소를 병행하는 데에는 수익 극대화와 성장 가능성이 높은 자산을 선점하려는 명확한 전략적 가치가 있습니다.
+                </p>
+
+                <div class="space-y-8">
+                    <div class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100">
+                        <h4 class="font-black text-slate-900 mb-4 italic text-xl">① 유망 알트코인의 '글로벌 선점' 기회</h4>
+                        <p class="text-slate-500 font-medium leading-relaxed">
+                            바이낸스나 바이비트 같은 글로벌 거래소는 전 세계에서 가장 유망한 프로젝트들이 가장 먼저 상장되는 곳입니다. 과거 저점 대비 200배가 올랐던
+                            **엑시인피니티(AXIE), 온도(ONDO), 체인링크(LINK)**와 같은 코인들은 국내 대형 거래소에 상장되기 훨씬 전부터 해외 거래소에서 활발히 거래되었습니다.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100">
+                        <h4 class="font-black text-slate-900 mb-4 italic text-xl">② 레버리지(Leverage): 시드의 한계를 넘는 효율</h4>
+                        <p class="text-slate-500 font-medium leading-relaxed mb-8">
+                            내 자본금(증거금)을 지렛대 삼아 더 큰 규모의 투자를 집행함으로써 수익률을 배가시키는 방식입니다.
+                        </p>
+                        <h5 class="text-xs font-black text-indigo-600 mb-4 uppercase tracking-widest italic">📊 투자 원금
+                            100만 원 기준 시뮬레이션</h5>
+                        <div class="overflow-x-auto">
+                            <table class="concept-table bg-white">
+                                <thead>
+                                    <tr>
+                                        <th>구분</th>
+                                        <th>레버리지</th>
+                                        <th>시장 10% 상승 시</th>
+                                        <th>시장 10% 하락 시</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-black">현물 거래 (국내)</td>
+                                        <td class="text-slate-400">1배</td>
+                                        <td class="text-green-600 font-bold">+10만 원 (10%)</td>
+                                        <td class="text-red-500 font-bold">-10만 원 (-10%)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-black italic text-indigo-600">선물 거래 (해외)</td>
+                                        <td class="text-indigo-600 font-bold">10배 (10x)</td>
+                                        <td class="text-green-600 font-bold">+100만 원 (100%)</td>
+                                        <td class="text-red-500 font-bold italic">-100만 원 (청산주의)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-black italic text-indigo-600">선물 거래 (해외)</td>
+                                        <td class="text-indigo-600 font-bold">20배 (20x)</td>
+                                        <td class="text-green-600 font-bold">+200만 원 (200%)</td>
+                                        <td class="text-red-500 font-bold italic">-200만 원 (청산주의)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-[10px] text-slate-400 font-bold mt-4 italic">※ 레버리지 투자는 높은 수익만큼 손실 위험도 비례하여 커지므로
+                            철저한 관리가 필수입니다.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100">
+                        <h4 class="font-black text-slate-900 mb-4 italic text-xl">③ 하락장에서도 수익을 내는 '공매도(Short)'</h4>
+                        <p class="text-slate-500 font-medium leading-relaxed">
+                            국내 거래소와 달리 해외 거래소는 가격 하락에 배팅하는 **숏(Short) 포지션**을 지원합니다. 이는 비트코인 하락기에도 자산을 불릴 수 있는 강력한 무기이며,
+                            현물 자산의 하락 리스크를 방어하는 헤지(Hedge) 수단으로도 활용됩니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    3. 글로벌 해외 코인거래소 TOP 3 비교
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>바이낸스 (Binance)</th>
+                                <th>바이비트 (Bybit)</th>
+                                <th>비트겟 (Bitget)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-black">시장 지위</td>
+                                <td class="text-slate-500 text-sm">세계 1위 (압도적 유동성)</td>
+                                <td class="text-slate-500 text-sm">선물 거래 특화 (안정성)</td>
+                                <td class="text-slate-500 text-sm">카피 트레이딩 강점</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black text-indigo-600">주요 특징</td>
+                                <td class="text-indigo-900 font-bold text-xs italic">가장 많은 코인 상장</td>
+                                <td class="text-indigo-900 font-bold text-xs italic">빠른 체결 및 서버 안정성</td>
+                                <td class="text-indigo-900 font-bold text-xs italic">초보자용 UI 및 보너스</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black">국내 송금</td>
+                                <td class="text-slate-500 text-xs">트래블 룰 준수</td>
+                                <td class="text-slate-500 text-xs">트래블 룰 준수</td>
+                                <td class="text-slate-500 text-xs">트래블 룰 준수</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-slate-400 font-bold italic mt-4 text-center">※ 해외 거래소 선택 시 트래블 룰 준수 여부와 유동성이 가장
+                    중요합니다.</p>
+            </div>
+
+            <div class="pt-16 border-t border-slate-100 text-center">
+                <h4 class="text-xl font-black text-slate-900 mb-6 italic">마치며: 나에게 맞는 거래소 조합은?</h4>
+                <p class="text-slate-600 leading-relaxed font-medium mb-12">
+                    입문자라면 국내 거래소 계정 확보가 첫걸음입니다. 원화 입출금에 익숙해진 뒤, 더 넓은 시장으로 나아가고 싶을 때 해외 거래소를 추가하는 것이 가장 효율적입니다.
+                </p>
+                <div class="flex flex-col gap-4">
+                    <a href="/guide/coin-basics-5.html"
+                        class="block w-full bg-indigo-600 text-white py-6 rounded-full font-black text-lg text-center shadow-xl hover:scale-105 transition-all">
+                        다음 편: 코인 수익 모델 총정리 확인하기 <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+
+                    <a href="/빗썸7만원이벤트/"
+                        class="block w-full bg-yellow-400 text-slate-900 py-6 rounded-full font-black text-lg text-center shadow-xl hover:scale-105 transition-all italic">
+                        빗썸 7만원 받고 코인투자 시작하기 <i class="fas fa-gift ml-2"></i>
+                    </a>
+
+                    <p class="text-center text-slate-400 text-[11px] font-bold mt-1 italic">※ 본 혜택은 빗썸 신규 가입자 한정으로
+                        제공됩니다.</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-24 pb-32 px-6 text-center">
+        <h4 class="font-black text-2xl tracking-tighter italic mb-4">GETGGUL<span class="text-indigo-400">.COM</span>
+        </h4>
+        <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 GETGGUL CRYPTO GUIDE · ALL
+            RIGHTS RESERVED</p>
+    </footer>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

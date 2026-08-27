@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Y028BWS46H');
+    </script>
+
+    <link rel="canonical" href="https://getggul.com/guide/coin-basics-3.html">
+
+    <title>코인 투자 기초 3편 | 입문 전 필수 체크! 주식과는 다른 4가지 핵심 상식 (겟꿀)</title>
+    <meta name="description"
+        content="코인 투자 실전 매매 전 반드시 알아야 할 4가지 규칙. 24시간 시장 운영, 상하한가 없는 변동성, 소수점 거래 방법 및 가상자산 지갑 보안 수칙을 정리합니다.">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, #6e5ce6 0%, #a259ff 25%, #f8fafc 50%);
+            word-break: keep-all;
+            color: #1a202c;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #edf2f7;
+        }
+
+        header.site-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 2rem;
+            font-weight: 800;
+            font-size: 13px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .home-btn:hover {
+            background: #ffeb3b;
+            color: #1a202c;
+            border-color: #ffeb3b;
+        }
+
+        .toc-item {
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .toc-item.active {
+            border-color: #6e5ce6;
+            background: #f5f3ff;
+            color: #6e5ce6;
+        }
+
+        .toc-item:hover:not(.active) {
+            transform: translateX(8px);
+            background: #f8fafc;
+        }
+
+        .concept-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .concept-table th {
+            background: #f8fafc;
+            padding: 1.2rem;
+            font-weight: 900;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .concept-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="leading-snug">
+    <header class="site-header">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="flex flex-col leading-none">
+                <span class="text-white font-black text-[10px] tracking-tighter italic opacity-80">GETGGUL 겟꿀</span>
+                <h2 class="text-yellow-400 font-black text-lg tracking-tighter italic">입문자 가이드</h2>
+            </a>
+            <a href="/" class="home-btn flex items-center gap-2">
+                <i class="fas fa-home"></i> 홈으로
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto pb-32 px-6 fade-in pt-32">
+
+        <section class="text-center mb-16 text-white">
+            <div
+                class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-2xl text-[12px] font-black mb-6 shadow-xl italic">
+                입문자 가이드 3편</div>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-tight italic">
+                모르면 손해 보는<br><span class="text-yellow-400">코인 투자 상식</span>
+            </h1>
+            <p class="text-white/80 font-bold italic">"입문 전 반드시 확보해야 할 4가지 규칙"</p>
+        </section>
+
+        <section class="guide-card p-8 md:p-12 mb-16 bg-white">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="text-xl font-black text-slate-900 italic tracking-tighter">🚀 목차 안내 (클릭 시 이동)</h3>
+            </div>
+            <div class="grid grid-cols-1 gap-3">
+                <a href="/guide/coin-basics-1.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">1. 비트코인이 무엇이길래 가격이 오르는걸까?</span>
+                    <i class="fas fa-chevron-left text-slate-300"></i>
+                </a>
+                <a href="/guide/coin-basics-2.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">2. 알트코인이란? 비트코인의 한계를 넘는 기술</span>
+                    <i class="fas fa-chevron-left text-slate-300"></i>
+                </a>
+                <a href="#" class="toc-item active p-5 rounded-2xl flex justify-between items-center font-black italic">
+                    <span class="text-sm md:text-base">3. 코인투자에 대한 기본상식편 👈 현재 글</span>
+                    <i class="fas fa-check-circle text-indigo-600"></i>
+                </a>
+                <a href="/guide/coin-basics-4.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">4. 국내 거래소, 해외 거래소 정리. 그 차이점은?</span>
+                    <i class="fas fa-chevron-right text-slate-300"></i>
+                </a>
+                <a href="/guide/coin-basics-5.html"
+                    class="toc-item p-5 rounded-2xl flex justify-between items-center font-bold text-slate-500 hover:bg-slate-50">
+                    <span class="text-sm md:text-base">5. 코인으로 돈 버는 방법 총 정리 (현물, 선물, 스테이킹 등)</span>
+                    <i class="fas fa-chevron-right text-slate-300"></i>
+                </a>
+            </div>
+        </section>
+
+        <article class="guide-card p-10 md:p-20 space-y-16">
+
+            <div class="prose prose-slate max-w-none">
+                <p class="text-slate-600 text-lg leading-relaxed font-medium">
+                    비트코인과 알트코인의 개념을 이해하셨다면, 이제 본격적으로 시장에 뛰어들 차례입니다. 하지만 무턱대고 거래소 앱을 켜기 전에 반드시 짚고 넘어가야 할 **'시장 규칙'**들이
+                    있습니다. 주식 시장과 비슷해 보이지만 운영 방식부터 보안까지 완전히 다른 세계입니다.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    1. 잠들지 않는 시장, 그리고 한계 없는 변동성
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    가장 먼저 체감하게 될 차이점은 **24시간 365일** 돌아가는 시장의 역동성입니다. 주말이나 명절, 새벽에도 멈추지 않습니다. 또한 상하한가(±30%) 제한이 없어 하루 만에
+                    100%가 오를 수도, 90%가 하락할 수도 있는 하이 리스크-하이 리턴의 전형입니다.
+                </p>
+
+                <div class="overflow-x-auto">
+                    <h4 class="text-sm font-black text-indigo-600 mb-4 italic">📊 주식 vs 코인 핵심 비교</h4>
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>주식 시장</th>
+                                <th>코인 시장</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-black">운영 시간</td>
+                                <td class="text-slate-500">평일 09:00 ~ 15:30</td>
+                                <td class="text-indigo-600 font-bold">365일 24시간 연중무휴</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black">가격 제한</td>
+                                <td class="text-slate-500">상하한가 ±30%</td>
+                                <td class="text-indigo-600 font-bold">제한 없음 (무한 변동)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black">최소 단위</td>
+                                <td class="text-slate-500">1주 단위</td>
+                                <td class="text-indigo-600 font-bold">소수점 단위 (0.0001개 등)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    2. "비트코인 1억인데 어떻게 사요?" : 소수점 거래
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    코인은 반드시 1개 단위로 살 필요가 없습니다. 거래소마다 최소 주문 금액(예: 5,000원)만 충족한다면 **소수점 단위 매수**가 가능합니다. 매주 혹은 매달 커피 한 잔
+                    값으로 꾸준히 모으는 '적립식 투자' 전략을 사용하기에 아주 적합한 구조입니다.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    3. 내 자산은 어디에? : 가상자산 지갑(Wallet)의 개념
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    거래소에서 코인을 사면 거래소가 제공하는 **'거래소 지갑'**에 자동으로 보관됩니다. 이때 가장 중요한 보안 수단은 **시드 구문(복구 문구)**입니다. 시드 구문을 분실하거나
+                    타인에게 노출되면 지갑 속 모든 자산을 되찾을 수 없습니다.
+                </p>
+                <div class="bg-slate-900 text-white p-8 rounded-[2.5rem] shadow-xl italic font-black text-center">
+                    "Not your keys, Not your coins"
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    4. 거래소마다 가격과 상장 코인이 다르다
+                </h3>
+                <div class="p-8 bg-indigo-50 rounded-3xl border border-indigo-100 mb-6">
+                    <p class="text-indigo-900 font-bold leading-relaxed mb-4">
+                        <i class="fas fa-question-circle mr-2"></i> "똑같은 비트코인인데 왜 거래소마다 가격이 다른가요?"
+                    </p>
+                    <p class="text-slate-600 text-sm font-medium">
+                        코인 시장은 각 거래소가 독립적인 시장이기 때문입니다. 한국 거래소 가격이 해외보다 유독 비싼 현상을 **'김치 프리미엄(김프)'**이라 부르기도 합니다.
+                    </p>
+                </div>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    또한 빗썸에는 상장되어 있지만 업비트에는 없는 코인이 있을 수 있습니다. 내가 투자하고 싶은 코인이 어느 거래소에 있는지 미리 확인하고 계정을 준비해야 합니다.
+                </p>
+            </div>
+
+            <div class="pt-16 border-t border-slate-100">
+                <h4 class="text-xl font-black text-slate-900 mb-6 italic">마치며: 준비된 투자자가 성공한다</h4>
+                <p class="text-slate-600 leading-relaxed font-medium mb-12">
+                    365일 쉬지 않는 시장, 소수점 거래의 편리함, 그리고 지갑의 보안과 거래소별 차이까지. 이 내용들은 화려한 차트 분석 기술보다 훨씬 중요한 투자의 기본 바탕입니다.
+                </p>
+                <div class="flex flex-col gap-4">
+                    <a href="/guide/coin-basics-4.html"
+                        class="block w-full bg-indigo-600 text-white py-6 rounded-full font-black text-lg text-center shadow-xl hover:scale-105 transition-all">
+                        다음 편: 국내외 거래소 차이점 완벽 정리 <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+
+                    <a href="/빗썸7만원이벤트/"
+                        class="block w-full bg-yellow-400 text-slate-900 py-6 rounded-full font-black text-lg text-center shadow-xl hover:scale-105 transition-all italic">
+                        빗썸 7만원 받고 코인투자 시작하기 <i class="fas fa-gift ml-2"></i>
+                    </a>
+
+                    <p class="text-center text-slate-400 text-[11px] font-bold mt-1 italic">※ 본 혜택은 빗썸 신규 가입자 한정으로
+                        제공됩니다.</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-24 pb-32 px-6 text-center">
+        <h4 class="font-black text-2xl tracking-tighter italic mb-4">GETGGUL<span class="text-indigo-400">.COM</span>
+        </h4>
+        <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 GETGGUL CRYPTO GUIDE · ALL
+            RIGHTS RESERVED</p>
+    </footer>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

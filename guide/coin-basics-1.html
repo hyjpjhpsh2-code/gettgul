@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Y028BWS46H');
+    </script>
+
+    <link rel="canonical" href="https://getggul.com/guide/coin-basics-1.html">
+
+    <title>코인 투자 기초 1편 | 비트코인은 왜 가치가 있을까? (겟꿀)</title>
+    <meta name="description"
+        content="코인 투자 기초 1편. 비트코인의 탄생 배경, 블록체인 채굴 원리, 2100만 개 한정 수량과 반감기 등 비트코인 가치 상승의 비밀을 파헤칩니다.">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, #6e5ce6 0%, #a259ff 25%, #f8fafc 50%);
+            word-break: keep-all;
+            color: #1a202c;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #edf2f7;
+        }
+
+        header.site-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 2rem;
+            font-weight: 800;
+            font-size: 13px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .home-btn:hover {
+            background: #ffeb3b;
+            color: #1a202c;
+            border-color: #ffeb3b;
+        }
+
+        .toc-item {
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .toc-item.active {
+            border-color: #6e5ce6;
+            background: #f5f3ff;
+            color: #6e5ce6;
+        }
+
+        .concept-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .concept-table th {
+            background: #f8fafc;
+            padding: 1.2rem;
+            font-weight: 900;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .concept-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .halving-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 150px;
+            padding-top: 20px;
+        }
+
+        .halving-bar {
+            flex: 1;
+            background: #fbbf24;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: height 1s;
+        }
+
+        .halving-bar::after {
+            content: attr(data-year);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+        }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="leading-snug">
+    <header class="site-header">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="flex flex-col leading-none">
+                <span class="text-white font-black text-[10px] tracking-tighter italic opacity-80">GETGGUL 겟꿀</span>
+                <h2 class="text-yellow-400 font-black text-lg tracking-tighter italic">입문자 가이드</h2>
+            </a>
+            <a href="/" class="home-btn flex items-center gap-2">
+                <i class="fas fa-home"></i> 홈으로
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto pb-32 px-6 fade-in pt-32">
+
+        <section class="text-center mb-16 text-white">
+            <div
+                class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-2xl text-[12px] font-black mb-6 shadow-xl">
+                입문자 가이드 1편</div>
+            <div class="flex flex-col items-center mb-10">
+                <div
+                    class="w-24 h-24 bg-white rounded-full flex items-center justify-center text-5xl text-yellow-500 shadow-2xl mb-6">
+                    <i class="fab fa-bitcoin"></i>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black tracking-tighter leading-tight italic">
+                    비트코인 가치 상승의<br><span class="text-yellow-400">비밀 파헤치기</span>
+                </h1>
+                <p class="mt-6 text-white/80 font-bold italic">"무엇이길래 가격이 오르는걸까?"</p>
+            </div>
+        </section>
+
+        <section class="guide-card p-8 md:p-12 mb-16 bg-white">
+            <h3 class="text-xl font-black text-slate-900 italic tracking-tighter mb-8 flex items-center gap-3">
+                <span
+                    class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-sm"><i
+                        class="fas fa-rocket"></i></span>
+                🚀 목차 안내 (클릭 시 해당 글로 이동)
+            </h3>
+            <div class="grid grid-cols-1 gap-2">
+                <a href="#"
+                    class="toc-item active p-4 rounded-xl flex justify-between items-center font-black text-sm italic">
+                    <span>1. 비트코인이 무엇이길래 가격이 오르는걸까? 👈 현재 글</span>
+                    <i class="fas fa-play text-indigo-600 text-[10px]"></i>
+                </a>
+                <a href="/guide/coin-basics-2.html"
+                    class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm hover:bg-slate-50">
+                    <span>2. 알트코인이란? 비트코인의 한계를 넘는 기술</span>
+                </a>
+                <a href="/guide/coin-basics-3.html"
+                    class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm hover:bg-slate-50">
+                    <span>3. 코인투자에 대한 기본상식편</span>
+                </a>
+                <a href="/guide/coin-basics-4.html"
+                    class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm hover:bg-slate-50">
+                    <span>4. 국내 거래소, 해외 거래소 정리. 그 차이점은?</span>
+                </a>
+                <a href="/guide/coin-basics-5.html"
+                    class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm hover:bg-slate-50">
+                    <span>5. 코인으로 돈 버는 방법 총 정리 (현물, 선물, 스테이킹 등)</span>
+                </a>
+            </div>
+        </section>
+
+        <article class="guide-card p-10 md:p-20 space-y-20">
+
+            <div class="prose prose-slate max-w-none">
+                <p class="text-slate-600 text-lg leading-relaxed font-medium">
+                    코인 시장에서 코인을 사고 파는 데에는 별달리 어려운 지식이 필요없습니다. 하지만 기본적인 개념을 모르면 나에게 돈을 벌어다줄 진짜 코인이 무엇인지 파악할 수 없습니다. 이해가
+                    어려워지면 다른사람들의 말이나 뉴스에 휘둘리기 시작합니다.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    1. 비트코인의 탄생: 2008년 금융위기
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    비트코인은 2008년 글로벌 금융위기라는 역사적 사건 속에서 탄생했습니다. 당시 리먼 브라더스 같은 거대 은행들이 파산하고 경제가 무너지자, 각국 정부는 위기를 막기 위해 엄청난
+                    양의 돈을 찍어내기 시작했습니다.
+                </p>
+                <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100">
+                    <p class="text-indigo-900 font-bold leading-relaxed">
+                        화폐 가치가 하락하자 '사토시 나카모토'는 국가나 중앙은행이 마음대로 가치를 조절할 수 없는 <span class="text-indigo-600"> '중앙 통제가 없는
+                            새로운 방식의 화폐'</span>를 설계하게 됩니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    2. 비트코인만의 독보적인 특징: 탈중앙화와 보안
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    비트코인의 핵심은 탈중앙화에 있습니다. 전 세계 네트워크 참여자들이 공동으로 장부를 관리하며, 수학 계산 보상으로 지급되는 것이 비트코인입니다. 이를 **'채굴'**이라
+                    표현합니다.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                        <h4 class="font-black text-indigo-600 mb-2">조작 불가능한 시스템</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed font-bold">수만 대의 컴퓨터가 동시 검증하여 한두 군데 해킹으로 장부를
+                            조작할 수 없습니다.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                        <h4 class="font-black text-indigo-600 mb-2">자유로운 거래</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed font-bold">국경의 제한 없이 인터넷만 있다면 전 세계 누구와도 가치를
+                            주고받을 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-5">
+                    3. 왜 가격이 오르는가? (희소성과 반감기)
+                </h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    "비트코인의 총 발행량은 처음부터 2,100만 개로 고정되어 있습니다."
+                </p>
+
+                <div class="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100">
+                    <h4 class="text-sm font-black text-slate-400 mb-4 flex items-center gap-2 italic">
+                        <i class="fas fa-chart-bar"></i> 비트코인 반감기 (Halving)
+                    </h4>
+                    <div class="halving-chart">
+                        <div class="halving-bar h-full" data-year="2012"></div>
+                        <div class="halving-bar h-[50%]" data-year="2016"></div>
+                        <div class="halving-bar h-[25%]" data-year="2020"></div>
+                        <div class="halving-bar h-[12%]" data-year="2024"></div>
+                        <div class="halving-bar h-[6%]" data-year="2028"></div>
+                    </div>
+                    <p class="mt-12 text-[11px] text-slate-400 font-bold">약 4년마다 채굴 보상이 절반으로 줄어들어 공급이 급격히 감소합니다.</p>
+                </div>
+
+                <div class="overflow-x-auto pt-8">
+                    <h4 class="text-sm font-black text-indigo-600 mb-4 italic">📊 기존 화폐 vs 비트코인 비교</h4>
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>기존 통화 (Fiat)</th>
+                                <th>비트코인 (BTC)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-black">발행 주체</td>
+                                <td class="text-slate-500">중앙은행 (국가 기관)</td>
+                                <td class="text-indigo-600 font-bold">알고리즘 (코드/수학)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black">발행량</td>
+                                <td class="text-slate-500">무제한 (국가 정책)</td>
+                                <td class="text-indigo-600 font-bold">2,100만 개 한정</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black">화폐 가치</td>
+                                <td class="text-slate-500">정책에 따라 하락</td>
+                                <td class="text-indigo-600 font-bold">희소성 증가</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="pt-16 border-t border-slate-100">
+                <h4 class="text-xl font-black text-slate-900 mb-6 italic">마치며: 디지털 시대의 새로운 안전자산</h4>
+                <p class="text-slate-600 leading-relaxed font-medium mb-10">
+                    무한정 발행되는 현금의 가치가 하락할수록, 확실한 한계를 가진 비트코인의 가치는 더욱 빛날 것입니다. 반감기가 계속될수록 시장 자본 대비 수량은 줄어들 것이고 가격은 상승할
+                    구조입니다.
+                </p>
+
+                <div class="flex flex-col gap-4">
+                    <a href="/guide/coin-basics-2.html"
+                        class="block w-full bg-indigo-600 text-white py-6 rounded-full font-black text-lg text-center shadow-xl hover:scale-105 transition-all">
+                        다음 편: 알트코인이란 무엇인가? <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+
+                    <a href="/빗썸7만원이벤트/"
+                        class="block w-full bg-yellow-400 text-slate-900 py-6 rounded-full font-black text-lg text-center shadow-xl hover:scale-105 transition-all italic">
+                        빗썸 7만원 받고 코인투자 시작하기 <i class="fas fa-gift ml-2"></i>
+                    </a>
+
+                    <p class="text-center text-slate-400 text-[11px] font-bold mt-1 italic">※ 본 혜택은 빗썸 신규 가입자 한정으로
+                        제공됩니다.</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-24 pb-32 px-6 text-center">
+        <h4 class="font-black text-2xl tracking-tighter italic mb-4">GETGGUL<span class="text-indigo-400">.COM</span>
+        </h4>
+        <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 GETGGUL CRYPTO GUIDE · ALL
+            RIGHTS RESERVED</p>
+    </footer>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

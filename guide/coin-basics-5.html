@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Y028BWS46H');
+    </script>
+
+    <link rel="canonical" href="https://getggul.com/guide/coin-basics-5.html">
+
+    <title>코인 투자 기초 5편 | 코인으로 돈 버는 4가지 방법 총정리 (수익 시뮬레이션 포함) (겟꿀)</title>
+    <meta name="description" content="현물부터 선물, 스테이킹, 김치 프리미엄까지! 가상자산 시장의 수익 구조를 시각화된 차트와 도식으로 완벽 분석해 드립니다.">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, #6e5ce6 0%, #a259ff 25%, #f8fafc 50%);
+            word-break: keep-all;
+            color: #1a202c;
+        }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .guide-card {
+            background: white; border-radius: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #edf2f7;
+        }
+        header.site-header {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            padding: 20px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+        }
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2); color: white; padding: 8px 20px;
+            border-radius: 2rem; font-weight: 800; font-size: 13px; transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .home-btn:hover { background: #ffeb3b; color: #1a202c; border-color: #ffeb3b; }
+        
+        /* 시각화 요소 스타일 */
+        .profit-bar { height: 12px; border-radius: 6px; background: #e2e8f0; position: relative; overflow: hidden; }
+        .profit-fill { height: 100%; position: absolute; left: 0; top: 0; border-radius: 6px; }
+        .risk-badge { font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+        
+        .toc-item { transition: all 0.3s; border: 2px solid transparent; }
+        .toc-item.active { border-color: #6e5ce6; background: #f5f3ff; color: #6e5ce6; }
+        
+        .concept-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 1.5rem; overflow: hidden; border: 1px solid #e2e8f0; }
+        .concept-table th { background: #f8fafc; padding: 1.2rem; font-weight: 900; color: #475569; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        .concept-table td { padding: 1.2rem; border-bottom: 1px solid #f1f5f9; font-size: 14px; line-height: 1.6; }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="leading-snug">
+    <header class="site-header">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="flex flex-col leading-none">
+                <span class="text-white font-black text-[10px] tracking-tighter italic opacity-80">GETGGUL 겟꿀</span>
+                <h2 class="text-yellow-400 font-black text-lg tracking-tighter italic">입문자 가이드</h2>
+            </a>
+            <a href="/" class="home-btn flex items-center gap-2">
+                <i class="fas fa-home"></i> 홈으로
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto pb-32 px-6 fade-in pt-32">
+        
+        <section class="text-center mb-16 text-white">
+            <div class="inline-block bg-yellow-400 text-slate-900 px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 shadow-lg italic">
+                Guide Finale : Part 05
+            </div>
+            <h1 class="text-4xl md:text-7xl font-black tracking-tighter mb-8 leading-tight italic">
+                어떻게 <span class="text-yellow-400 underline decoration-8 underline-offset-8">수익</span>을 내나요?<br>4대 실전 모델 총정리
+            </h1>
+            <p class="text-white/90 font-bold text-lg md:text-xl max-w-2xl mx-auto leading-relaxed italic">
+                "개념을 넘어 실전으로, 코인 시장의 수익 기회들을 시각화했습니다."
+            </p>
+        </section>
+
+        <section class="guide-card p-8 md:p-12 mb-16 bg-white">
+            <h3 class="text-xl font-black text-slate-900 italic tracking-tighter mb-8 flex items-center gap-3 text-sm">
+                <span class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center"><i class="fas fa-rocket text-xs"></i></span>
+                🚀 가이드 시리즈 전체 목차
+            </h3>
+            <div class="grid grid-cols-1 gap-2">
+                <a href="/guide/coin-basics-1.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>1. 비트코인 상승의 이유</span></a>
+                <a href="/guide/coin-basics-2.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>2. 알트코인이란 무엇인가</span></a>
+                <a href="/guide/coin-basics-3.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>3. 코인투자 기본 필수 상식</span></a>
+                <a href="/guide/coin-basics-4.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>4. 국내외 거래소 차이점 비교</span></a>
+                <a href="#" class="toc-item active p-4 rounded-xl flex justify-between items-center font-black italic text-sm">
+                    <span>5. 코인으로 돈 버는 방법 총 정리 👈 현재 글</span>
+                    <i class="fas fa-check text-indigo-600 text-[10px]"></i>
+                </a>
+            </div>
+        </section>
+
+        <article class="guide-card p-10 md:p-20 space-y-24">
+            
+            <div class="prose prose-slate max-w-none text-center">
+                <p class="text-slate-600 text-lg leading-relaxed font-medium">
+                    가상자산 시장에는 단순히 '사서 오르길 기다리는 것' 외에도 투자자의 성향과 자본금에 따라 선택할 수 있는 수많은 전략이 있습니다. 입문자가 반드시 알아야 할 **4대 수익 모델**을 시뮬레이션과 함께 분석합니다.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-black italic shadow-lg">01</span>
+                    <h3 class="text-3xl font-black text-slate-900 italic tracking-tighter">현물 거래 (Spot Trading)</h3>
+                </div>
+                <div class="bg-slate-50 p-10 rounded-[3rem] border border-slate-100 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-5 text-8xl"><i class="fas fa-shopping-cart"></i></div>
+                    <p class="text-slate-600 leading-relaxed font-bold mb-8">
+                        주식과 동일하게 실제 코인을 소유하고, 낮은 가격에 사서 높은 가격에 파는 **'정석적인 시세차익'** 방식입니다.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-[10px] font-black uppercase text-slate-400 italic"><span>Profit Potential</span><span class="text-indigo-600">Moderate</span></div>
+                            <div class="profit-bar"><div class="profit-fill bg-indigo-500 w-[40%] text-white text-[8px] flex items-center justify-end pr-2 font-bold italic">Stable Gain</div></div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-[10px] font-black uppercase text-slate-400 italic"><span>Risk Level</span><span class="text-green-500">Low to Mid</span></div>
+                            <div class="profit-bar"><div class="profit-fill bg-green-400 w-[20%] font-bold text-[8px] flex items-center justify-end pr-2 italic">Calculated</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-black italic shadow-lg">02</span>
+                    <h3 class="text-3xl font-black text-slate-900 italic tracking-tighter">선물 거래 (Futures Trading)</h3>
+                </div>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    해외 거래소(바이낸스, 바이비트 등)를 이용하는 주된 이유로, **레버리지**와 **공매도**가 핵심입니다.
+                </p>
+                <div class="overflow-x-auto">
+                    <h4 class="text-xs font-black text-indigo-600 mb-4 uppercase tracking-[0.2em] italic">📊 시드 100만원 시나리오 (시장 10% 상승 시)</h4>
+                    <table class="concept-table">
+                        <thead>
+                            <tr class="text-[11px] uppercase tracking-widest italic"><th>거래 유형</th><th>레버리지 배율</th><th>수익률</th><th>최종 수익금</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="font-black text-slate-400">현물 거래</td><td class="font-bold">1배 (기본)</td><td class="text-indigo-600 font-black">+10%</td><td>110만원</td></tr>
+                            <tr class="bg-indigo-50/50"><td class="font-black text-indigo-600 italic">선물 거래</td><td class="font-bold">10배 (10x)</td><td class="text-indigo-600 font-black">+100%</td><td class="font-black">200만원</td></tr>
+                            <tr class="bg-indigo-600 text-white"><td class="font-black italic">선물 거래</td><td class="font-bold">20배 (20x)</td><td class="font-black">+200%</td><td class="font-black">300만원</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-[10px] text-slate-400 font-bold italic text-center">※ 레버리지는 수익만큼 손실 위험도 커지므로 '청산'에 주의해야 합니다.</p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-black italic shadow-lg">03</span>
+                    <h3 class="text-3xl font-black text-slate-900 italic tracking-tighter">스테이킹 & 렌딩 (Passive Income)</h3>
+                </div>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    보유한 코인을 네트워크에 맡기고 '이자'를 받는 방식입니다. 주식의 **배당금**과 유사한 가상자산만의 연금 시스템입니다.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-8 bg-indigo-50 rounded-[2.5rem] border-2 border-indigo-100 flex flex-col justify-between">
+                        <h4 class="font-black text-indigo-600 mb-4 italic text-lg"><i class="fas fa-coins mr-2"></i> 스테이킹 (Staking)</h4>
+                        <p class="text-xs text-slate-500 font-bold leading-relaxed mb-6">코인 네트워크 검증에 내 지분을 기여하고 보상을 받습니다. 보통 코인 개수가 늘어납니다.</p>
+                        <span class="text-xl font-black text-slate-900 italic">연 5~15% 수준</span>
+                    </div>
+                    <div class="p-8 bg-yellow-50 rounded-[2.5rem] border-2 border-yellow-100 flex flex-col justify-between">
+                        <h4 class="font-black text-orange-500 mb-4 italic text-lg"><i class="fas fa-hand-holding-usd mr-2"></i> 테더 렌딩 (Lending)</h4>
+                        <p class="text-xs text-slate-500 font-bold leading-relaxed mb-6">달러와 연동된 스테이블 코인(USDT)을 빌려주고 이자를 받습니다. 가격 하락 위험이 적습니다.</p>
+                        <span class="text-xl font-black text-slate-900 italic">시장 상황에 따른 변동 금리</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-black italic shadow-lg">04</span>
+                    <h3 class="text-3xl font-black text-slate-900 italic tracking-tighter">김치 프리미엄 (차익거래)</h3>
+                </div>
+                <div class="p-10 bg-slate-900 text-white rounded-[3.5rem] shadow-2xl relative overflow-hidden">
+                    <div class="absolute -right-8 -bottom-8 opacity-10 text-[10rem] font-black italic">KRW</div>
+                    <p class="text-yellow-400 font-black text-xl mb-6 italic">"국내와 해외의 가격 차이를 이용한 무위험 거래"</p>
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6 py-6 border-y border-white/10">
+                        <div class="text-center"><span class="block text-[10px] font-black uppercase text-slate-500 mb-2">해외 거래소</span><p class="font-black text-lg">코인 매수</p></div>
+                        <div class="text-indigo-400 animate-pulse hidden md:block"><i class="fas fa-arrow-right text-2xl"></i></div>
+                        <div class="text-center"><span class="block text-[10px] font-black uppercase text-slate-500 mb-2">국내 전송</span><p class="font-black text-lg text-yellow-400">김프 5% 발생</p></div>
+                        <div class="text-indigo-400 animate-pulse hidden md:block"><i class="fas fa-arrow-right text-2xl"></i></div>
+                        <div class="text-center"><span class="block text-[10px] font-black uppercase text-slate-500 mb-2">국내 거래소</span><p class="font-black text-lg">코인 매도</p></div>
+                    </div>
+                    <p class="mt-8 text-xs text-slate-400 font-bold">※ 김치 프리미엄(Kimchi Premium) 수치를 실시간으로 확인하는 습관이 중요합니다.</p>
+                </div>
+            </div>
+
+            <div class="pt-16 border-t border-slate-100">
+                <div class="bg-indigo-600 p-12 rounded-[4rem] text-center text-white shadow-2xl">
+                    <h4 class="text-2xl md:text-3xl font-black italic mb-6">입문자를 위한 겟꿀의 추천 전략</h4>
+                    <p class="text-indigo-100 font-medium mb-12 leading-relaxed">
+                        처음부터 고배율 선물이나 차익거래를 하기보다, <br>
+                        거래소의 **신규 가입 리워드**를 통해 7만원의 초기 자본을 먼저 확보하세요. <br>
+                        이후 확보된 자금으로 빗썸의 **매일 100만원 출석체크** 등 리스크 없는 수익 기회를 누리는 것이 가장 현명한 시작입니다.
+                    </p>
+                    <a href="/빗썸7만원이벤트" class="inline-block bg-white text-indigo-600 px-12 py-6 rounded-full font-black text-xl shadow-xl hover:scale-105 transition-all">
+                        오늘 7만원받고 코인투자 시작하기 "빗썸 이벤트" <i class="fas fa-gift ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <div class="mt-20 text-center text-white italic opacity-80">
+            <p class="font-black text-lg mb-4 italic">"축하합니다! 코인 투자의 기초 관문을 모두 통과하셨습니다."</p>
+            <p class="text-xs font-bold uppercase tracking-[0.5em]">You are now ready to trade.</p>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-24 pb-32 px-6 text-center">
+        <h4 class="font-black text-2xl tracking-tighter italic mb-4">GETGGUL<span class="text-indigo-400">.COM</span></h4>
+        <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 GETGGUL CRYPTO GUIDE · ALL RIGHTS RESERVED</p>
+    </footer>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

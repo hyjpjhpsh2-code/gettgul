@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Y028BWS46H');
+    </script>
+
+    <link rel="canonical" href="https://getggul.com/guide/golden-timing.html">
+
+    <title>코인 매수 타이밍 | 황금 타이밍을 잡는 3가지 핵심 전략 (겟꿀 가이드)</title>
+    <meta name="description" content="비트코인 바닥 매수법, 도미넌스 하락의 의미, 알트코인 대폭발장(Altseason)의 신호를 포착하는 법을 10년 차 트레이더의 노하우로 정리했습니다.">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, #6e5ce6 0%, #a259ff 25%, #f8fafc 50%);
+            word-break: keep-all; color: #1a202c;
+        }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .guide-card { background: white; border-radius: 3rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); border: 1px solid #edf2f7; }
+        
+        header.site-header {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            padding: 20px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+        }
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2); color: white; padding: 8px 20px;
+            border-radius: 2rem; font-weight: 800; font-size: 13px; transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .home-btn:hover { background: #ffeb3b; color: #1a202c; border-color: #ffeb3b; }
+
+        /* 시각화 요소 스타일 */
+        .gauge-container { width: 100%; height: 20px; background: linear-gradient(90deg, #ef4444 0%, #fbbf24 50%, #22c55e 100%); border-radius: 10px; position: relative; }
+        .gauge-pointer { position: absolute; top: -10px; width: 4px; height: 40px; background: #1e293b; border-radius: 2px; }
+
+        .toc-item { transition: all 0.3s; border: 2px solid transparent; }
+        .toc-item:hover { transform: translateX(8px); background: #f8fafc; }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="leading-snug">
+    <header class="site-header">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="flex flex-col leading-none">
+                <span class="text-white font-black text-[10px] tracking-tighter italic opacity-80">GETGGUL 겟꿀</span>
+                <h2 class="text-yellow-400 font-black text-lg tracking-tighter italic">실전 투자 가이드</h2>
+            </a>
+            <a href="/" class="home-btn flex items-center gap-2"><i class="fas fa-home"></i> 홈으로</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto pb-32 px-6 fade-in pt-32">
+        
+        <section class="text-center mb-16 text-white">
+            <div class="inline-block bg-yellow-400 text-slate-900 px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 shadow-lg italic">Special Strategy</div>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-tight italic">
+                코인, 언제 사야 할까?<br><span class="text-yellow-400 underline decoration-8 underline-offset-8">황금 타이밍</span> 3대 전략
+            </h1>
+            <p class="text-white/90 font-bold text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                실패 없는 매수 시점을 잡는 법
+            </p>
+        </section>
+
+        <section class="guide-card p-8 md:p-12 mb-16 bg-white">
+            <h3 class="text-xl font-black text-slate-900 italic tracking-tighter mb-8 flex items-center gap-3 text-sm">
+                <span class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center"><i class="fas fa-list-ul text-xs"></i></span>
+                🚀 입문자 가이드 글 리스트 (클릭 시 이동)
+            </h3>
+            <div class="grid grid-cols-1 gap-2">
+                <a href="/guide/coin-basics-1.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>1. 비트코인이 무엇이길래 가격이 오르는걸까?</span></a>
+                <a href="/guide/coin-basics-2.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>2. 알트코인이란? 비트코인의 한계를 넘는 기술</span></a>
+                <a href="/guide/coin-basics-3.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>3. 코인투자에 대한 기본상식편</span></a>
+                <a href="/guide/coin-basics-4.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>4. 국내 거래소, 해외 거래소 정리. 그 차이점은?</span></a>
+                <a href="/guide/coin-basics-5.html" class="toc-item p-4 rounded-xl flex justify-between items-center font-bold text-slate-500 text-sm"><span>5. 코인으로 돈 버는 방법 총 정리</span></a>
+            </div>
+        </section>
+
+        <article class="guide-card p-10 md:p-20 space-y-24">
+            
+            <div class="prose prose-slate max-w-none">
+                <p class="text-slate-600 text-lg leading-relaxed font-medium">
+                    암호화폐 시장 참여자의 공통 고민은 "언제 사야 하는가?"입니다. 무턱대고 샀다가는 고점에 물리고, 너무 신중하면 불장을 놓칩니다. 성공적인 투자를 위한 **매수 타이밍의 3가지 핵심 원칙**을 정리해 드립니다.
+                </p>
+            </div>
+
+            <div class="space-y-10">
+                <h3 class="text-3xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-6">전략 1. 시장의 공포를 사라: 바닥 매수</h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    대중이 공포에 떨 때가 최고의 기회입니다. 기준이 되는 비트코인이 바닥을 찍었을 때 용기를 내야 합니다.
+                </p>
+                
+                <div class="bg-slate-50 p-10 rounded-[3rem] border border-slate-100">
+                    <h4 class="font-black text-indigo-600 mb-8 italic">💡 바닥을 어떻게 알 수 있나요?</h4>
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between mb-4"><span class="text-[10px] font-black uppercase text-slate-400">Fear & Greed Index</span><span class="text-[10px] font-black text-red-500">Extreme Fear</span></div>
+                            <div class="gauge-container"><div class="gauge-pointer left-[15%]"></div></div>
+                            <p class="mt-4 text-xs text-slate-500 font-bold">지수가 20 이하의 '극단적 공포' 단계에 장기간 머무를 때</p>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-indigo-500 mt-1"></i> <span class="text-sm font-medium">기술적 지표: 주봉/월봉 RSI가 30 이하 과매도 구간 진입</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-indigo-500 mt-1"></i> <span class="text-sm font-medium">뉴스 도배: "비트코인은 끝났다", "사기다"라는 부정적 뉴스 급증</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h3 class="text-3xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-6">전략 2. 아무거나 사지 마라: 코인 선별</h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    비트코인이 반등할 때 상승 잠재력이 높은 코인을 골라야 시드를 아낄 수 있습니다.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-8 bg-indigo-50 rounded-3xl border-2 border-indigo-100">
+                        <h4 class="font-black text-indigo-600 mb-4 italic">확실한 내러티브</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed font-bold">AI, RWA, DePIN, 밈코인 등 현재 시장 트렌드에 속한 코인인가?</p>
+                    </div>
+                    <div class="p-8 bg-indigo-50 rounded-3xl border-2 border-indigo-100">
+                        <h4 class="font-black text-indigo-600 mb-4 italic">탄탄한 파트너십</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed font-bold">대형 VC의 투자를 받았거나 실제 기업들과 협력하고 있는가?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-10">
+                <h3 class="text-3xl font-black text-slate-900 italic border-l-8 border-indigo-600 pl-6">전략 3. 알트 불장의 신호: 도미넌스 하락</h3>
+                <p class="text-slate-600 leading-relaxed font-medium">
+                    비트코인이 상승 후 횡보하며 점유율(도미넌스)이 빠질 때가 알트코인 대폭발장(Altseason)의 시작입니다.
+                </p>
+                
+                <div class="bg-slate-900 p-10 rounded-[3.5rem] shadow-2xl overflow-hidden relative">
+                    <h4 class="text-yellow-400 font-black mb-10 italic text-center uppercase tracking-widest text-xs">📊 Market Cycle Visualizer</h4>
+                    <svg viewBox="0 0 400 200" class="w-full">
+                        <rect x="0" y="0" width="200" height="200" fill="white" fill-opacity="0.03" />
+                        <text x="50" y="30" fill="white" font-size="10" font-weight="900" opacity="0.3">Phase 1: BTC Focus</text>
+                        <text x="250" y="30" fill="#fbbf24" font-size="10" font-weight="900">Phase 2: ALTSEASON 🔥</text>
+                        
+                        <path d="M0 180 Q 100 170, 180 80 L 400 80" fill="none" stroke="white" stroke-width="3" stroke-dasharray="5,5" />
+                        <text x="320" y="70" fill="white" font-size="10" font-weight="900">BTC Sideways</text>
+                        
+                        <path d="M0 100 L 200 100 Q 300 100, 400 180" fill="none" stroke="#6e5ce6" stroke-width="4" />
+                        <text x="250" y="160" fill="#6e5ce6" font-size="10" font-weight="900">DOMINANCE DROP</text>
+                        
+                        <path d="M200 180 Q 300 150, 400 40 L 400 180 Z" fill="#fbbf24" fill-opacity="0.2" />
+                        <text x="310" y="120" fill="#fbbf24" font-size="12" font-weight="900" class="italic italic">ALT EXPLOSION</text>
+                    </svg>
+                    <p class="mt-8 text-[10px] text-slate-400 font-bold text-center">BTC 가격이 안정되고 도미넌스가 하락할 때 알트코인으로 자금이 이동합니다.</p>
+                </div>
+            </div>
+
+            <div class="pt-16 border-t border-slate-100 text-center">
+                <h4 class="text-xl font-black text-slate-900 mb-6 italic">준비된 자가 수익을 얻습니다</h4>
+                <p class="text-slate-600 leading-relaxed font-medium mb-12">
+                    사이클을 이해하고 저점에서 공포를 이겨낸다면 코인으로 반드시 수익을 볼 수 있습니다. 10년의 경험으로 자신 있게 말씀드립니다.
+                </p>
+                <div class="bg-indigo-600 p-10 rounded-[3rem] text-white shadow-2xl">
+                    <p class="font-bold mb-8">안전한 자산 관리의 시작, 거래소 혜택도 놓치지 마세요!</p>
+                    <a href="/빗썸7만원이벤트" class="inline-block bg-white text-indigo-600 px-10 py-5 rounded-full font-black text-lg hover:scale-105 transition-all shadow-xl">
+                        빗썸 7만원 받고 코인투자 시작하기 <i class="fas fa-gift ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <p class="mt-12 text-center text-slate-400 text-[10px] font-bold italic leading-relaxed">
+            본 글은 투자 참고용이며, 모든 투자의 책임은 본인에게 있습니다.<br>시장은 예측과 다를 수 있으므로 반드시 분할 매수로 접근하시기 바랍니다.
+        </p>
+
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-24 pb-32 px-6 text-center">
+        <h4 class="font-black text-2xl tracking-tighter italic mb-4">GETGGUL<span class="text-indigo-400">.COM</span></h4>
+        <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 GETGGUL CRYPTO STRATEGY · ALL RIGHTS RESERVED</p>
+    </footer>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

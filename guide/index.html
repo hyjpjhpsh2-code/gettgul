@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+    <title>코인 투자 입문자 필수 가이드 | 겟꿀</title>
+    <meta name="description" content="비트코인 원리부터 거래소 비교까지 입문자를 위한 필수 지식 6가지를 정리했습니다.">
+    <link rel="canonical" href="https://getggul.com/guide">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: linear-gradient(180deg, #6e5ce6 0%, #a259ff 25%, #f8fafc 50%); color: #1a202c; overflow-x: hidden; }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        header.site-header { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 15px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 1000; transition: all 0.4s ease; }
+        header.site-header.scrolled { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); padding: 10px 0; }
+        header.site-header.scrolled .logo-main { display: none; }
+        header.site-header.scrolled .logo-sub { color: #6e5ce6; font-size: 1.125rem; }
+        .nav-item { color: white; font-weight: 700; white-space: nowrap; transition: all 0.2s; }
+        header.site-header.scrolled .nav-item { color: #4a5568; }
+        .nav-item:hover { color: #ffeb3b; }
+        
+        .guide-card { background: white; border-radius: 2rem; overflow: hidden; border: 1px solid #edf2f7; transition: all 0.3s; }
+        .guide-card:hover { transform: translateY(-10px); border-color: #a259ff; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        
+        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: #ffcc00; width: 0%; z-index: 2000; transition: width 0.1s; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+
+<body class="leading-snug">
+    <div id="progress-bar"></div>
+
+    <header class="site-header" id="site-header">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="w-full md:w-auto flex items-center justify-center md:justify-start relative h-10 md:h-16">
+                    <a href="/" class="logo-main text-white font-black text-[10px] md:text-sm tracking-tighter italic hover:opacity-80 transition absolute left-0 md:static md:mr-6">GETGGUL 겟꿀</a>
+                    <a href="/" class="logo-sub text-yellow-400 font-black text-lg md:text-2xl tracking-tighter italic hover:opacity-80 transition">빗썸 7만원 이벤트</a>
+                </div>
+                <nav class="flex flex-col md:flex-row items-center justify-center md:justify-end space-y-1 md:space-y-0 md:space-x-6 mt-2 md:mt-0 w-full md:w-auto">
+                    <div class="flex space-x-4 md:space-x-6 overflow-x-auto no-scrollbar py-0.5">
+                        <a href="/1분요약버전" class="nav-item text-[11px] md:text-[14px]">1분 요약</a>
+                        <a href="/고객센터" class="nav-item text-[11px] md:text-[14px]">고객센터</a>
+                        <a href="/혜택정보" class="nav-item text-[11px] md:text-[14px]">혜택정보</a>
+                    </div>
+                    <div class="flex space-x-4 md:space-x-6 overflow-x-auto no-scrollbar py-0.5">
+                        <a href="/guide.html" class="nav-item active text-[11px] md:text-[14px] text-yellow-400">입문자가이드</a>
+                        <a href="/거래소비교" class="nav-item text-[11px] md:text-[14px]">거래소비교</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 pb-32 fade-in">
+        <section class="pt-24 pb-16 text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 italic">코인투자 필독 가이드</h1>
+            <p class="text-white/80 font-medium text-lg max-w-2xl mx-auto">초보자를 위한 핵심 지식 6가지를 정리했습니다.</p>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a href="/guide/coin-basics-1.html" class="guide-card group">
+                <div class="h-48 bg-indigo-100 flex items-center justify-center text-indigo-300 text-5xl"><i class="fas fa-coins group-hover:scale-110 transition-transform"></i></div>
+                <div class="p-8"><span class="text-indigo-600 font-black text-[10px] uppercase mb-2 block italic">Part 01</span><h3 class="text-xl font-black mb-4">비트코인이 무엇일까?</h3><p class="text-slate-500 text-sm leading-relaxed">탄생 배경과 가치 본질을 쉽게 설명합니다.</p></div>
+            </a>
+            <a href="/guide/coin-basics-2.html" class="guide-card group">
+                <div class="h-48 bg-purple-100 flex items-center justify-center text-purple-300 text-5xl"><i class="fas fa-rocket group-hover:scale-110 transition-transform"></i></div>
+                <div class="p-8"><span class="text-purple-600 font-black text-[10px] uppercase mb-2 block italic">Part 02</span><h3 class="text-xl font-black mb-4">알트코인이란?</h3><p class="text-slate-500 text-sm leading-relaxed">이더리움부터 밈코인까지 완벽 정리.</p></div>
+            </a>
+            <a href="/guide/coin-basics-3.html" class="guide-card group">
+                <div class="h-48 bg-yellow-100 flex items-center justify-center text-yellow-400 text-5xl"><i class="fas fa-lightbulb group-hover:scale-110 transition-transform"></i></div>
+                <div class="p-8"><span class="text-yellow-600 font-black text-[10px] uppercase mb-2 block italic">Part 03</span><h3 class="text-xl font-black mb-4">코인투자 기본상식</h3><p class="text-slate-500 text-sm leading-relaxed">24시간 시장과 지갑 보안 수칙 안내.</p></div>
+            </a>
+            <a href="/guide/coin-basics-4.html" class="guide-card group">
+                <div class="h-48 bg-blue-100 flex items-center justify-center text-blue-300 text-5xl"><i class="fas fa-exchange-alt group-hover:scale-110 transition-transform"></i></div>
+                <div class="p-8"><span class="text-blue-600 font-black text-[10px] uppercase mb-2 block italic">Part 04</span><h3 class="text-xl font-black mb-4">국내외 거래소 비교</h3><p class="text-slate-500 text-sm leading-relaxed">나에게 맞는 거래소를 선택해 보세요.</p></div>
+            </a>
+            <a href="/guide/coin-basics-5.html" class="guide-card group">
+                <div class="h-48 bg-green-100 flex items-center justify-center text-green-300 text-5xl"><i class="fas fa-money-bill-wave group-hover:scale-110 transition-transform"></i></div>
+                <div class="p-8"><span class="text-green-600 font-black text-[10px] uppercase mb-2 block italic">Part 05</span><h3 class="text-xl font-black mb-4">돈 버는 4가지 방법</h3><p class="text-slate-500 text-sm leading-relaxed">현물부터 차익거래까지 도식 가이드.</p></div>
+            </a>
+            <a href="/guide/golden-timing.html" class="guide-card group bg-slate-900 border-yellow-400">
+                <div class="h-48 bg-slate-800 flex items-center justify-center text-yellow-400 text-5xl"><i class="fas fa-clock group-hover:rotate-12 transition-transform"></i></div>
+                <div class="p-8"><span class="text-yellow-400 font-black text-[10px] uppercase mb-2 block italic">Special</span><h3 class="text-xl font-black text-white mb-4">황금 매수 타이밍 전략</h3><p class="text-slate-400 text-sm leading-relaxed">바닥 매수 시점을 포착하는 고급 비책.</p></div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-24 pb-32 px-6">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-[10px] text-slate-700 font-black uppercase tracking-[0.5em] italic">© 2026 GETGGUL GUIDE HUB · ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script>
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+            if (window.scrollY > 40) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+    </script>
+</body>
+</html>
