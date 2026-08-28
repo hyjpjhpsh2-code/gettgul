@@ -183,6 +183,7 @@
 
     <!-- index.html 100% 동일 상단 헤더 -->
     <!-- v3 메인(v3/index.html) 100% 동일 상단 네비게이션 헤더 -->
+        <!-- 100% 동일한 GETGGUL 공식 상단 네비게이션 헤더 -->
     <header class="bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800 text-white" id="site-header">
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex justify-between items-center h-16">
@@ -207,7 +208,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
 
-                <!-- 대분류 4대 네비게이션 (v3 100% 동일 구조) -->
+                <!-- 대분류 4대 네비게이션 -->
                 <nav id="mobile-nav" class="nav-list-wrapper hidden absolute top-full left-0 w-full bg-slate-900/98 backdrop-blur-3xl md:static md:block md:w-auto md:bg-transparent md:backdrop-blur-none border-b border-slate-800 md:border-none shadow-2xl md:shadow-none" role="navigation">
                     <ul class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-7 p-6 md:p-0 list-none m-0">
                         
@@ -231,10 +232,10 @@
 
                         <!-- 2. 국내주식 이슈 (아이콘 + KOSPI 뱃지) -->
                         <li>
-                            <a href="../korean-stock/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-emerald-300 transition-all hover:-translate-y-0.5">
-                                <i class="fas fa-chart-line text-emerald-400 text-xs"></i>
+                            <a href="../korean-stock/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-purple-300 transition-all hover:-translate-y-0.5">
+                                <i class="fas fa-chart-line text-purple-400 text-xs"></i>
                                 <span>국내주식 이슈</span>
-                                <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                <span class="bg-purple-500/20 text-purple-300 border border-purple-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
                                     KOSPI
                                 </span>
                             </a>
@@ -268,7 +269,11 @@
         </div>
     </header>
 
-    <main class="max-w-3xl mx-auto px-4 py-8 flex-grow">
+        <!-- 2열 레이아웃 컨테이너 (본문 8열 + 사이드바 4열) -->
+    <div class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <main class="lg:col-span-8">
         
         <!-- 브레드크럼 -->
         <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 font-medium">
@@ -280,21 +285,91 @@
         </nav>
 
         <!-- 아티클 헤더 -->
-        <header class="mb-8 border-b border-slate-200 pb-6">
-            <div class="flex items-center gap-2 mb-3">
-                <span class="bg-indigo-100 text-indigo-800 text-xs font-black px-2.5 py-1 rounded-full">
-                    KYC 인증
-                </span>
-                <span class="text-xs text-slate-400 font-medium">
-                    <i class="far fa-calendar-alt mr-1"></i>2026년 8월 15일 업로드</span>
+            <!-- 100% 동일한 GETGGUL 공식 상단 네비게이션 헤더 -->
+    <header class="bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800 text-white" id="site-header">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- 로고 영역 -->
+                <div class="logo-container flex items-center">
+                    <a href="../index.html" class="flex items-center gap-2 group">
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center text-slate-950 font-black shadow-md">
+                            <i class="fas fa-bolt text-xs"></i>
+                        </div>
+                        <span class="text-xl font-black text-white group-hover:text-yellow-300 transition-colors">
+                            GETGGUL
+                        </span>
+                        <span class="hidden sm:inline-block bg-white/10 text-yellow-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-yellow-300/30">
+                            금융허브
+                        </span>
+                    </a>
+                </div>
+
+                <!-- 햄버거 버튼 -->
+                <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none transition-transform active:scale-90 p-1" aria-label="메뉴 열기">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- 대분류 4대 네비게이션 -->
+                <nav id="mobile-nav" class="nav-list-wrapper hidden absolute top-full left-0 w-full bg-slate-900/98 backdrop-blur-3xl md:static md:block md:w-auto md:bg-transparent md:backdrop-blur-none border-b border-slate-800 md:border-none shadow-2xl md:shadow-none" role="navigation">
+                    <ul class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-7 p-6 md:p-0 list-none m-0">
+                        
+                        <!-- 1. 빗썸 7만원 이벤트 (2줄 구조 + HOT 뱃지) -->
+                        <li>
+                            <a href="../bithumb-event/index.html" class="flex flex-col items-center md:items-start text-center md:text-left leading-tight py-1 group transition-transform hover:-translate-y-0.5">
+                                <div class="flex items-center gap-1.5">
+                                    <i class="fas fa-gift text-yellow-400 text-xs"></i>
+                                    <span class="text-[14px] md:text-[15px] font-black text-white group-hover:text-yellow-300 transition-colors">
+                                        빗썸 7만원 이벤트
+                                    </span>
+                                    <span class="bg-red-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded shadow-sm animate-pulse">
+                                        HOT
+                                    </span>
+                                </div>
+                                <span class="text-[10px] md:text-[11px] font-bold text-yellow-300/90 tracking-tight mt-0.5 pl-4">
+                                    궁금증 및 오류 해결
+                                </span>
+                            </a>
+                        </li>
+
+                        <!-- 2. 국내주식 이슈 (아이콘 + KOSPI 뱃지) -->
+                        <li>
+                            <a href="../korean-stock/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-purple-300 transition-all hover:-translate-y-0.5">
+                                <i class="fas fa-chart-line text-purple-400 text-xs"></i>
+                                <span>국내주식 이슈</span>
+                                <span class="bg-purple-500/20 text-purple-300 border border-purple-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    KOSPI
+                                </span>
+                            </a>
+                        </li>
+
+                        <!-- 3. 가상화폐 이슈 (아이콘 + BTC 뱃지) -->
+                        <li>
+                            <a href="../crypto/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-amber-300 transition-all hover:-translate-y-0.5">
+                                <i class="fab fa-bitcoin text-amber-400 text-sm"></i>
+                                <span>가상화폐 이슈</span>
+                                <span class="bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    BTC
+                                </span>
+                            </a>
+                        </li>
+
+                        <!-- 4. 재테크 소식 (아이콘 + NEW 뱃지) -->
+                        <li>
+                            <a href="../finance-tips/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-indigo-300 transition-all hover:-translate-y-0.5">
+                                <i class="fas fa-coins text-indigo-400 text-xs"></i>
+                                <span>재테크 소식</span>
+                                <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    NEW
+                                </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
             </div>
-            <h1 class="text-2xl md:text-3xl font-black text-slate-900 leading-tight mb-4">
-                빗썸 KYC 신분증 본인인증 실패 해결 & 2만원 즉시 받기
-            </h1>
-            <div class="text-sm text-slate-600 leading-relaxed bg-slate-100 p-4 md:p-5 rounded-2xl border-l-4 border-indigo-500">
-                💡 <b>핵심 요약:</b> 빛 반사 방지 팁, 모바일 신분증 활용법 및 가입 축하금 2만원 즉시 수령을 위한 신분증 통과 공식.
-            </div>
-        </header>
+        </div>
+    </header>
 
         <!-- 아티클 본문 -->
         <article class="article-body bg-white p-6 md:p-10 rounded-3xl border border-slate-200 shadow-sm mb-10">
@@ -396,42 +471,154 @@
 
     </main>
 
-    <!-- 푸터 -->
-    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
-        <p>GETGGUL 겟꿀 · 빗썸 7만원 실전 연구소 | 초대코드: GYYE7EEGC6 | © 2026 GETGGUL</p>
+            <!-- 고정 사이드바 영역 (4컬럼) -->
+            <aside class="lg:col-span-4 sticky-sidebar space-y-6">
+                
+                <!-- 1. 빗썸 7만원 전환 위젯 -->
+                <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-6 text-white border border-slate-800 shadow-xl text-center">
+                    <span class="bg-yellow-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
+                        ⚡ 기간 한정 이벤트
+                    </span>
+                    <h3 class="text-lg font-black text-white mb-2">
+                        빗썸 7만원 100% 전액 수령
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        가입 2만 + 계좌 1만 + 거래 4만 원!<br/>내 돈 0원으로 70,000원 즉시 챙기기.
+                    </p>
+                    <a class="block w-full bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black py-3 rounded-2xl text-xs shadow-lg transition-all mb-2" href="../index.html">
+                        👉 7만원 1분 완벽 수령법
+                    </a>
+                    <button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-2.5 rounded-2xl text-xs transition-all border border-white/20" onclick="copyCode()">
+                        초대코드 GYYE7EEGC6 복사
+                    </button>
+                </div>
+
+                <!-- 2. 많이 본 빗썸 7만원 오류 해결 TOP 5 -->
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm text-xs font-bold text-slate-700">
+                    <div class="text-slate-900 font-black mb-3 pb-2 border-b border-slate-100 flex items-center justify-between">
+                        <span>🔥 빗썸 7만원 필수 해결 팁</span>
+                        <span class="text-[10px] text-amber-600 font-bold">인기순</span>
+                    </div>
+                    <ul class="space-y-2.5">
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../bithumb-event/reward-payout-schedule.html">
+                                <span>• 7만원 입금 시간 &amp; 지급일 총정리</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../bithumb-event/kb-account-issue.html">
+                                <span>• 국민은행 계좌연결 오류 해결법</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../bithumb-event/trading-mission-tips.html">
+                                <span>• 30만원 거래미션 손실 0원 팁</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../bithumb-event/referral-vs-signup.html">
+                                <span>• 초대코드 vs 신규가입 5만원 차이</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../bithumb-event/withdrawal-rules.html">
+                                <span>• 7만원 수령 후 30일 출금 규정</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 3. 실시간 카테고리 -->
+                <div class="bg-slate-100 p-5 rounded-3xl text-xs font-bold text-slate-600">
+                    <div class="text-slate-900 font-black mb-3">📂 카테고리 바로가기</div>
+                    <div class="flex flex-wrap gap-2">
+                        <a class="bg-white px-3 py-1.5 rounded-lg border border-slate-200 hover:text-amber-600" href="../korean-stock/index.html">국내주식 이슈</a>
+                        <a class="bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg border border-amber-300 font-black" href="../crypto/index.html">가상화폐 이슈</a>
+                        <a class="bg-white px-3 py-1.5 rounded-lg border border-slate-200 hover:text-amber-600" href="../finance-tips/index.html">재테크 소식</a>
+                        <a class="bg-yellow-100 text-slate-950 px-3 py-1.5 rounded-lg border border-yellow-300 font-black" href="../bithumb-event/index.html">빗썸 7만원 팩트체크</a>
+                    </div>
+                </div>
+
+            </aside>
+
+        </div>
+    </div>
+
+    <!-- 100% 동일한 GETGGUL 공식 푸터 영역 -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-10 mt-12 text-xs">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-6 h-6 rounded-md bg-yellow-400 flex items-center justify-center text-slate-950 font-black text-xs">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span class="text-base font-black text-white">GETGGUL (겟꿀)</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+                        대한민국 스마트 금융 정보 포털. 빗썸 7만원 혜택 가이드, 국내주식 배당주 분석, 코인 시장 트렌드 및 생활 재테크 소식을 가장 빠르고 정확하게 전달합니다.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold text-xs mb-3 uppercase tracking-wider">주요 바로가기</h5>
+                    <ul class="space-y-2 text-xs font-semibold">
+                        <li><a class="text-yellow-400 hover:text-yellow-300 font-black underline" href="../index.html">빗썸 7만원 이벤트</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../bithumb-event/index.html">궁금증 및 오류해결</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../bithumb-event/kb-account-issue.html">국민은행 ARS 오류 해결</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../bithumb-event/trading-mission-tips.html">나머지 4만원 미션 팁</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold text-xs mb-3 uppercase tracking-wider">카테고리</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a class="hover:text-white transition-colors" href="../korean-stock/index.html">국내주식 이슈</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../crypto/index.html">가상화폐 이슈</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../finance-tips/index.html">재테크 소식</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../sitemap.xml">사이트맵 (Sitemap)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-6 text-center text-slate-500 text-[11px] flex flex-col md:flex-row justify-between items-center gap-2">
+                <p>© 2026 GETGGUL (겟꿀) · 공식 초대코드: <b class="text-slate-300 font-mono">GYYE7EEGC6</b>. All rights reserved.</p>
+                <p>본 사이트의 콘텐츠는 정보 제공 목적으로 작성되었으며, 투자 판단의 최종 책임은 본인에게 있습니다.</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- 클립보드 복사 토스트 스크립트 -->
+    <!-- 모바일 메뉴 토글 및 클립보드 스크립트 -->
     <script>
         function copyCode() {
             navigator.clipboard.writeText("GYYE7EEGC6").then(() => {
                 alert("초대코드 [GYYE7EEGC6]가 복사되었습니다!\n빗썸 가입창에서 붙여넣기 해주세요.");
             });
         }
-    </script>
-<script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    if (menuToggle && mobileNav) {
-        menuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('hidden');
-            const icon = menuToggle.querySelector('i');
-            if (icon) {
-                if (mobileNav.classList.contains('hidden')) {
-                    icon.classList.replace('fa-times', 'fa-bars');
-                } else {
-                    icon.classList.replace('fa-bars', 'fa-times');
-                }
-            }
-        });
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileNav.classList.add('hidden');
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
                 const icon = menuToggle.querySelector('i');
-                if (icon) icon.classList.replace('fa-times', 'fa-bars');
+                if (icon) {
+                    if (mobileNav.classList.contains('hidden')) {
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    } else {
+                        icon.classList.replace('fa-bars', 'fa-times');
+                    }
+                }
             });
-        });
-    }
-</script>
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.add('hidden');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) icon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
 </body>
 </html>
