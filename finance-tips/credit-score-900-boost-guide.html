@@ -225,90 +225,23 @@
 
         <!-- Article Header -->
             <!-- 100% 동일한 GETGGUL 공식 상단 네비게이션 헤더 -->
-    <header class="bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800 text-white" id="site-header">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex justify-between items-center h-16">
-                
-                <!-- 로고 영역 -->
-                <div class="logo-container flex items-center">
-                    <a href="../index.html" class="flex items-center gap-2 group">
-                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center text-slate-950 font-black shadow-md">
-                            <i class="fas fa-bolt text-xs"></i>
-                        </div>
-                        <span class="text-xl font-black text-white group-hover:text-yellow-300 transition-colors">
-                            GETGGUL
+                    <!-- 아티클 헤더 -->
+                <header class="mb-8 border-b border-slate-200 pb-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-black px-2.5 py-1 rounded-full">
+                            신용점수 올리기
                         </span>
-                        <span class="hidden sm:inline-block bg-white/10 text-yellow-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-yellow-300/30">
-                            금융허브
+                        <span class="text-xs text-slate-400 font-medium">
+                            <i class="far fa-calendar-alt mr-1"></i>2026년 8월 27일 업로드
                         </span>
-                    </a>
-                </div>
-
-                <!-- 햄버거 버튼 -->
-                <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none transition-transform active:scale-90 p-1" aria-label="메뉴 열기">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <!-- 대분류 4대 네비게이션 -->
-                <nav id="mobile-nav" class="nav-list-wrapper hidden absolute top-full left-0 w-full bg-slate-900/98 backdrop-blur-3xl md:static md:block md:w-auto md:bg-transparent md:backdrop-blur-none border-b border-slate-800 md:border-none shadow-2xl md:shadow-none" role="navigation">
-                    <ul class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-7 p-6 md:p-0 list-none m-0">
-                        
-                        <!-- 1. 빗썸 7만원 이벤트 (2줄 구조 + HOT 뱃지) -->
-                        <li>
-                            <a href="../bithumb-event/index.html" class="flex flex-col items-center md:items-start text-center md:text-left leading-tight py-1 group transition-transform hover:-translate-y-0.5">
-                                <div class="flex items-center gap-1.5">
-                                    <i class="fas fa-gift text-yellow-400 text-xs"></i>
-                                    <span class="text-[14px] md:text-[15px] font-black text-white group-hover:text-yellow-300 transition-colors">
-                                        빗썸 7만원 이벤트
-                                    </span>
-                                    <span class="bg-red-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded shadow-sm animate-pulse">
-                                        HOT
-                                    </span>
-                                </div>
-                                <span class="text-[10px] md:text-[11px] font-bold text-yellow-300/90 tracking-tight mt-0.5 pl-4">
-                                    궁금증 및 오류 해결
-                                </span>
-                            </a>
-                        </li>
-
-                        <!-- 2. 국내주식 이슈 (아이콘 + KOSPI 뱃지) -->
-                        <li>
-                            <a href="../korean-stock/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-purple-300 transition-all hover:-translate-y-0.5">
-                                <i class="fas fa-chart-line text-purple-400 text-xs"></i>
-                                <span>국내주식 이슈</span>
-                                <span class="bg-purple-500/20 text-purple-300 border border-purple-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
-                                    KOSPI
-                                </span>
-                            </a>
-                        </li>
-
-                        <!-- 3. 가상화폐 이슈 (아이콘 + BTC 뱃지) -->
-                        <li>
-                            <a href="../crypto/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-amber-300 transition-all hover:-translate-y-0.5">
-                                <i class="fab fa-bitcoin text-amber-400 text-sm"></i>
-                                <span>가상화폐 이슈</span>
-                                <span class="bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
-                                    BTC
-                                </span>
-                            </a>
-                        </li>
-
-                        <!-- 4. 재테크 소식 (아이콘 + NEW 뱃지) -->
-                        <li>
-                            <a href="../finance-tips/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-indigo-300 transition-all hover:-translate-y-0.5">
-                                <i class="fas fa-coins text-indigo-400 text-xs"></i>
-                                <span>재테크 소식</span>
-                                <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
-                                    NEW
-                                </span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+                    </div>
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 leading-tight mb-4">
+                        2026 KCB & NICE 신용점수 900점대로 즉시 올리는 5가지 실전 노하우
+                    </h1>
+                    <div class="text-sm text-slate-600 leading-relaxed bg-slate-100 p-4 md:p-5 rounded-2xl border-l-4 border-emerald-500">
+                        💡 <b>핵심 요약:</b> KCB 올크레딧과 NICE 나이스 신용점수 차이점 분석 및 오늘 당장 10~30점 올리는 비금융 정보 제출법, 신용카드 한도 선결제 비법 총정리.
+                    </div>
+                </header>
 
         <!-- Summary Badge Box -->
         <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border-2 border-emerald-200 rounded-2xl p-5 mb-8 space-y-2">
