@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GETGGUL ANALYSIS | 겟꿀 차트 분석</title>
+    <meta name="description" content="매일 업로드되는 비트코인 차트분석 | 엘리어트파동 기반 예상시나리오 및 매매전략을 확인하세요.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GETGGUL ANALYSIS | 차트분석 목록">
+    <meta property="og:description" content="감정을 배제한 완벽한 실전 파동 브리핑, GETGGUL 차트분석 허브입니다.">
+    <meta property="og:image" content="https://getggul.com/analysis/thumbnail_list.jpg">
+    <meta property="og:url" content="https://getggul.com/analysis/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .truncate-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 로딩 스피너 애니메이션 */
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-indigo-500 selection:text-white">
+
+    <nav class="glass-header sticky top-0 z-50 flex flex-col relative transition-all">
+        <div class="px-4 md:px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="bg-indigo-500 text-white p-2 rounded-xl">
+                    <i class="fas fa-chart-pie text-lg"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black italic text-xl tracking-tight text-white">GETGGUL <span class="text-indigo-400">ANALYSIS</span></span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-6">
+                <a href="guide.html" class="flex items-center gap-2 text-slate-300 hover:text-white font-bold text-sm transition-colors">
+                    <i class="fas fa-book-open text-indigo-400"></i> 분석 200% 활용법
+                </a>
+                <a href="theory.html" class="flex items-center gap-2 text-slate-300 hover:text-white font-bold text-sm transition-colors">
+                    <i class="fas fa-graduation-cap text-emerald-400"></i> 엘리어트 파동 기초
+                </a>
+                <a href="index.html" class="flex items-center gap-2 text-indigo-300 hover:text-white font-bold text-sm transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-indigo-500">
+                    <i class="fas fa-chart-line text-slate-300"></i> 차트분석
+                </a>
+                <a href="https://getggul.com" target="_blank" class="flex items-center gap-2 bg-gradient-to-r from-orange-400 to-orange-500 text-white px-5 py-2.5 rounded-lg font-black text-sm shadow-lg hover:brightness-110 transition-all ml-2">
+                    <i class="fas fa-coins text-yellow-100"></i> 7만원 받고 코인투자 시작하기
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-white text-3xl p-1 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-dropdown" class="hidden md:hidden bg-[#0f172a] border-t border-slate-700/50 w-full absolute top-full left-0 z-50 shadow-2xl">
+            <div class="flex flex-col px-6 py-2">
+                <a href="guide.html" class="flex items-center gap-4 text-slate-200 font-bold text-base border-b border-slate-700/50 py-4">
+                    <div class="bg-indigo-500/20 text-indigo-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-book-open text-lg"></i></div>
+                    분석 200% 활용법
+                </a>
+                <a href="theory.html" class="flex items-center gap-4 text-slate-200 font-bold text-base border-b border-slate-700/50 py-4">
+                    <div class="bg-emerald-500/20 text-emerald-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-graduation-cap text-lg"></i></div>
+                    엘리어트 파동 기초
+                </a>
+                <a href="index.html" class="flex items-center gap-4 text-white font-bold text-base border-b border-slate-700/50 py-4">
+                    <div class="bg-indigo-500/20 text-indigo-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-chart-line text-lg"></i></div>
+                    차트분석
+                </a>
+                <a href="https://getggul.com" target="_blank" class="flex items-center gap-4 text-amber-500 font-black text-base py-4">
+                    <div class="bg-amber-500/20 text-amber-500 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-coins text-lg"></i></div>
+                    7만원 받고 코인투자 시작하기
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 md:px-8 py-12">
+        <div class="mb-12 md:mb-16">
+            <div
+                class="inline-block bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-bold px-3 py-1 rounded-full text-xs mb-4">
+                DAILY MARKET INSIGHT
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+                시장의 흐름을 읽는<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">마스터 차트
+                    분석</span>
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base max-w-2xl leading-relaxed">
+                비트코인, 주요 알트코인의 실시간 기술적 분석과 매매 시나리오를 제공합니다. 객관적인 데이터와 파동 이론을 바탕으로 한 심도 있는 인사이트를 확인하세요.
+            </p>
+        </div>
+
+        <div class="flex flex-col bg-slate-800/30 border border-slate-700/50 rounded-2xl overflow-hidden shadow-xl">
+            <div
+                class="hidden md:flex bg-slate-800/80 border-b border-slate-700 py-4 text-xs font-black text-slate-400 tracking-wider">
+                <div class="w-28 text-center uppercase">분류</div>
+                <div class="flex-grow px-6">분석 제목</div>
+                <div class="w-32 text-center uppercase">등록일</div>
+            </div>
+
+            <div id="post-list-container">
+                <div class="py-16 flex flex-col items-center justify-center text-slate-500">
+                    <i class="fas fa-circle-notch text-3xl mb-4 spinner text-indigo-500"></i>
+                    <p class="text-sm font-bold">분석글을 불러오는 중입니다...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 flex justify-center">
+            <button
+                class="bg-slate-800/80 hover:bg-slate-700 text-slate-300 font-bold py-3 px-8 rounded-xl border border-slate-600 transition-colors flex items-center gap-2 shadow-lg">
+                다음 페이지 <i class="fas fa-chevron-right text-sm"></i>
+            </button>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-slate-500 text-sm font-medium">
+                © 2026 GETGGUL ANALYSIS. All rights reserved.
+            </div>
+            <div class="flex gap-4 text-slate-400">
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-telegram text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadPosts);
+
+        async function loadPosts() {
+            const container = document.getElementById('post-list-container');
+
+            try {
+                // posts.json 파일을 요청합니다. (Live Server 환경에서 정상 작동)
+                const response = await fetch('posts.json');
+
+                if (!response.ok) {
+                    throw new Error('데이터를 불러오지 못했습니다.');
+                }
+
+                const posts = await response.json();
+                renderPosts(posts, container);
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `
+                    <div class="py-16 text-center text-rose-400">
+                        <i class="fas fa-exclamation-triangle text-3xl mb-3"></i>
+                        <p class="font-bold">목록을 불러오는데 실패했습니다.</p>
+                        <p class="text-sm text-slate-500 mt-2">※ 로컬(PC) 환경에서는 Live Server 등을 이용해야 fetch 기능이 정상 작동합니다.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPosts(posts, container) {
+            container.innerHTML = ''; // 로딩 화면 제거
+
+            if (posts.length === 0) {
+                container.innerHTML = '<div class="py-16 text-center text-slate-500 font-bold">등록된 분석글이 없습니다.</div>';
+                return;
+            }
+
+            posts.forEach(post => {
+                // 분류(비트코인, 알트코인 등)에 따라 라벨 색상을 다르게 적용
+                let typeClasses = "bg-indigo-500/20 border-indigo-500/30 text-indigo-400";
+                if (post.type === '알트코인') {
+                    typeClasses = "bg-emerald-500/20 border-emerald-500/30 text-emerald-400";
+                } else if (post.type !== '비트코인' && post.type !== '알트코인') {
+                    // 거시경제 등 기타 분류
+                    typeClasses = "bg-amber-500/20 border-amber-500/30 text-amber-400";
+                }
+
+                // HOT 뱃지 여부
+                const hotBadge = post.isHot
+                    ? `<span class="bg-rose-500/20 text-rose-400 text-[10px] font-black px-1.5 py-0.5 rounded mr-1.5 align-middle">HOT</span>`
+                    : '';
+
+                // 동적으로 HTML 생성
+                const html = `
+                    <a href="${post.url}" class="flex flex-col md:flex-row items-center py-4 md:py-5 border-b border-slate-700/50 hover:bg-slate-800/60 transition-colors group last:border-0">
+                        <div class="w-full md:w-28 flex justify-center mb-2 md:mb-0 px-4 md:px-0">
+                            <span class="${typeClasses} border text-[11px] font-black px-3 py-1 rounded-lg">${post.type}</span>
+                        </div>
+                        <div class="flex-grow px-4 md:px-6 w-full mb-2 md:mb-0">
+                            <h2 class="text-base md:text-[17px] font-bold text-slate-200 group-hover:text-indigo-400 transition-colors truncate-text">
+                                ${hotBadge}${post.title}
+                            </h2>
+                        </div>
+                        <div class="w-full md:w-32 flex md:justify-center px-4 md:px-0 text-slate-500 text-sm font-medium">
+                            <span class="md:hidden mr-2 text-slate-600">등록일:</span> ${post.date}
+                        </div>
+                    </a>
+                `;
+
+                // 컨테이너에 끼워넣기
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const dropdown = document.getElementById('mobile-dropdown');
+
+            if (menuBtn && dropdown) {
+                menuBtn.addEventListener('click', function () {
+                    // 메뉴 숨김/표시 전환
+                    dropdown.classList.toggle('hidden');
+
+                    // 아이콘 모양 전환 (햄버거 ≡ <-> 엑스 X)
+                    const icon = menuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-times');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

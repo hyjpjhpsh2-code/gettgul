@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GETGGUL BUILDER V21</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            margin: 0;
+            padding-bottom: 120px;
+        }
+
+        #canvas {
+            background: white;
+            color: #1e293b;
+            min-height: 100vh;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .view-grid {
+            display: flex;
+            gap: 1.5rem;
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .view-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .view-grid::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .view-card {
+            flex: 0 0 calc(33.333% - 1rem);
+            min-width: 320px;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 1023px) {
+            .view-card {
+                flex: 0 0 85vw;
+                min-width: 85vw;
+                scroll-snap-align: center;
+            }
+        }
+
+        .block-wrapper {
+            position: relative;
+            border: 2px solid transparent;
+            transition: 0.2s;
+            padding: 10px;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .block-wrapper:hover {
+            border-color: #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .block-wrapper.is-active {
+            border-color: #818cf8 !important;
+            background: #f8fafc;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
+            z-index: 10;
+        }
+
+        .controls {
+            position: absolute;
+            top: -18px;
+            left: 16px;
+            z-index: 60;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+            transform: translateY(4px);
+        }
+
+        .block-wrapper:hover>.controls,
+        .block-wrapper.is-active>.controls {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .sortable-ghost {
+            opacity: 0.3;
+            background: #e2e8f0;
+            border: 2px dashed #818cf8 !important;
+            border-radius: 1rem;
+        }
+
+        .sortable-chosen {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+
+        .sortable-drag {
+            cursor: grabbing !important;
+        }
+
+        .drag-handle {
+            cursor: grab;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        [contenteditable="true"] img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            cursor: zoom-in;
+        }
+
+        [contenteditable="true"]:empty:before {
+            content: attr(placeholder);
+            color: #94a3b8;
+            pointer-events: none;
+            display: block;
+        }
+
+        .drop-zone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 1.5rem;
+            transition: 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            background: #f8fafc;
+        }
+
+        .drop-zone.active {
+            border-color: #6366f1;
+            background: #e0e7ff;
+        }
+
+        .preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .re-upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(15, 23, 42, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: bold;
+            backdrop-filter: blur(4px);
+            display: none;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .drop-zone:hover .re-upload-btn {
+            display: block;
+        }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 900;
+            padding: 4px 12px;
+            border-radius: 99px;
+            display: inline-block;
+        }
+
+        .badge-유지 {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge-폐기 {
+            background: #ef4444;
+            color: white;
+        }
+
+        .badge-신규 {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .badge-무표기 {
+            display: none;
+        }
+
+        .inner-blocks-area {
+            transition: 0.3s;
+        }
+
+        .inner-blocks-area:empty {
+            display: none;
+            border: none;
+        }
+
+        /* 다크 테마 에디터용 CSS */
+        .theme-dark .block-wrapper:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-dark .block-wrapper.is-active {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+
+        .theme-dark .view-card {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f8fafc;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        .theme-dark .view-card h3 {
+            color: #f8fafc;
+        }
+
+        .theme-dark .view-card div[contenteditable] {
+            color: #94a3b8;
+        }
+
+        .theme-dark .view-card .bg-slate-100 {
+            background-color: #334155;
+            color: #cbd5e1;
+        }
+
+        .theme-dark .status-select {
+            background-color: #0f172a;
+            border-color: #475569;
+            color: #f8fafc;
+        }
+
+        .theme-dark .status-select:hover {
+            background-color: #1e293b;
+        }
+
+        .theme-dark .drop-zone {
+            background-color: #0f172a;
+            border-color: #334155;
+        }
+
+        .theme-dark .drop-zone.active {
+            background-color: rgba(99, 102, 241, 0.2);
+            border-color: #6366f1;
+        }
+
+        .theme-dark .upload-placeholder {
+            color: #475569;
+        }
+
+        .theme-dark .upload-placeholder i {
+            color: #4f46e5;
+        }
+
+        .theme-dark .chart-container .drop-zone {
+            background-color: #1e293b;
+            border-color: #4f46e5;
+        }
+
+        .theme-dark .text-slate-700 {
+            color: #cbd5e1;
+        }
+
+        .theme-dark .hover\\:bg-slate-50:hover {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        #editor-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            cursor: zoom-out;
+            backdrop-filter: blur(5px);
+        }
+
+        #editor-modal img {
+            max-width: 95vw;
+            max-height: 90vh;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+        }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="editor-modal" onclick="closeModal()">
+        <img id="editor-modal-img" src="" alt="확대된 이미지">
+    </div>
+
+    <!-- JSON 추출 모달 -->
+    <div id="json-modal"
+        class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[9999] hidden flex-col items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 w-full max-w-2xl shadow-2xl relative">
+            <button onclick="document.getElementById('json-modal').style.display='none'"
+                class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h3 class="text-xl font-black text-white mb-2"><i class="fas fa-code text-indigo-400 mr-2"></i>JSON 데이터 추출
+                완료</h3>
+            <p class="text-sm text-slate-400 mb-4">아래 코드를 복사하여 <code
+                    class="bg-slate-900 px-1 py-0.5 rounded text-indigo-300">posts.json</code> 파일의 최상단 <code>[</code> 바로
+                아래에 붙여넣으세요.</p>
+            <textarea id="json-output"
+                class="w-full h-56 bg-slate-900 text-emerald-400 p-4 rounded-xl font-mono text-sm border border-slate-700 focus:border-indigo-500 outline-none resize-none shadow-inner"
+                readonly></textarea>
+            <div class="mt-6 flex justify-end gap-3">
+                <button onclick="copyJson()"
+                    class="px-6 py-3 rounded-xl font-black bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-lg shadow-indigo-500/20 w-full md:w-auto flex justify-center items-center">
+                    <i class="far fa-copy mr-2"></i>코드 복사하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tag-modal" class="absolute z-[10000] hidden transition-opacity duration-200 opacity-0">
+        <div class="bg-slate-800/95 backdrop-blur-xl border border-slate-600 rounded-2xl w-[340px] p-5 shadow-[0_15px_50px_-12px_rgba(0,0,0,0.7)] relative">
+            <div class="absolute -top-2 left-6 w-4 h-4 bg-slate-800 border-t border-l border-slate-600 transform rotate-45"></div>
+
+            <h3 class="text-base font-black text-white mb-4 flex items-center gap-2">
+                <i class="fas fa-tag text-emerald-400"></i> 이론 태그 연결
+            </h3>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 mb-1.5 block uppercase tracking-wider">1. 대분류 (세부 파동 선택)</label>
+                    <select id="step1" class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-sm p-2.5 rounded-lg outline-none focus:border-emerald-500 transition-colors cursor-pointer"></select>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 mb-1.5 block uppercase tracking-wider">2. 소분류 (1~5번 세부 항목)</label>
+                    <select id="step2" class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-sm p-2.5 rounded-lg outline-none focus:border-emerald-500 transition-colors cursor-pointer" disabled></select>
+                </div>
+            </div>
+
+            <div class="mt-6 flex gap-2">
+                <button onclick="closeTagModal()" class="flex-1 py-2.5 bg-slate-700 text-slate-300 rounded-lg text-sm font-bold hover:bg-slate-600 hover:text-white transition-colors">취소</button>
+                <button onclick="applyTag()" class="flex-1 py-2.5 bg-emerald-600 text-white rounded-lg text-sm font-black hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-500/20">태그 적용</button>
+            </div>
+        </div>
+    </div>
+
+    <nav
+        class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-[100] border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <span class="font-black italic text-xl text-indigo-400">GETGGUL BUILDER</span>
+            <span class="bg-indigo-500/20 text-indigo-400 text-[10px] font-black px-2 py-0.5 rounded">V21.0</span>
+        </div>
+        <!-- 태그 삽입 버튼 포함 -->
+        <div class="flex items-center gap-2">
+            <button onclick="document.getElementById('draft-input').click()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white px-3 py-2.5 rounded-xl font-bold text-sm transition flex items-center" title="초안 불러오기">
+                <i class="fas fa-folder-open"></i>
+            </button>
+            <button onclick="saveDraftToFile()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white px-3 py-2.5 rounded-xl font-bold text-sm transition flex items-center" title="초안 저장하기">
+                <i class="fas fa-save"></i>
+            </button>
+            <div class="w-px h-6 bg-slate-600 mx-1"></div>
+            <button onclick="openTagModal()"
+                class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 md:px-5 py-2.5 rounded-xl font-black text-sm transition shadow-lg flex items-center">
+                <i class="fas fa-tags md:mr-2"></i><span class="hidden md:inline">태그 삽입</span>
+            </button>
+            <button onclick="processReport('preview')"
+                class="bg-slate-700 hover:bg-slate-600 text-white px-4 md:px-5 py-2.5 rounded-xl font-black text-sm transition shadow-lg flex items-center">
+                <i class="fas fa-eye md:mr-2"></i><span class="hidden md:inline">미리보기</span>
+            </button>
+            <button onclick="processReport('download')"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 md:px-6 py-2.5 rounded-xl font-black text-sm transition shadow-lg shadow-indigo-500/20 flex items-center">
+                <i class="fas fa-rocket md:mr-2"></i><span class="hidden md:inline">최종 리포트 발행</span><span
+                    class="md:hidden">발행</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto mt-10" id="canvas-container">
+        <div id="canvas" class="p-6 md:p-16 rounded-[3rem]">
+            <div class="text-center mb-16 relative group">
+                <h1 contenteditable="true" id="report-title"
+                    class="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 mb-4 outline-none border-b-2 border-transparent focus:border-indigo-200 transition">
+                    분석 리포트 제목</h1>
+                <p contenteditable="true" id="report-date" class="text-slate-400 font-bold outline-none">2026.03.24 |
+                    GETGGUL MASTER ANALYSIS</p>
+            </div>
+
+            <div id="blocks-area" class="space-y-4">
+                <div class="block-wrapper group">
+                    <div
+                        class="controls bg-slate-800/95 backdrop-blur-md p-1 rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.2)] border border-slate-700/50 flex items-center no-export">
+                        <div
+                            class="drag-handle text-slate-400 hover:text-white px-2 py-1 cursor-grab active:cursor-grabbing">
+                            <i class="fas fa-grip-vertical"></i></div>
+                        <div class="w-px h-4 bg-slate-600 mx-1"></div>
+                        <button onclick="changeLevel(this, -1)"
+                            class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition tooltip flex justify-center items-center"
+                            title="상위 레벨로 (내어쓰기)"><i class="fas fa-outdent text-[11px]"></i></button>
+                        <button onclick="changeLevel(this, 1)"
+                            class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition tooltip flex justify-center items-center"
+                            title="하위 레벨로 (들여쓰기)"><i class="fas fa-indent text-[11px]"></i></button>
+                        <div class="w-px h-4 bg-slate-600 mx-1"></div>
+                        <button onclick="moveBlock(this, -1)"
+                            class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition tooltip flex justify-center items-center"
+                            title="위로"><i class="fas fa-arrow-up text-[11px]"></i></button>
+                        <button onclick="moveBlock(this, 1)"
+                            class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition tooltip flex justify-center items-center"
+                            title="아래로"><i class="fas fa-arrow-down text-[11px]"></i></button>
+                        <div class="w-px h-4 bg-slate-600 mx-1"></div>
+                        <button onclick="this.closest('.block-wrapper').remove()"
+                            class="text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 w-7 h-7 rounded-lg transition tooltip flex justify-center items-center"
+                            title="삭제"><i class="fas fa-trash text-[11px]"></i></button>
+                    </div>
+                    <div class="block-content w-full">
+                        <div contenteditable="true"
+                            class="text-xl leading-loose text-slate-700 font-medium min-h-[50px] outline-none my-4 p-4 hover:bg-slate-50 rounded-2xl transition"
+                            placeholder="이곳에 분석 배경이나 서론을 자유롭게 작성하세요. 이미지를 복사(Ctrl+C)해서 이곳에 바로 붙여넣기(Ctrl+V) 할 수도 있습니다.">
+                        </div>
+                        <div class="inner-blocks-area space-y-4 mt-4 ml-4 md:ml-8 border-l-2 border-slate-200 pl-4">
+                        </div>
+                        <div
+                            class="add-inner flex justify-center mt-3 opacity-0 group-hover:opacity-100 transition no-export">
+                            <div class="bg-white border border-slate-200 rounded-full shadow-sm p-1.5 flex gap-1 z-10">
+                                <button
+                                    onclick="createBlock('section', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))"
+                                    class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+
+                                    일반카드</button>
+                                <button
+                                    onclick="createBlock('grid', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))"
+                                    class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+
+                                    관점카드</button>
+                                <button
+                                    onclick="createBlock('text', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))"
+                                    class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+
+                                    텍스트</button>
+                                <button
+                                    onclick="createBlock('chart', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))"
+                                    class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+
+                                    대형차트</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/95 backdrop-blur-xl border border-white/10 p-3 rounded-[2.5rem] shadow-2xl flex gap-2 z-[100]">
+        <button onclick="addBlockFromToolbar('section')"
+            class="flex items-center gap-2 bg-slate-800 hover:bg-indigo-500 text-white px-5 py-3 rounded-full text-xs font-black transition"><i
+                class="fas fa-heading"></i> 일반카드(섹션)</button>
+        <button onclick="addBlockFromToolbar('grid')"
+            class="flex items-center gap-2 bg-slate-800 hover:bg-indigo-500 text-white px-5 py-3 rounded-full text-xs font-black transition"><i
+                class="fas fa-columns"></i> 관점카드(그리드)</button>
+        <button onclick="addBlockFromToolbar('text')"
+            class="flex items-center gap-2 bg-slate-800 hover:bg-indigo-500 text-white px-5 py-3 rounded-full text-xs font-black transition"><i
+                class="fas fa-align-left"></i> 텍스트/차트 혼합</button>
+        <button onclick="addBlockFromToolbar('chart')"
+            class="flex items-center gap-2 bg-slate-800 hover:bg-indigo-500 text-white px-5 py-3 rounded-full text-xs font-black transition"><i
+                class="fas fa-image"></i> 대형 차트</button>
+    </div>
+
+    <input type="file" id="file-input" class="hidden" accept="image/*">
+    <input type="file" id="draft-input" class="hidden" accept=".json">
+
+    <script src="theory_data.js"></script>
+
+    <script>
+        // --- 4단 캐스케이딩 로직 ---
+        // --- 직관적 2단계 캐스케이딩 로직 ---
+        let selectedRange = null;
+
+        function openTagModal() {
+            const selection = window.getSelection();
+            if (selection.rangeCount === 0 || selection.toString().trim() === "") {
+                alert("태그를 걸 단어를 먼저 드래그하여 선택해주세요.");
+                return;
+            }
+            if (typeof theoryDB === 'undefined') {
+                alert("이론 데이터(theory_data.js)를 불러오지 못했습니다.");
+                return;
+            }
+
+            selectedRange = selection.getRangeAt(0);
+            const rect = selectedRange.getBoundingClientRect();
+            const tagModal = document.getElementById('tag-modal');
+
+            let topPos = rect.bottom + window.scrollY + 10;
+            let leftPos = rect.left + window.scrollX - 20;
+
+            if (leftPos + 340 > window.innerWidth) {
+                leftPos = window.innerWidth - 360;
+            }
+
+            tagModal.style.top = `${topPos}px`;
+            tagModal.style.left = `${leftPos}px`;
+            tagModal.style.display = 'block';
+
+            setTimeout(() => { tagModal.classList.remove('opacity-0'); }, 10);
+
+            initStep1();
+        }
+
+        function closeTagModal() {
+            const tagModal = document.getElementById('tag-modal');
+            tagModal.classList.add('opacity-0');
+            setTimeout(() => {
+                tagModal.style.display = 'none';
+            }, 200);
+        }
+
+        function initStep1() {
+            const s1 = document.getElementById('step1');
+            s1.innerHTML = '<option value="">선택하세요</option>';
+
+            // 1단계: 동인파, 조정파 등으로 그룹핑하고 그 안에 임펄스, 지그재그 등을 넣음
+            Object.keys(theoryDB).forEach(catKey => {
+                const category = theoryDB[catKey];
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = `━━ ${category.name} ━━`;
+
+                Object.keys(category.waves).forEach(waveKey => {
+                    const wave = category.waves[waveKey];
+                    const option = document.createElement('option');
+                    // 나중에 2단계 조회를 위해 카테고리키와 파동키를 같이 저장
+                    option.value = `${catKey}.${waveKey}`; 
+                    option.textContent = wave.name;
+                    optgroup.appendChild(option);
+                });
+                s1.appendChild(optgroup);
+            });
+
+            s1.onchange = (e) => initStep2(e.target.value);
+
+            // 2단계 초기화
+            const s2 = document.getElementById('step2');
+            s2.innerHTML = '<option value="">세부 파동을 먼저 선택하세요</option>';
+            s2.disabled = true;
+        }
+
+        function initStep2(selectedWave) {
+            const s2 = document.getElementById('step2');
+            s2.innerHTML = '<option value="">선택하세요</option>';
+
+            if (!selectedWave) { 
+                s2.disabled = true; 
+                s2.innerHTML = '<option value="">세부 파동을 먼저 선택하세요</option>';
+                return; 
+            }
+
+            s2.disabled = false;
+            const [catKey, waveKey] = selectedWave.split('.');
+            const types = theoryDB[catKey].waves[waveKey].types;
+
+            // 2단계: 선택된 파동 안의 1~5번 항목을 쫙 뿌려줌
+            Object.keys(types).forEach(typeKey => {
+                const typeObj = types[typeKey];
+                
+                // 보기 좋게 [개념 및 특징], [규칙 및 매매] 등으로 그룹핑
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = `[ ${typeObj.name} ]`;
+
+                const items = typeObj.items;
+                Object.keys(items).forEach(itemKey => {
+                    const item = items[itemKey];
+                    const option = document.createElement('option');
+                    // 최종 태그 ID는 4단계 경로를 모두 포함해야 하므로 조합해서 value 지정
+                    option.value = `${catKey}.${waveKey}.${typeKey}.${itemKey}`;
+                    option.textContent = item.title; // "1. 차트를 포함한 개념 설명" 등
+                    optgroup.appendChild(option);
+                });
+                s2.appendChild(optgroup);
+            });
+        }
+
+        function applyTag() {
+            // 2단계에서 선택된 값이 완벽한 theoryId 조합임
+            const theoryId = document.getElementById('step2').value;
+
+            if (!theoryId) {
+                alert("1~5번 세부 항목을 선택해야 적용할 수 있습니다.");
+                return;
+            }
+
+            const span = document.createElement('span');
+            span.className = "text-indigo-400 border-b-2 border-indigo-400 border-dashed font-bold cursor-pointer mx-1 theory-tag hover:bg-indigo-500/10 transition-colors px-1 py-0.5 rounded";
+            span.dataset.theoryId = theoryId;
+            span.setAttribute("onclick", `if(typeof openTermModal !== 'undefined') openTermModal('${theoryId}')`);
+            span.textContent = selectedRange.toString();
+
+            selectedRange.deleteContents();
+            selectedRange.insertNode(span);
+
+            // 태그 삽입 후 커서를 span 밖으로 빼기
+            const zws = document.createTextNode('\u200B');
+            span.parentNode.insertBefore(zws, span.nextSibling);
+
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            const newRange = document.createRange();
+            newRange.setStartAfter(zws);
+            newRange.collapse(true);
+            selection.addRange(newRange);
+
+            closeTagModal();
+        }
+
+        // --- 1. JSON 복사 함수 ---
+        function copyJson() {
+            const copyText = document.getElementById("json-output");
+            copyText.select();
+            document.execCommand("copy");
+            alert("JSON 코드가 클립보드에 복사되었습니다!");
+        }
+
+        let targetDropZone = null;
+        let activeBlockWrapper = null;
+
+        function updateActiveBlock(wrapper) {
+            if (activeBlockWrapper === wrapper) return;
+            if (activeBlockWrapper) activeBlockWrapper.classList.remove('is-active');
+            activeBlockWrapper = wrapper;
+            if (activeBlockWrapper) activeBlockWrapper.classList.add('is-active');
+        }
+
+        document.addEventListener('mousedown', (e) => {
+            // [추가됨] 태그 팝오버 바깥을 클릭하면 자동으로 팝오버 닫기
+            const tagModal = document.getElementById('tag-modal');
+            if (tagModal.style.display === 'block' && !tagModal.contains(e.target) && !e.target.closest('button[onclick="openTagModal()"]')) {
+                closeTagModal();
+            }
+
+            if (e.target.closest('.fixed.bottom-6') || e.target.closest('.controls') || e.target.closest('.add-inner') || e.target.closest('#json-modal') || e.target.closest('#tag-modal')) return;
+            const wrapper = e.target.closest('.block-wrapper');
+            updateActiveBlock(wrapper);
+        });
+
+        document.addEventListener('focusin', (e) => {
+            const wrapper = e.target.closest('.block-wrapper');
+            if (wrapper) updateActiveBlock(wrapper);
+        });
+
+        function addBlockFromToolbar(type) {
+            let targetArea = document.getElementById('blocks-area');
+            if (activeBlockWrapper) {
+                const innerArea = activeBlockWrapper.querySelector('.inner-blocks-area');
+                if (innerArea) targetArea = innerArea;
+            }
+            createBlock(type, targetArea);
+        }
+
+        function createBlock(type, targetArea = null) {
+            const area = targetArea || document.getElementById('blocks-area');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'block-wrapper group';
+
+            const controls = document.createElement('div');
+            controls.className = 'controls bg-slate-800/95 backdrop-blur-md p-1 rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.2)] border border-slate-700/50 flex items-center no-export';
+            controls.innerHTML = `
+                <div class="drag-handle text-slate-400 hover:text-white px-2 py-1 cursor-grab active:cursor-grabbing"><i class="fas fa-grip-vertical"></i></div>
+                <div class="w-px h-4 bg-slate-600 mx-1"></div>
+                <button onclick="changeLevel(this, -1)" class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition flex justify-center items-center" title="상위 레벨로 (내어쓰기)"><i class="fas fa-outdent text-[11px]"></i></button>
+                <button onclick="changeLevel(this, 1)" class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition flex justify-center items-center" title="하위 레벨로 (들여쓰기)"><i class="fas fa-indent text-[11px]"></i></button>
+                <div class="w-px h-4 bg-slate-600 mx-1"></div>
+                <button onclick="moveBlock(this, -1)" class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition flex justify-center items-center" title="위로"><i class="fas fa-arrow-up text-[11px]"></i></button>
+                <button onclick="moveBlock(this, 1)" class="text-slate-300 hover:text-indigo-400 w-7 h-7 rounded-lg hover:bg-slate-700 transition flex justify-center items-center" title="아래로"><i class="fas fa-arrow-down text-[11px]"></i></button>
+                <div class="w-px h-4 bg-slate-600 mx-1"></div>
+                <button onclick="this.closest('.block-wrapper').remove()" class="text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 w-7 h-7 rounded-lg transition flex justify-center items-center" title="삭제"><i class="fas fa-trash text-[11px]"></i></button>
+            `;
+            wrapper.appendChild(controls);
+
+            const content = document.createElement('div');
+            content.className = 'block-content w-full';
+
+            const standardAddInner = `
+                <div class="inner-blocks-area space-y-4 mt-4 ml-4 md:ml-8 border-l-2 border-slate-200 pl-4"></div>
+                <div class="add-inner flex justify-center mt-3 opacity-0 group-hover:opacity-100 transition no-export">
+                    <div class="bg-white border border-slate-200 rounded-full shadow-sm p-1.5 flex gap-1 z-10">
+                        <button onclick="createBlock('section', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+ 일반카드</button>
+                        <button onclick="createBlock('grid', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+ 관점카드</button>
+                        <button onclick="createBlock('text', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+ 텍스트</button>
+                        <button onclick="createBlock('chart', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold hover:bg-slate-100 rounded-full text-slate-600 transition">+ 대형차트</button>
+                    </div>
+                </div>
+            `;
+
+            let innerHTML = '';
+
+            if (type === 'section') {
+                innerHTML = `
+                    <div class="theme-dark w-full bg-slate-900 text-white p-6 md:p-12 rounded-[2rem] shadow-xl mt-4 mb-4 transition-colors duration-300">
+                        <h2 contenteditable="true" class="text-3xl md:text-4xl font-black italic tracking-tighter outline-none border-b-2 border-transparent focus:border-indigo-500 inline-block mb-2">01. 섹션 제목 입력</h2>
+                        <p contenteditable="true" class="text-slate-400 outline-none">해당 섹션에 대한 간단한 요약이나 코멘트를 작성할 수 있습니다.</p>
+                        <div class="inner-blocks-area space-y-4 mt-8"></div>
+                        <div class="add-inner flex justify-center mt-6 opacity-0 group-hover:opacity-100 transition no-export">
+                            <div class="bg-white/10 backdrop-blur border border-white/20 rounded-full shadow-sm p-1.5 flex gap-1 z-10">
+                                <button onclick="createBlock('section', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold text-slate-300 hover:text-white hover:bg-white/20 rounded-full transition">+ 일반카드</button>
+                                <button onclick="createBlock('grid', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold text-slate-300 hover:text-white hover:bg-white/20 rounded-full transition">+ 관점카드</button>
+                                <button onclick="createBlock('text', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold text-slate-300 hover:text-white hover:bg-white/20 rounded-full transition">+ 텍스트</button>
+                                <button onclick="createBlock('chart', this.closest('.block-wrapper').querySelector('.inner-blocks-area'))" class="px-3 py-1 text-[11px] font-bold text-slate-300 hover:text-white hover:bg-white/20 rounded-full transition">+ 대형차트</button>
+                            </div>
+                        </div>
+                    </div>`;
+            } else if (type === 'grid') {
+                innerHTML = `
+                    <div class="view-grid my-4">
+                        ${[1, 2].map(i => generateGridCardHTML(i)).join('')}
+                    </div>
+                    <div class="flex justify-center mb-6 no-export">
+                        <button onclick="addGridCard(this)" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 border border-indigo-200">
+                            <i class="fas fa-plus"></i> 관점 카드 추가
+                        </button>
+                    </div>
+                    ${standardAddInner}`;
+            } else if (type === 'text') {
+                innerHTML = `<div contenteditable="true" class="text-xl leading-loose text-slate-700 font-medium min-h-[50px] outline-none my-4 p-4 hover:bg-slate-50 rounded-2xl transition" placeholder="이곳에 분석 논리를 자유롭게 서술하세요. 엔터를 쳐서 줄을 바꿀 수 있으며, 복사한 차트 이미지를 바로 붙여넣기 할 수 있습니다."></div> ${standardAddInner}`;
+            } else if (type === 'chart') {
+                innerHTML = `
+                    <div class="relative w-full group/chart-wrapper pt-8 pb-2">
+                        <div class="chart-size-control absolute top-0 left-2 z-50 bg-slate-800/90 backdrop-blur px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-3 opacity-0 group-hover/chart-wrapper:opacity-100 transition-opacity no-export cursor-default" onclick="event.stopPropagation()">
+                            <span class="text-xs font-black text-slate-200"><i class="fas fa-compress-arrows-alt mr-1"></i>가로 폭</span>
+                            
+                            <input type="range" min="200" max="1200" value="800" step="10" class="w-24 accent-indigo-500 cursor-pointer" 
+                                oninput="this.nextElementSibling.querySelector('input').value = this.value; this.closest('.group\\\\/chart-wrapper').querySelector('.chart-container').style.width = this.value + 'px'">
+                            
+                            <div class="flex items-center gap-1 bg-slate-900 border border-slate-600 rounded px-2 py-1 focus-within:border-indigo-400 transition-colors">
+                                <input type="number" min="200" max="1200" step="10" value="800" 
+                                    class="w-12 bg-transparent text-white text-xs font-bold text-center outline-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                    oninput="let v = this.value; this.closest('.chart-size-control').querySelector('input[type=range]').value = v; this.closest('.group\\\\/chart-wrapper').querySelector('.chart-container').style.width = (v || 800) + 'px';"
+                                    onchange="let v = Math.max(200, Math.min(1200, this.value || 800)); this.value = v; this.closest('.chart-size-control').querySelector('input[type=range]').value = v; this.closest('.group\\\\/chart-wrapper').querySelector('.chart-container').style.width = v + 'px';">
+                                <span class="text-[10px] font-bold text-slate-400">px</span>
+                            </div>
+                        </div>
+
+                        <div class="chart-container mx-auto transition-none" style="width: 800px; max-width: 100%;">
+                            <div class="drop-zone w-full min-h-[300px] md:min-h-[500px] bg-slate-50 rounded-[2rem] border-2 border-dashed border-indigo-200 hover:border-indigo-400 transition relative group/drop flex items-center justify-center overflow-hidden" onclick="triggerFile(this, event)">
+                                <div class="upload-placeholder text-center text-slate-500 pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                                    <i class="fas fa-chart-line text-5xl mb-4 text-indigo-400"></i>
+                                    <p class="font-black uppercase tracking-widest text-sm">Main Logical Chart (Click or Drop)</p>
+                                </div>
+                                <img class="preview-img hidden w-full h-auto rounded-[2rem]">
+                                <div class="zoom-overlay hidden absolute inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover/drop:opacity-100 transition cursor-zoom-in rounded-[2rem]" onclick="openModal(this.previousElementSibling.src); event.stopPropagation();">
+                                    <i class="fas fa-search-plus text-white text-5xl drop-shadow-lg pointer-events-none"></i>
+                                </div>
+                                <div class="re-upload-btn no-export" onclick="triggerFile(this.closest('.drop-zone'), event); event.stopPropagation();"><i class="fas fa-sync-alt mr-1"></i>차트 변경</div>
+                            </div>
+                            <p contenteditable="true" class="text-center text-sm text-slate-400 font-bold mt-3 outline-none" placeholder="차트에 대한 캡션을 입력하세요 (선택사항)"></p>
+                        </div>
+                    </div>
+                    ${standardAddInner}`;
+            }
+
+            content.innerHTML = innerHTML;
+            wrapper.appendChild(content);
+            area.appendChild(wrapper);
+
+            setupDragAndDrop(wrapper);
+            setupPasteEvent(wrapper);
+
+            const newInnerArea = wrapper.querySelector('.inner-blocks-area');
+            if (newInnerArea) initSortable(newInnerArea);
+
+            if (!targetArea) {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        }
+
+        function generateGridCardHTML(index = 1) {
+            return `
+                <div class="view-card bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm relative flex flex-col hover:shadow-lg transition duration-300">
+                    <button onclick="this.closest('.view-card').remove()" class="absolute -top-3 -right-3 w-8 h-8 bg-white border border-slate-200 text-rose-500 rounded-full shadow-md hover:bg-rose-500 hover:text-white transition flex items-center justify-center no-export z-20" title="이 카드 삭제">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="flex justify-between items-center mb-4">
+                        <span contenteditable="true" class="text-xs font-black text-slate-500 bg-slate-100 hover:bg-slate-200 px-3 py-1 rounded-full outline-none transition">관점 ${index}</span>
+                        <div class="flex items-center">
+                            <select class="status-select bg-slate-50 border border-slate-200 text-[11px] font-black p-1.5 rounded-lg outline-none cursor-pointer hover:bg-slate-100 no-export" onchange="updateBadge(this)">
+                                <option value="무표기">상태선택</option>
+                                <option value="유지">유지</option>
+                                <option value="폐기">폐기</option>
+                                <option value="신규">신규</option>
+                            </select>
+                            <span class="badge badge-무표기 ml-2">무표기</span>
+                        </div>
+                    </div>
+                    <div class="drop-zone w-full h-48 md:h-56 bg-slate-50 mb-5 relative group/drop overflow-hidden" onclick="triggerFile(this, event)">
+                        <div class="upload-placeholder text-center text-slate-400 pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                            <i class="fas fa-cloud-upload-alt text-3xl mb-2 text-indigo-300"></i>
+                            <p class="text-[10px] font-black uppercase tracking-wider">Drag & Drop Chart<br>or Click</p>
+                        </div>
+                        <img class="preview-img hidden w-full h-full object-cover">
+                        <div class="zoom-overlay hidden absolute inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover/drop:opacity-100 transition cursor-zoom-in rounded-[1.5rem]" onclick="openModal(this.previousElementSibling.src); event.stopPropagation();">
+                            <i class="fas fa-search-plus text-white text-4xl drop-shadow-lg pointer-events-none"></i>
+                        </div>
+                        <div class="re-upload-btn no-export" onclick="triggerFile(this.closest('.drop-zone'), event); event.stopPropagation();"><i class="fas fa-sync-alt mr-1"></i>변경</div>
+                    </div>
+                    <h3 contenteditable="true" class="text-xl font-black mb-2 outline-none text-slate-800">관점 제목을 입력하세요</h3>
+                    <div contenteditable="true" class="text-sm text-slate-600 font-medium leading-relaxed outline-none flex-grow" placeholder="해당 관점의 분석 근거를 상세히 기록하세요."></div>
+                </div>`;
+        }
+
+        function addGridCard(btn) {
+            const grid = btn.parentElement.previousElementSibling;
+            const currentCardsCount = grid.querySelectorAll('.view-card').length;
+            grid.insertAdjacentHTML('beforeend', generateGridCardHTML(currentCardsCount + 1));
+            const wrapper = btn.closest('.block-wrapper');
+            setupDragAndDrop(wrapper);
+            setupPasteEvent(wrapper);
+            grid.scrollTo({ left: grid.scrollWidth, behavior: 'smooth' });
+        }
+
+        function initSortable(el) {
+            new Sortable(el, { group: 'nested', animation: 150, fallbackOnBody: true, swapThreshold: 0.65, handle: '.drag-handle', ghostClass: 'sortable-ghost', chosenClass: 'sortable-chosen', dragClass: 'sortable-drag' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initSortable(document.getElementById('blocks-area'));
+            document.querySelectorAll('.inner-blocks-area').forEach(initSortable);
+
+            const dateElement = document.getElementById('report-date');
+            if (dateElement) {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0'); 
+                const day = String(today.getDate()).padStart(2, '0');
+                dateElement.innerText = `${year}.${month}.${day} | GETGGUL 비트코인 차트분석`;
+            }
+        });
+
+        function changeLevel(btn, direction) {
+            const wrapper = btn.closest('.block-wrapper');
+            if (direction === 1) {
+                const prevSibling = wrapper.previousElementSibling;
+                if (prevSibling && prevSibling.classList.contains('block-wrapper')) {
+                    const targetInner = prevSibling.querySelector('.inner-blocks-area');
+                    if (targetInner) { targetInner.appendChild(wrapper); updateActiveBlock(wrapper); }
+                } else { alert('바로 위에 다른 카드가 있어야 하위 단계로 들어갈 수 있습니다.'); }
+            } else if (direction === -1) {
+                const currentInnerArea = wrapper.parentElement;
+                if (currentInnerArea && currentInnerArea.classList.contains('inner-blocks-area')) {
+                    const parentWrapper = currentInnerArea.closest('.block-wrapper');
+                    if (parentWrapper) { parentWrapper.parentElement.insertBefore(wrapper, parentWrapper.nextElementSibling); updateActiveBlock(wrapper); }
+                } else { alert('이미 최상위 단계입니다.'); }
+            }
+        }
+
+        function moveBlock(btn, direction) {
+            const wrapper = btn.closest('.block-wrapper');
+            const parent = wrapper.parentNode;
+            if (direction === -1 && wrapper.previousElementSibling) parent.insertBefore(wrapper, wrapper.previousElementSibling);
+            else if (direction === 1 && wrapper.nextElementSibling) parent.insertBefore(wrapper.nextElementSibling, wrapper);
+        }
+
+        function openModal(src) {
+            if (!src) return;
+            const modalImg = document.getElementById('editor-modal-img');
+            modalImg.src = src;
+            document.getElementById('editor-modal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('editor-modal').style.display = 'none'; }
+
+        document.getElementById('blocks-area').addEventListener('click', function (e) {
+            if (e.target.tagName === 'IMG' && e.target.closest('[contenteditable="true"]')) openModal(e.target.src);
+        });
+
+        function triggerFile(el, event) { if (event) event.stopPropagation(); targetDropZone = el; document.getElementById('file-input').click(); }
+
+        document.getElementById('file-input').onchange = function (e) {
+            if (e.target.files && e.target.files[0]) handleFile(e.target.files[0], targetDropZone);
+            this.value = '';
+        };
+
+        function setupDragAndDrop(wrapper) {
+            const zones = wrapper.querySelectorAll('.drop-zone');
+            zones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('active'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('active'));
+                zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('active'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0], zone); });
+            });
+        }
+
+        function handleFile(file, zone) {
+            if (!file.type.startsWith('image/')) { alert('이미지 파일만 업로드 가능합니다.'); return; }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = zone.querySelector('.preview-img');
+                const placeholder = zone.querySelector('.upload-placeholder');
+                const zoomOverlay = zone.querySelector('.zoom-overlay');
+                img.src = e.target.result; img.classList.remove('hidden');
+                if (placeholder) placeholder.classList.add('hidden');
+                if (zoomOverlay) zoomOverlay.classList.remove('hidden');
+                if (zone.classList.contains('min-h-[300px]')) {
+                    zone.classList.remove('border-2', 'border-dashed', 'min-h-[300px]', 'md:min-h-[500px]');
+                    img.classList.remove('h-full', 'object-cover'); img.classList.add('h-auto');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function setupPasteEvent(wrapper) {
+            const editables = wrapper.querySelectorAll('[contenteditable="true"]');
+            editables.forEach(editable => {
+                editable.addEventListener('paste', (e) => {
+                    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                    for (let index in items) {
+                        const item = items[index];
+                        if (item.kind === 'file' && item.type.startsWith('image/')) {
+                            e.preventDefault();
+                            const blob = item.getAsFile();
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                                const img = document.createElement('img'); img.src = event.target.result; img.alt = "Pasted Chart";
+                                const br = document.createElement('br');
+                                const selection = window.getSelection();
+                                if (!selection.rangeCount) return false;
+                                const range = selection.getRangeAt(0);
+                                range.deleteContents(); range.insertNode(br); range.insertNode(img);
+                                range.setStartAfter(br); range.collapse(true);
+                                selection.removeAllRanges(); selection.addRange(range);
+                            };
+                            reader.readAsDataURL(blob);
+                        }
+                    }
+                });
+            });
+        }
+        setupPasteEvent(document.getElementById('blocks-area'));
+
+        function updateBadge(select) {
+            const badge = select.nextElementSibling;
+            const val = select.value;
+            badge.innerText = val;
+            badge.className = `badge badge-${val} ml-2`;
+        }
+
+        // --- 2. [미리보기 및 최종 리포트 발행 통합 엔진] ---
+        // --- 2. [미리보기 및 최종 리포트 발행 통합 엔진] ---
+        function processReport(action = 'download') {
+            const titleEl = document.getElementById('report-title');
+            const dateEl = document.getElementById('report-date');
+
+            // 에디터에서 작성한 원본 제목과 날짜 가져오기
+            const titleText = titleEl ? titleEl.innerText.trim() : "제목 없음";
+            const dateText = dateEl ? dateEl.innerText.split('|')[0].trim() : new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+
+            const uniqueId = Date.now();
+            
+            // 💡 1. 링크 (URL) 간소화: YYYYMMDD-btc.html 형식
+            const cleanDate = dateText.replace(/\./g, ''); // 예: 2026.04.11 -> 20260411
+            const fileName = `${cleanDate}-btc.html`; 
+
+            // 💡 2. 제목 (Title) 조합: [날짜 비트코인 차트분석] 본문제목 | GETGGUL ANALYSIS
+            const pageTitle = `[${dateText} 비트코인 차트분석] | GETGGUL ANALYSIS`;
+
+            // 💡 3. 디스크립션 (Description) 조합: 호기심 유발형 텍스트
+            const pageDesc = "비트코인 차트, 다음 방향성과 매매전략은? 엘리어트파동에 기반한 차트분석 및 매매전략을 확인하세요.";
+
+            // 💡 4. 썸네일 이미지 고정 주소 (대표님이 만드실 이미지 경로)
+            const ogImage = "https://getggul.com/analysis/thumbnail_daily.jpg";
+
+            if (action === 'download') {
+                const jsonObj = {
+                    id: uniqueId,
+                    type: "비트코인",
+                    isHot: true,
+                    title: titleText, // 리스트에는 깔끔하게 원본 제목만 표시
+                    date: dateText,
+                    url: "/analysis/view/" + fileName // 간소화된 URL이 목록에 자동 연결됨
+                };
+
+                const jsonString = JSON.stringify(jsonObj, null, 2) + ",";
+                document.getElementById('json-output').value = jsonString;
+                document.getElementById('json-modal').style.display = 'flex';
+            }
+
+            const clone = document.getElementById('canvas').cloneNode(true);
+            clone.querySelectorAll('.controls, select, .re-upload-btn, .no-export, .add-inner, .chart-size-control').forEach(el => el.remove());
+            clone.querySelectorAll('.is-active').forEach(el => el.classList.remove('is-active'));
+            clone.querySelectorAll('[contenteditable]').forEach(el => {
+                el.removeAttribute('contenteditable');
+                el.removeAttribute('placeholder');
+                el.classList.remove('border-transparent', 'focus:border-indigo-500', 'focus:border-indigo-200', 'hover:bg-slate-50');
+            });
+
+            clone.querySelectorAll('.drop-zone').forEach(zone => {
+                const img = zone.querySelector('.preview-img');
+                if (img && img.classList.contains('hidden')) {
+                    zone.innerHTML = '<div style="text-align:center; padding: 20px; color: #475569; font-size: 12px; font-weight: bold;">[첨부된 차트 없음]</div>';
+                    zone.style.height = 'auto'; zone.style.minHeight = 'auto'; zone.style.border = '1px dashed #334155';
+                }
+            });
+
+            const finalStyles = `
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+                    body { font-family: 'Noto Sans KR', sans-serif; background-color: #0f172a; color: #f1f5f9; margin: 0; padding: 0; line-height: 1.6; }
+                    
+                    .glass-header { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+                    
+                    .report-container { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+                    .block-wrapper { margin-bottom: 24px; }
+                    .inner-blocks-area { margin-top: 1rem; padding-left: 1rem; border-left: 2px solid #334155; }
+                    .inner-blocks-area:empty { display: none; border: none; }
+                    @media (min-width: 768px) { .inner-blocks-area { margin-left: 2rem; } }
+
+                    .view-grid { display: flex; gap: 1.5rem; width: 100%; margin: 2rem 0; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+                    .view-grid::-webkit-scrollbar { height: 8px; }
+                    .view-grid::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+                    .view-card { flex: 0 0 calc(33.333% - 1rem); min-width: 320px; scroll-snap-align: start; display: flex; flex-direction: column; }
+                    @media (max-width: 1023px) { 
+                        .view-card { flex: 0 0 85vw; min-width: 85vw; scroll-snap-align: center; } 
+                    }
+                    
+                    .badge { font-size: 11px; font-weight: 900; padding: 4px 12px; border-radius: 99px; display: inline-block; }
+                    .badge-유지 { background: #10b981; color: white; }
+                    .badge-폐기 { background: #ef4444; color: white; }
+                    .badge-신규 { background: #3b82f6; color: white; }
+                    .badge-무표기 { display: none; }
+                    
+                    .drop-zone { width: 100%; border-radius: 1rem; overflow: hidden; margin-bottom: 20px; position: relative; }
+                    .preview-img { width: 100%; height: auto; display: block; }
+                    .zoom-overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; cursor: zoom-in; backdrop-filter: blur(2px); }
+                    .drop-zone:hover .zoom-overlay { opacity: 1; }
+                    .block-content img { max-width: 100%; height: auto; border-radius: 1rem; margin: 1.5rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.5); cursor: zoom-in; }
+
+                    /* === 다크 테마 강제 오버라이드 === */
+                    .report-container h1 { color: #f8fafc !important; }
+                    .report-container .text-slate-900 { color: #f8fafc !important; }
+                    .report-container .text-slate-700 { color: #cbd5e1 !important; }
+                    .report-container .text-slate-800 { color: #f8fafc !important; }
+                    .report-container .text-slate-600 { color: #94a3b8 !important; }
+                    
+                    .report-container .view-card, .report-container .bg-white { background-color: #1e293b !important; border-color: #334155 !important; }
+                    .report-container .bg-slate-100 { background-color: #334155 !important; color: #cbd5e1 !important; }
+                    
+                    .report-container .drop-zone, .report-container .bg-slate-50 { background-color: #0f172a !important; border-color: #334155 !important; }
+
+                    #export-modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; cursor: zoom-out; backdrop-filter: blur(5px); }
+                    #export-modal img { max-width: 95vw; max-height: 90vh; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); object-fit: contain; }
+
+                    /* 모달 스크롤바 숨기기 */
+                    .no-scrollbar::-webkit-scrollbar { display: none; }
+                    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+                </style>
+            `;
+
+            const reportScript = `
+                document.addEventListener('DOMContentLoaded', () => {
+                    const modal = document.getElementById('export-modal');
+                    const modalImg = document.getElementById('export-modal-img');
+                    document.querySelectorAll('.zoom-overlay').forEach(overlay => {
+                        overlay.onclick = function(e) {
+                            e.stopPropagation(); modalImg.src = this.previousElementSibling.src; modal.style.display = 'flex';
+                        };
+                    });
+                    document.querySelectorAll('.block-content > div > img').forEach(img => {
+                        img.onclick = function(e) {
+                            e.stopPropagation(); modalImg.src = this.src; modal.style.display = 'flex';
+                        };
+                    });
+
+                    const menuBtn = document.getElementById('mobile-menu-btn');
+                    const dropdown = document.getElementById('mobile-dropdown');
+                    if(menuBtn && dropdown) {
+                        menuBtn.addEventListener('click', () => {
+                            dropdown.classList.toggle('hidden');
+                            const icon = menuBtn.querySelector('i');
+                            if(dropdown.classList.contains('hidden')) {
+                                icon.classList.remove('fa-times'); 
+                                icon.classList.add('fa-bars'); 
+                            } else {
+                                icon.classList.remove('fa-bars');
+                                icon.classList.add('fa-times'); 
+                            }
+                        });
+                    }
+                });
+                
+                function openTermModal(theoryId) {
+                    if(typeof theoryDB === 'undefined') {
+                        alert("이론 데이터(theory_data.js)를 불러오지 못했습니다.");
+                        return;
+                    }
+                    
+                    if(!theoryId.includes('.')) theoryId = 'motive.impulse.concept.basic'; 
+
+                    const keys = theoryId.split('.');
+                    if(keys.length !== 4) return;
+                    
+                    const data = theoryDB[keys[0]]?.waves[keys[1]]?.types[keys[2]]?.items[keys[3]];
+                    
+                    if(data) {
+                        document.querySelector('#term-modal h3').innerHTML = '<i class="fas fa-book text-sm"></i> ' + data.title;
+                        
+                        let contentHtml = '<p class="text-slate-300 text-sm leading-relaxed mb-6">' + data.content + '</p>';
+                        
+                        if(data.svgChart) {
+                            contentHtml += '<div class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-inner mb-6"><div class="w-full aspect-[16/9] md:aspect-[2/1] relative">' + data.svgChart + '</div></div>';
+                        }
+                        if(data.tip) {
+                            contentHtml += '<div class="mt-8 p-4 md:p-5 bg-indigo-900/20 border border-indigo-500/30 rounded-xl text-indigo-200 text-sm leading-relaxed relative z-10">' + data.tip + '</div>';
+                        }
+                        if(data.tipSvgChart) {
+                            contentHtml += '<div class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-inner mt-4"><div class="w-full aspect-[16/9] md:aspect-[2/1] relative">' + data.tipSvgChart + '</div></div>';
+                        }
+                        
+                        const contentArea = document.querySelector('#term-modal .overflow-y-auto');
+                        contentArea.innerHTML = contentHtml;
+                        
+                        document.getElementById('term-modal').style.display = 'flex';
+                        document.body.style.overflow = 'hidden'; 
+                        
+                        setTimeout(() => {
+                            document.querySelectorAll('#term-modal .animate-draw, #term-modal .blink-active, #term-modal .seq-draw, #term-modal .seq-fade, #term-modal .micro-35, #term-modal .micro-ac, #term-modal .new-mac1, #term-modal .new-mac2, #term-modal .frac-shrink').forEach(el => {
+                                const currentClass = el.className.baseVal || el.className;
+                                el.setAttribute('class', '');
+                                void el.offsetWidth;
+                                el.setAttribute('class', currentClass);
+                            });
+                        }, 50);
+                    }
+                }
+
+                function closeTermModal(e) {
+                    if (!e || e.target.id === 'term-modal' || !e.target.closest('#term-modal > div')) {
+                        document.getElementById('term-modal').style.display = 'none';
+                        document.body.style.overflow = ''; 
+                    }
+                }
+            `;
+
+            const termModalHtml = `
+                <div id="term-modal" class="fixed inset-0 z-[9999] bg-slate-900/90 backdrop-blur-sm hidden items-center justify-center p-4" onclick="closeTermModal(event)">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]" onclick="event.stopPropagation()">
+                        <div class="bg-slate-900/50 px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+                            <h3 id="term-modal-title" class="text-lg font-black text-indigo-400 flex items-center gap-2"></h3>
+                            <button onclick="closeTermModal()" class="text-slate-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-700">
+                                <i class="fas fa-times text-lg"></i>
+                            </button>
+                        </div>
+                        <div class="p-6 overflow-y-auto no-scrollbar" id="term-modal-content"></div>
+                        <div class="bg-slate-900/30 px-6 py-4 border-t border-slate-700 flex justify-end">
+                            <button onclick="closeTermModal()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-lg transition-colors text-sm">확인</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const navBarHtml = `
+                <nav class="glass-header sticky top-0 z-50 flex flex-col relative transition-all">
+                    <div class="px-4 md:px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
+                        <a href="/analysis/" class="flex items-center gap-2 group">
+                            <div class="bg-indigo-500 text-white p-2 rounded-xl">
+                                <i class="fas fa-chart-pie text-lg"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black italic text-xl tracking-tight text-white">GETGGUL <span class="text-indigo-400">ANALYSIS</span></span>
+                            </div>
+                        </a>
+                        
+                        <div class="hidden md:flex items-center gap-6">
+                            <a href="/analysis/guide.html" class="flex items-center gap-2 text-slate-300 hover:text-white font-bold text-sm transition-colors">
+                                <i class="fas fa-book-open text-indigo-400"></i> 분석 200% 활용법
+                            </a>
+                            <a href="/analysis/theory.html" class="flex items-center gap-2 text-slate-300 hover:text-white font-bold text-sm transition-colors">
+                                <i class="fas fa-graduation-cap text-indigo-400"></i> 엘리어트 파동 기초
+                            </a>
+                            <a href="/analysis/" class="flex items-center gap-2 text-indigo-300 hover:text-white font-bold text-sm transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-indigo-500">
+                                <i class="fas fa-chart-line text-slate-300"></i> 차트분석
+                            </a>
+                            <a href="https://getggul.com" target="_blank" class="flex items-center gap-2 bg-gradient-to-r from-orange-400 to-orange-500 text-white px-5 py-2.5 rounded-lg font-black text-sm shadow-lg hover:brightness-110 transition-all ml-2">
+                                <i class="fas fa-coins text-yellow-100"></i> 7만원 받고 코인투자 시작하기
+                            </a>
+                        </div>
+
+                        <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-white text-3xl p-1 focus:outline-none">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <div id="mobile-dropdown" class="hidden md:hidden bg-[#0f172a] border-t border-slate-700/50 w-full absolute top-full left-0 z-50 shadow-2xl">
+                        <div class="flex flex-col px-6 py-2">
+                            <a href="/analysis/guide.html" class="flex items-center gap-4 text-slate-200 font-bold text-base border-b border-slate-700/50 py-4">
+                                <div class="bg-indigo-500/20 text-indigo-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-book-open text-lg"></i></div>
+                                분석 200% 활용법
+                            </a>
+                            <a href="/analysis/theory.html" class="flex items-center gap-4 text-slate-200 font-bold text-base border-b border-slate-700/50 py-4">
+                                <div class="bg-emerald-500/20 text-emerald-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-graduation-cap text-lg"></i></div>
+                                엘리어트 파동 기초
+                            </a>
+                            <a href="/analysis/" class="flex items-center gap-4 text-white font-bold text-base border-b border-slate-700/50 py-4">
+                                <div class="bg-indigo-500/20 text-indigo-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-chart-line text-lg"></i></div>
+                                차트분석
+                            </a>
+                            <a href="https://getggul.com" target="_blank" class="flex items-center gap-4 text-amber-500 font-black text-base py-4">
+                                <div class="bg-amber-500/20 text-amber-500 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-coins text-lg"></i></div>
+                                7만원 받고 코인투자 시작하기
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            `;
+            let finalHtml = `
+                <!DOCTYPE html>
+                <html lang="ko">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    
+                    <title>${pageTitle}</title>
+                    <meta name="description" content="${pageDesc}">
+                    <meta name="keywords" content="비트코인, 차트분석, 엘리어트파동, 코인시황, 매매전략, GETGGUL">
+                    <meta name="author" content="GETGGUL ANALYSIS">
+                    <link rel="canonical" href="https://getggul.com/analysis/view/${fileName}">
+                    
+                    <meta property="og:type" content="article">
+                    <meta property="og:site_name" content="GETGGUL ANALYSIS">
+                    <meta property="og:title" content="${pageTitle}">
+                    <meta property="og:description" content="${pageDesc}">
+                    <meta property="og:url" content="https://getggul.com/analysis/view/${fileName}">
+                    <meta property="og:image" content="${ogImage}">
+                    <meta property="og:image:width" content="1200">
+                    <meta property="og:image:height" content="630">
+                    
+                    <meta name="twitter:card" content="summary_large_image">
+                    <meta name="twitter:title" content="${pageTitle}">
+                    <meta name="twitter:description" content="${pageDesc}">
+                    <meta name="twitter:image" content="${ogImage}">
+                    
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"><\/script>
+                    <script>
+                      window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+                      gtag('config', 'G-Y028BWS46H');
+                    <\/script>
+
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    __TAILWIND_SCRIPT__
+                    ${finalStyles}
+                </head>
+                <body>
+                    ${navBarHtml}
+
+                    <div id="export-modal" onclick="this.style.display='none'">
+                        <img id="export-modal-img" src="" alt="확대 뷰">
+                    </div>
+
+                    <div class="report-container">
+                        ${clone.innerHTML}
+                    </div>
+
+                    ${termModalHtml}
+                    __THEORY_DATA_SCRIPT__
+                    
+                    __CUSTOM_SCRIPT__
+            ` + '\n</bo' + 'dy>\n</ht' + 'ml>';
+
+            finalHtml = finalHtml.replace('__TAILWIND_SCRIPT__', '<scr' + 'ipt src="https://cdn.tailwindcss.com"></scr' + 'ipt>');
+            // 💡 주의: 파일이 view 폴더 안에 저장되므로, 상위 폴더에 있는 theory_data.js를 불러오도록 경로(../)를 수정했습니다.
+            finalHtml = finalHtml.replace('__THEORY_DATA_SCRIPT__', '<scr' + 'ipt src="../../theory_data.js"></scr' + 'ipt>');
+            finalHtml = finalHtml.replace('__CUSTOM_SCRIPT__', '<scr' + 'ipt>\n' + reportScript + '\n</scr' + 'ipt>');
+
+            const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+
+            if (action === 'preview') {
+                window.open(url, '_blank');
+            } else if (action === 'download') {
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        }
+        // --- [완벽 해결] 전체 삭제(Ctrl+A) 후 서식 갇힘 완벽 방어 ---
+        document.getElementById('canvas-container').addEventListener('input', function(e) {
+            const target = e.target;
+            
+            // 텍스트를 입력/삭제한 곳이 에디터(contenteditable) 영역일 때만 작동
+            if (target.getAttribute('contenteditable') === 'true') {
+                // 눈에 안 보이는 공백(\u200B)과 여백을 제외하고 진짜 글자가 남아있는지 확인
+                const pureText = target.textContent.replace(/\u200B/g, '').trim();
+                
+                // 전체 삭제(Ctrl+A -> Del) 등으로 글자가 아예 없어졌다면?
+                if (pureText === '') {
+                    // 1. 브라우저가 몰래 남겨둔 파란색 span 태그 껍데기를 통째로 파괴 (초기화)
+                    target.innerHTML = '';
+                    
+                    // 2. 브라우저 커서 메모리에 남아있는 모든 서식(색상, 밑줄 등) 강제 리셋
+                    document.execCommand('removeFormat', false, null);
+                }
+            }
+        });
+
+        // ==========================================
+        // 💾 초안 저장 & 불러오기 (Draft System)
+        // ==========================================
+
+        // 1. 초안 저장하기 (파일 다운로드)
+        function saveDraftToFile() {
+            const title = document.getElementById('report-title').innerHTML;
+            const date = document.getElementById('report-date').innerHTML;
+            const blocks = document.getElementById('blocks-area').innerHTML;
+
+            const draftData = {
+                version: "21.0",
+                timestamp: new Date().getTime(),
+                title: title,
+                date: date,
+                blocks: blocks
+            };
+
+            // JSON 형태로 변환
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(draftData));
+            
+            // 안전한 파일명 만들기
+            const safeTitle = document.getElementById('report-title').innerText.replace(/[<>:"/\\|?*]/g, '').trim().substring(0, 15);
+            const fileName = `[임시저장] ${safeTitle}.json`;
+
+            // 강제 다운로드 트리거
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", fileName);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            
+            alert("초안 파일이 다운로드 폴더에 저장되었습니다!");
+        }
+
+        // 2. 초안 불러오기 (파일 업로드)
+        document.getElementById('draft-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const draftData = JSON.parse(event.target.result);
+                    
+                    if(!draftData.blocks) {
+                        alert("올바른 초안 파일이 아닙니다.");
+                        return;
+                    }
+
+                    if(confirm("기존에 작성 중이던 내용은 모두 사라집니다. 초안을 불러오시겠습니까?")) {
+                        // 내용 복구
+                        document.getElementById('report-title').innerHTML = draftData.title;
+                        document.getElementById('report-date').innerHTML = draftData.date;
+                        document.getElementById('blocks-area').innerHTML = draftData.blocks;
+
+                        // ★핵심★ 새로 끼워넣은 HTML 요소들에 자바스크립트 이벤트(드래그앤드롭 등) 다시 달아주기
+                        reinitializeEditorEvents();
+                        alert("초안을 성공적으로 불러왔습니다!");
+                    }
+                } catch (error) {
+                    alert("파일을 읽는 중 오류가 발생했습니다.");
+                    console.error(error);
+                }
+            };
+            reader.readAsText(file);
+            
+            // 같은 파일을 다시 선택해도 작동하도록 input 초기화
+            this.value = '';
+        });
+
+        // 3. 불러온 블록들에 이벤트 다시 생명 불어넣기
+        function reinitializeEditorEvents() {
+            // Sortable 재활성화
+            initSortable(document.getElementById('blocks-area'));
+            document.querySelectorAll('.inner-blocks-area').forEach(initSortable);
+
+            // 각 블록들 드래그앤드롭 및 페이스트 이벤트 재활성화
+            document.querySelectorAll('.block-wrapper').forEach(wrapper => {
+                setupDragAndDrop(wrapper);
+                setupPasteEvent(wrapper);
+            });
+        }
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

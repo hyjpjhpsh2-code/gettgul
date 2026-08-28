@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분석 200% 활용법 | GETGGUL ANALYSIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #0f172a; color: #f1f5f9; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .glass-header { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        /* SVG 차트 애니메이션용 CSS */
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+        .animate-draw {
+            stroke-dasharray: 1500;
+            stroke-dashoffset: 1500;
+            animation: drawLine 2s ease-out forwards;
+        }
+        
+        /* 모달 스크롤바 숨기기 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+<body class="selection:bg-indigo-500 selection:text-white">
+
+    <!-- 상단 네비게이션 바 -->
+    <nav class="glass-header sticky top-0 z-50 flex flex-col relative transition-all">
+        <div class="px-4 md:px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
+            <a href="/analysis/" class="flex items-center gap-2 group">
+                <div class="bg-indigo-500 text-white p-2 rounded-xl">
+                    <i class="fas fa-chart-pie text-lg"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black italic text-xl tracking-tight text-white">GETGGUL <span class="text-indigo-400">ANALYSIS</span></span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-6">
+                <a href="/analysis/guide.html" class="flex items-center gap-2 text-indigo-300 hover:text-white font-bold text-sm transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-indigo-500">
+                    <i class="fas fa-book-open text-indigo-400"></i> 분석 200% 활용법
+                </a>
+                <a href="/analysis/theory.html" class="flex items-center gap-2 text-slate-300 hover:text-white font-bold text-sm transition-colors">
+                    <i class="fas fa-graduation-cap text-emerald-400"></i> 엘리어트 파동 기초
+                </a>
+                <a href="/analysis/" class="flex items-center gap-2 text-slate-300 hover:text-white font-bold text-sm transition-colors">
+                    <i class="fas fa-chart-line text-slate-300"></i> 차트분석
+                </a>
+                <a href="https://getggul.com" target="_blank" class="flex items-center gap-2 bg-gradient-to-r from-orange-400 to-orange-500 text-white px-5 py-2.5 rounded-lg font-black text-sm shadow-lg hover:brightness-110 transition-all ml-2">
+                    <i class="fas fa-coins text-yellow-100"></i> 7만원 받고 코인투자 시작하기
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-white text-3xl p-1 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-dropdown" class="hidden md:hidden bg-[#0f172a] border-t border-slate-700/50 w-full absolute top-full left-0 z-50 shadow-2xl">
+            <div class="flex flex-col px-6 py-2">
+                <a href="/analysis/guide.html" class="flex items-center gap-4 text-white font-bold text-base border-b border-slate-700/50 py-4">
+                    <div class="bg-indigo-500/20 text-indigo-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-book-open text-lg"></i></div>
+                    분석 200% 활용법
+                </a>
+                <a href="/analysis/theory.html" class="flex items-center gap-4 text-slate-200 font-bold text-base border-b border-slate-700/50 py-4">
+                    <div class="bg-emerald-500/20 text-emerald-400 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-graduation-cap text-lg"></i></div>
+                    엘리어트 파동 기초
+                </a>
+                <a href="/analysis/" class="flex items-center gap-4 text-slate-200 font-bold text-base border-b border-slate-700/50 py-4">
+                    <div class="bg-slate-600/40 text-slate-300 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-chart-line text-lg"></i></div>
+                    차트분석
+                </a>
+                <a href="https://getggul.com" target="_blank" class="flex items-center gap-4 text-amber-500 font-black text-base py-4">
+                    <div class="bg-amber-500/20 text-amber-500 w-10 h-10 flex items-center justify-center rounded-xl"><i class="fas fa-coins text-lg"></i></div>
+                    7만원 받고 코인투자 시작하기
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 md:px-8 py-12">
+        
+        <!-- 헤더 영역 -->
+        <div class="mb-12 md:mb-16 text-center">
+            <div class="inline-block bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-bold px-3 py-1 rounded-full text-xs mb-4">
+                USER GUIDELINE
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+                겟꿀 분석 <span class="text-indigo-400">200%</span> 활용하기
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+                이 사이트는 맹목적인 타점을 떠먹여 주는 리딩방이 아닙니다. <br class="hidden md:block">
+                당신의 매매 시나리오를 검증하고, 스스로 차트를 분석하는 힘을 기르기 위한 <strong>전문가용 나침반</strong>입니다.
+            </p>
+        </div>
+
+        <!-- 섹션 1: 마인드셋 & 정체성 -->
+        <div class="bg-slate-800/30 border border-slate-700/50 rounded-3xl p-6 md:p-10 mb-8 shadow-xl">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fas fa-question-circle text-2xl text-rose-400"></i>
+                <h2 class="text-xl md:text-2xl font-black text-slate-100">01. "그래서 상승이야 하락이야?"</h2>
+            </div>
+            <div class="text-slate-400 leading-loose text-sm md:text-base font-medium space-y-4">
+                <p>
+                    만약 명확한 방향이나 당장의 진입 타점(Long/Short)만을 원하신다면, 겟꿀(GETGGUL)은 적합하지 않을 수 있습니다. <strong>우리는 '리딩방'과 그 목적이 완전히 다릅니다.</strong>
+                </p>
+                <p>
+                    리딩방은 맹목적인 추종을 낳고 결과에 대한 책임을 남에게 전가하게 만들지만, 겟꿀은 <strong>기초에 근거한 엘리어트 파동 이론을 바탕으로 객관적인 차트 분석을 기록</strong>합니다. 이는 글을 작성하는 주인장 스스로의 공부를 위한 아카이브임과 동시에, 리포트를 읽는 유저 여러분 모두가 <strong>스스로 차트를 분석하고 자립할 수 있는 힘</strong>을 기르도록 돕기 위함입니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 섹션 2: 여러 시나리오와 대응 -->
+        <div class="bg-slate-800/30 border border-slate-700/50 rounded-3xl p-6 md:p-10 mb-8 shadow-xl relative overflow-hidden">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fas fa-map-signs text-2xl text-amber-400"></i>
+                <h2 class="text-xl md:text-2xl font-black text-slate-100">02. 여러 가능한 시나리오의 정리와 대응</h2>
+            </div>
+            <p class="text-slate-400 leading-loose text-sm md:text-base font-medium mb-6">
+                차트는 100% 예측의 영역이 아니라 대응의 영역입니다. 겟꿀은 시장에서 발생 가능한 여러 시나리오를 미리 정리해 둡니다. 각 관점 카드의 <strong>상태 뱃지</strong>를 통해 메인 관점과 서브 관점의 변화를 추적하며 유연하게 대응하세요.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-colors">
+                    <div class="mb-3"><span class="bg-[#10b981] text-white text-[11px] px-3 py-1 rounded-full font-black">유지</span></div>
+                    <h3 class="text-slate-200 font-bold text-sm mb-2">시나리오 순항 중</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">이전 리포트에서 제시했던 기초 파동 카운팅과 추세가 현재도 유효함을 의미합니다.</p>
+                </div>
+                <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-700 hover:border-blue-500/50 transition-colors">
+                    <div class="mb-3"><span class="bg-[#3b82f6] text-white text-[11px] px-3 py-1 rounded-full font-black">신규</span></div>
+                    <h3 class="text-slate-200 font-bold text-sm mb-2">새로운 변곡점 발생</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">기존 파동이 마무리되거나, 새로운 하부 파동 시나리오가 추가되었음을 의미합니다.</p>
+                </div>
+                <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-700 hover:border-rose-500/50 transition-colors">
+                    <div class="mb-3"><span class="bg-[#ef4444] text-white text-[11px] px-3 py-1 rounded-full font-black">폐기</span></div>
+                    <h3 class="text-slate-200 font-bold text-sm mb-2">손절 및 관점 무효화</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">예상했던 지지/저항이 깨졌음을 인정하고 해당 시나리오를 즉각 폐기하여 리스크를 관리합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 섹션 3: 교차 검증 (HTML SVG) -->
+        <div class="bg-slate-800/30 border border-slate-700/50 rounded-3xl p-6 md:p-10 mb-8 shadow-xl overflow-hidden relative">
+            
+            <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+
+            <div class="flex items-center gap-3 mb-8 relative z-10">
+                <i class="fas fa-sync-alt text-2xl text-indigo-400"></i>
+                <h2 class="text-xl md:text-2xl font-black text-slate-100">03. 매일 확인하는 관점 교차 검증 (Cross-Check)</h2>
+            </div>
+            
+            <p class="text-slate-400 leading-loose text-sm md:text-base font-medium mb-8 relative z-10">
+                실제 투자 시 본인의 분석만 고집하기보다, <strong>"내가 놓친 다른 관점이나 시나리오가 있는지"</strong> 매일 겟꿀 리포트를 방문하여 확인하세요. 아래 차트는 내 분석과 겟꿀의 분석을 교차 검증하여 안전한 시나리오를 도출해내는 과정의 시각적 예시입니다.
+            </p>
+
+            <!-- HTML/SVG 차트 컨테이너 -->
+            <div class="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 md:p-8 relative shadow-inner z-10 mb-8">
+                <!-- 범례 -->
+                <div class="absolute top-4 left-4 md:top-6 md:left-6 flex gap-4 text-xs font-bold bg-slate-800/80 px-3 py-2 rounded-lg backdrop-blur border border-slate-700">
+                    <div class="flex items-center gap-2"><div class="w-3 h-0.5 bg-slate-500"></div>기존 추세</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-0.5 bg-indigo-500"></div>조정 파동</div>
+                </div>
+
+                <!-- SVG 차트 렌더링 -->
+                <div class="w-full aspect-[16/9] max-h-[400px] relative">
+                    <svg viewBox="0 0 800 400" class="w-full h-full overflow-visible">
+                        <!-- 배경 그리드선 -->
+                        <line x1="0" y1="100" x2="800" y2="100" stroke="#334155" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
+                        <line x1="0" y1="200" x2="800" y2="200" stroke="#334155" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
+                        <line x1="0" y1="300" x2="800" y2="300" stroke="#334155" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
+                        
+                        <!-- 1. 기존 추세선 (회색) -->
+                        <path d="M 0 350 Q 100 250, 150 50" fill="none" stroke="#64748b" stroke-width="3" stroke-linecap="round" />
+                        
+                        <!-- 2. ABC 조정 파동 (인디고 굵은 선, 애니메이션 적용) -->
+                        <path d="M 150 50 L 350 250 L 500 120 L 750 350" fill="none" stroke="#6366f1" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" class="animate-draw" />
+                        
+                        <!-- 3. 파동 레이블 (A, B, C 텍스트) -->
+                        <text x="350" y="280" fill="#cbd5e1" font-size="24" font-weight="900" font-family="sans-serif" text-anchor="middle">A</text>
+                        <text x="500" y="90" fill="#cbd5e1" font-size="24" font-weight="900" font-family="sans-serif" text-anchor="middle">B</text>
+                        <text x="750" y="380" fill="#cbd5e1" font-size="24" font-weight="900" font-family="sans-serif" text-anchor="middle">C</text>
+
+                        <!-- 4. 진입 타점 (B파동 고점 확인 후 꺾이는 지점) -->
+                        <line x1="500" y1="120" x2="570" y2="185" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5" />
+                        <circle cx="570" cy="185" r="8" fill="#f43f5e" class="animate-pulse" />
+                        <circle cx="570" cy="185" r="15" fill="none" stroke="#f43f5e" stroke-width="2" opacity="0.5" class="animate-ping" style="animation-duration: 2s;" />
+                        
+                        <g transform="translate(590, 180)">
+                            <rect x="0" y="-20" width="130" height="40" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5" />
+                            <text x="15" y="4" fill="#f43f5e" font-size="12" font-weight="900" font-family="sans-serif">최적 진입 타점</text>
+                        </g>
+
+                        <!-- 피보나치 되돌림 가이드 -->
+                        <line x1="350" y1="120" x2="500" y2="120" stroke="#10b981" stroke-width="1" stroke-dasharray="2" />
+                        <text x="425" y="110" fill="#10b981" font-size="12" font-weight="bold" font-family="sans-serif" text-anchor="middle">Fib 0.618 부근 저항</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 설명 텍스트 -->
+            <div class="grid md:grid-cols-2 gap-6 relative z-10">
+                <div class="bg-slate-900/40 p-5 rounded-2xl border border-slate-700/50">
+                    <h3 class="text-rose-400 font-black mb-2 flex items-center gap-2"><i class="fas fa-times-circle"></i> 내 관점에 갇힌 뇌동매매</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        A파동 하락 시 공포에 휩쓸려 추격 매도하거나, B파동 반등에 "다시 상승장이다!"라며 무작정 매수를 누릅니다. 본인의 좁은 시야에 갇혀 시장의 큰 시나리오를 읽지 못한 결과입니다.
+                    </p>
+                </div>
+                <div class="bg-indigo-900/20 p-5 rounded-2xl border border-indigo-500/30">
+                    <h3 class="text-indigo-400 font-black mb-2 flex items-center gap-2"><i class="fas fa-check-circle"></i> 겟꿀을 통한 교차 검증</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        진입 전 겟꿀 리포트를 열어 시나리오를 점검합니다. 파동 구조상 B파 반등의 저항대를 확인하고 <strong>안전한 C파 하락점(붉은 점)</strong>을 도출하는 겟꿀의 관점을 참고하여 내 매매의 승률을 높입니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 섹션 4: 원클릭 사전 -->
+        <div class="bg-slate-800/30 border border-slate-700/50 rounded-3xl p-6 md:p-10 mb-8 shadow-xl">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fas fa-magic text-2xl text-cyan-400"></i>
+                <h2 class="text-xl md:text-2xl font-black text-slate-100">04. 함께 공부하는 공간 (원클릭 백과사전)</h2>
+            </div>
+            <p class="text-slate-400 leading-loose text-sm md:text-base font-medium mb-6">
+                이곳은 주인장과 유저 모두가 엘리어트 파동 이론을 실전 차트에 적용하며 <strong>함께 공부하는 공간</strong>입니다. 리포트를 읽다가 헷갈리는 파동 용어가 나오면 다른 곳에서 찾을 필요 없이, <strong class="text-white">아래 점선이 쳐진 단어를 클릭하여 즉시 확인하세요!</strong>
+            </p>
+
+            <!-- 인터랙티브 클릭 모달 트리거 예시 -->
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 relative text-slate-300 leading-loose font-medium text-center">
+                "현재 비트코인은 거대한 상승 사이클의 
+                <button onclick="openTermModal('impulse')" class="text-indigo-400 border-b-2 border-indigo-400 border-dashed font-bold hover:bg-indigo-500/10 transition-colors px-1 py-0.5 rounded outline-none focus:ring-2 focus:ring-indigo-500/50">
+                    임펄스 파동
+                </button>을 형성하며 3파의 정점을 향해 가고 있습니다."
+            </div>
+        </div>
+
+        <!-- [새로 추가됨] 섹션 5: 기초 이론 학습 유도 -->
+        <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 rounded-3xl p-8 md:p-12 mb-8 shadow-2xl relative overflow-hidden text-center">
+            <!-- 배경 데코레이션 -->
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col items-center">
+                <div class="bg-slate-900 border border-slate-700 p-4 rounded-full mb-6 shadow-inner">
+                    <i class="fas fa-map-marked-alt text-4xl text-emerald-400"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-black text-white mb-4">05. 지도를 읽는 법부터 확실하게!</h2>
+                <p class="text-slate-300 leading-relaxed text-sm md:text-base font-medium max-w-2xl mx-auto mb-8">
+                    겟꿀의 모든 분석 리포트는 <strong>'엘리어트 파동 이론'</strong>을 공통 언어로 사용합니다.<br>
+                    이론에 대한 기초 지식 없이 분석글을 읽는 것은 기호의 의미를 모른 채 지도를 보는 것과 같습니다. <br><br>
+                    분석을 200% 완벽하게 내 것으로 흡수하고 싶다면, <strong class="text-emerald-400">반드시 파동 이론의 기초를 먼저 숙지해 주세요.</strong><br>
+                    초보자도 쉽게 이해할 수 있도록 직접 제작한 '파동 백과사전'이 준비되어 있습니다.
+                </p>
+
+                <a href="theory.html" class="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black text-lg py-4 px-10 rounded-2xl shadow-xl shadow-emerald-500/20 transform hover:-translate-y-1 transition-all">
+                    엘리어트 파동 기초 공부하기 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="border-t border-slate-800 mt-auto bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-slate-500 text-sm font-medium">
+                © 2026 GETGGUL ANALYSIS. All rights reserved.
+            </div>
+            <div class="flex gap-4 text-slate-400">
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-telegram text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 원클릭 백과사전 모달 (클릭 시 팝업) -->
+    <div id="term-modal" class="fixed inset-0 z-[9999] bg-slate-900/90 backdrop-blur-sm hidden items-center justify-center p-4" onclick="closeTermModal(event)">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]" onclick="event.stopPropagation()">
+            <!-- 헤더 -->
+            <div class="bg-slate-900/50 px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+                <h3 class="text-lg font-black text-indigo-400 flex items-center gap-2">
+                    <i class="fas fa-book text-sm"></i> 임펄스 파동 (Impulse Wave)
+                </h3>
+                <button onclick="closeTermModal()" class="text-slate-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-700">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- 본문 내용 -->
+            <div class="p-6 overflow-y-auto no-scrollbar">
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                    시장 추세와 동일한 방향으로 강하게 나아가는 <strong>5개의 충격 파동(1, 2, 3, 4, 5파)</strong>을 의미합니다. 엘리어트 파동 이론의 가장 기본이 되는 구조이며, 주로 3파가 가장 길고 강력하게 형성됩니다.
+                </p>
+
+                <!-- 임펄스 파동 시각화 SVG 차트 -->
+                <div class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-inner">
+                    <div class="w-full aspect-[2/1] relative">
+                        <svg viewBox="0 0 600 300" class="w-full h-full overflow-visible">
+                            <!-- 배경 가이드 선 -->
+                            <line x1="0" y1="80" x2="600" y2="80" stroke="#334155" stroke-dasharray="4" opacity="0.5"/>
+                            <line x1="0" y1="180" x2="600" y2="180" stroke="#334155" stroke-dasharray="4" opacity="0.5"/>
+                            
+                            <!-- 1~5파 충격 파동 선 -->
+                            <path id="impulse-path" d="M 50 250 L 150 150 L 230 200 L 400 50 L 480 120 L 570 20" fill="none" stroke="#6366f1" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+                            
+                            <!-- 파동 넘버링 동그라미 및 텍스트 -->
+                            <g>
+                                <circle cx="150" cy="150" r="14" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+                                <text x="150" y="155" fill="#f1f5f9" font-size="14" font-weight="bold" text-anchor="middle">1</text>
+                            </g>
+                            <g>
+                                <circle cx="230" cy="200" r="14" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+                                <text x="230" y="205" fill="#f1f5f9" font-size="14" font-weight="bold" text-anchor="middle">2</text>
+                            </g>
+                            <g>
+                                <!-- 3파 강조 (가장 긴 파동) -->
+                                <circle cx="400" cy="50" r="16" fill="#6366f1" />
+                                <text x="400" y="55" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+                            </g>
+                            <g>
+                                <circle cx="480" cy="120" r="14" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+                                <text x="480" y="125" fill="#f1f5f9" font-size="14" font-weight="bold" text-anchor="middle">4</text>
+                            </g>
+                            <g>
+                                <circle cx="570" cy="20" r="14" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+                                <text x="570" y="25" fill="#f1f5f9" font-size="14" font-weight="bold" text-anchor="middle">5</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 푸터 (닫기 버튼) -->
+            <div class="bg-slate-900/30 px-6 py-4 border-t border-slate-700 flex justify-end">
+                <button onclick="closeTermModal()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-lg transition-colors text-sm">
+                    확인
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트 모음 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 모바일 햄버거 메뉴 토글
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const dropdown = document.getElementById('mobile-dropdown');
+            if(menuBtn && dropdown) {
+                menuBtn.addEventListener('click', () => {
+                    dropdown.classList.toggle('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    if(dropdown.classList.contains('hidden')) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    } else {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    }
+                });
+            }
+        });
+
+        // 원클릭 백과사전 모달 제어 함수
+        function openTermModal(term) {
+            const modal = document.getElementById('term-modal');
+            const path = document.getElementById('impulse-path');
+            
+            // 모달 열기
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 뒤쪽 배경 스크롤 방지
+            
+            // 모달 열릴 때마다 차트 선 긋는 애니메이션 초기화 후 다시 실행
+            if(path) {
+                path.classList.remove('animate-draw');
+                void path.offsetWidth; // DOM Reflow (애니메이션 재시작 트릭)
+                path.classList.add('animate-draw');
+            }
+        }
+
+        function closeTermModal(e) {
+            // 백그라운드 클릭 시 또는 닫기 버튼 클릭 시 닫기
+            if (!e || e.target.id === 'term-modal' || !e.target.closest('#term-modal > div')) {
+                document.getElementById('term-modal').style.display = 'none';
+                document.body.style.overflow = ''; // 스크롤 원복
+            }
+        }
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

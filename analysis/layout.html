@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GETGGUL 비트코인 분석 | 마스터 전략 트리</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; color: #1e293b; overflow-x: hidden; word-break: keep-all; scroll-behavior: smooth; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* [1. PC 레이아웃: 가로스크롤 제거 및 그리드 배치] */
+        .card-container { display: flex; gap: 1.5rem; }
+        @media (min-width: 1024px) {
+            .card-container { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 2rem; overflow: visible !important; }
+            .setup-grid-pc { display: grid !important; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+            .perspective-card { width: 100% !important; min-width: 0 !important; }
+            .scroll-arrow { display: none !important; }
+        }
+        @media (max-width: 1023px) {
+            .card-container { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 1.5rem; }
+            .perspective-card { min-width: 280px; width: 85vw; flex-shrink: 0; }
+        }
+
+        /* [2. 애니메이션 로직 수정: 붙여쓰기(.is-visible.reveal-item)로 투명도 해결] */
+        @keyframes revealUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal-item { opacity: 0; }
+        .reveal-item.is-visible { animation: revealUp 0.6s ease-out forwards; } /* 공백 제거 */
+
+        /* [3. UI 디자인 요소] */
+        .perspective-card { background: white; border-radius: 2.5rem; border: 2px solid #e2e8f0; position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; }
+        .perspective-card.active { border-color: #4f46e5; box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.25); transform: scale(1.03); z-index: 10; opacity: 1 !important; }
+        .card-container.has-active .perspective-card:not(.active) { opacity: 0.3 !important; transform: scale(0.97); }
+
+        .id-badge { position: absolute; top: -2px; left: -2px; background: #1e293b; color: white; width: 52px; height: 42px; border-radius: 2rem 0 1.5rem 0; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; z-index: 20; border: 2px solid #4f46e5; }
+        .status-badge { position: absolute; top: 1.5rem; right: 1.5rem; padding: 4px 12px; border-radius: 99px; font-size: 11px; font-weight: 900; z-index: 10; }
+        .status-maintained { background: #ecfdf5; color: #059669; border: 1px solid #10b981; }
+        .status-discarded { background: #fef2f2; color: #dc2626; border: 1px solid #ef4444; }
+        
+        .img-frame { width: 100%; height: 240px; background: #000; display: flex; justify-content: center; overflow: hidden; border-radius: 1.5rem; position: relative; }
+        .fit-img { max-width: 100%; max-height: inherit; object-fit: contain; }
+        .zoom-btn { position: absolute; bottom: 1rem; right: 1rem; background: rgba(51, 65, 85, 0.7); color: white; padding: 0.65rem; border-radius: 9999px; backdrop-filter: blur(4px); z-index: 20; }
+
+        /* [4. 최종 총평 스타일] */
+        #final-review-section { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 3rem; padding: 4rem 2rem; margin: 5rem auto; max-width: 1200px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .review-content { color: #f8fafc; font-size: 1.5rem; font-weight: 800; line-height: 1.7; word-break: keep-all; }
+
+        #floating-bar { position: fixed; bottom: -120px; left: 0; right: 0; padding: 25px; z-index: 100; transition: 0.5s; }
+        #floating-bar.show { bottom: 0; }
+        #zoom-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(15px); }
+        #zoom-modal.show { display: flex; }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="pb-20">
+
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 px-6 py-4 flex justify-between items-center">
+        <div class="font-black italic text-xl tracking-tighter text-slate-800">GETGGUL <span class="text-indigo-600">비트코인 분석</span></div>
+        <div class="text-[10px] font-black text-slate-400">MASTER STRATEGY V14.6</div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto mt-12 space-y-32">
+
+        <section id="feedback-section" class="px-6 reveal-item is-visible">
+            <h2 class="text-3xl font-black italic text-slate-800 mb-10 border-l-8 border-slate-300 pl-4">이전 분석 피드백</h2>
+            <div id="feedback-container" class="card-container">
+                </div>
+        </section>
+
+        <section class="relative px-6">
+            <h2 class="text-3xl font-black italic text-slate-800 mb-10 border-l-8 border-indigo-600 pl-4">오늘의 대관점</h2>
+            <div id="macro-container" class="card-container">
+                <div onclick="selectMacro('A', this)" class="perspective-card p-6">
+                    <div class="id-badge">A</div><div class="status-badge bg-indigo-600 text-white font-black">60%</div>
+                    <div class="img-frame mb-6"><img src="macroA.jpg" class="fit-img"><button onclick="openModal(this)" class="zoom-btn"><i class="fas fa-expand-alt"></i></button></div>
+                    <h3 class="text-xl font-black mb-2 italic">하락 임펄스 종결</h3>
+                    <p class="text-xs text-slate-500 font-bold">강력한 반등 추세가 시작되는 메인 관점입니다.</p>
+                </div>
+                <div onclick="selectMacro('B', this)" class="perspective-card p-6">
+                    <div class="id-badge">B</div><div class="status-badge bg-indigo-600 text-white font-black">30%</div>
+                    <div class="img-frame mb-6"><img src="macroB.jpg" class="fit-img"><button onclick="openModal(this)" class="zoom-btn"><i class="fas fa-expand-alt"></i></button></div>
+                    <h3 class="text-xl font-black mb-2 italic">복합 조정 연장</h3>
+                    <p class="text-xs text-slate-500 font-bold">방향성 없이 지루한 박스권 횡보가 이어지는 시나리오입니다.</p>
+                </div>
+                <div onclick="selectMacro('C', this)" class="perspective-card p-6">
+                    <div class="id-badge">C</div><div class="status-badge bg-indigo-600 text-white font-black">10%</div>
+                    <div class="img-frame mb-6"><img src="macroC.jpg" class="fit-img"><button onclick="openModal(this)" class="zoom-btn"><i class="fas fa-expand-alt"></i></button></div>
+                    <h3 class="text-xl font-black mb-2 italic">하락 임펄스 연장</h3>
+                    <p class="text-xs text-slate-500 font-bold">전저점을 이탈하며 대하락으로 이어지는 리스크 시나리오입니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sub-section" class="hidden relative border-t border-slate-200 pt-20 px-6">
+            <h2 class="text-2xl font-black italic text-indigo-600 mb-10 border-l-8 border-indigo-400 pl-4">세부 시나리오 (<span id="macro-id-text"></span>)</h2>
+            <div id="sub-scroller" class="card-container"></div>
+        </section>
+
+        <section id="setup-section" class="hidden border-t border-slate-200 pt-20 px-6">
+            <h2 class="text-3xl font-black italic text-emerald-600 mb-16 text-center">실전 투자 전략 셋업</h2>
+            <div id="setup-grid" class="setup-grid-pc card-container"></div>
+            <div id="final-review-section" class="hidden reveal-item">
+                <span class="text-indigo-400 text-[10px] font-black uppercase tracking-widest block mb-4">Final Conclusion</span>
+                <p id="final-review-text" class="review-content"></p>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="floating-bar">
+        <div class="max-w-md mx-auto bg-indigo-900/95 backdrop-blur-xl p-4 rounded-3xl shadow-2xl border border-white/10">
+            <button onclick="handleViewDetails()" class="bg-white text-indigo-900 px-12 py-4 rounded-2xl font-black text-sm w-full flex items-center justify-center gap-3">
+                세부 시나리오 펼쳐보기 <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="zoom-modal" onclick="this.classList.remove('show')">
+        <div class="max-w-5xl w-full bg-black rounded-[3rem] overflow-hidden mx-4" onclick="event.stopPropagation()">
+            <img id="modal-img" src="" class="w-full h-auto max-h-[80vh] object-contain">
+            <div class="p-8 text-center"><button onclick="document.getElementById('zoom-modal').classList.remove('show')" class="bg-white/10 text-white px-8 py-2 rounded-full font-bold">닫기</button></div>
+        </div>
+    </div>
+
+    <script>
+        // [완벽한 9x4 데이터 구조]
+        const masterData = {
+            feedback: [
+                { id: "A", date: "03.18 분석", status: "maintained", title: "하락 임펄스 종결", desc: "지지선($64.5K) 사수하며 반등 진행 중", reason: "", img: "prev_macroA.jpg" },
+                { id: "B", date: "03.18 분석", status: "discarded", title: "박스권 하방 이탈", desc: "강력한 매수세 유입으로 하방 관점 무효화", reason: "$69K 돌파 및 안착 확인", img: "prev_macroB.jpg" },
+                { id: "C", date: "03.18 분석", status: "maintained", title: "기간 조정 연장", desc: "여전히 하락 추세 내에 존재", reason: "", img: "prev_macroC.jpg" }
+            ],
+            "A": {
+                subs: [
+                    { id: "A-1", img: "subA1.jpg", title: "지그재그 abc 조정", desc: "0.618 지지 부근", review: "🚀 [A-1] 지지 라인 사수 시 손익비 최적의 매수 타점입니다." },
+                    { id: "A-2", img: "subA2.jpg", title: "삼각 수렴 상방 돌파", desc: "강력한 변동성 예고", review: "🔥 [A-2] 수렴 상단 돌파 시 추격 매수가 유효한 폭발 구간입니다." },
+                    { id: "A-3", img: "subA3.jpg", title: "플랫형 조정 마무리", desc: "매물대 지지 테스트", review: "⏳ [A-3] 지루한 횡보이나 분할 매집에 가장 유리한 자리입니다." }
+                ],
+                setup: {
+                    "A-1": [ {label:"Entry", desc:"$68,250", img:"A1_1.jpg", note:"피보나치 타점"}, {label:"Stop Loss", desc:"$66,400", img:"A1_2.jpg", note:"저점 이탈 시"}, {label:"Target", desc:"$74,800", img:"A1_3.jpg", note:"1차 목표가"}, {label:"Invalidation", desc:"$65,900", img:"A1_4.jpg", note:"관점 폐기"} ],
+                    "A-2": [ {label:"Entry", desc:"$70.1K", img:"A2_1.jpg", note:"수렴 상단"}, {label:"Stop Loss", desc:"$68.5K", img:"A2_2.jpg", note:"내부 회귀"}, {label:"Target", desc:"$78K", img:"A2_3.jpg", note:"목표 수익"}, {label:"Invalidation", desc:"$67K", img:"A2_4.jpg", note:"추세 이탈"} ],
+                    "A-3": [ {label:"Entry", desc:"$67.2K", img:"A3_1.jpg", note:"매집 구간"}, {label:"Stop Loss", desc:"$65.8K", img:"A3_2.jpg", note:"박스 붕괴"}, {label:"Target", desc:"$72.5K", img:"A3_3.jpg", note:"박스 상단"}, {label:"Invalidation", desc:"$64K", img:"A3_4.jpg", note:"매물대 이탈"} ]
+                }
+            },
+            "B": {
+                subs: [
+                    { id: "B-1", img: "subB1.jpg", title: "박스권 하단 횡보", desc: "매물대 사이클", review: "📦 [B-1] 방향성이 나올 때까지 박스권 하단 매수 전략이 유리합니다." },
+                    { id: "B-2", img: "subB2.jpg", title: "하락 다이버전스 중첩", desc: "상승세 둔화 신호", review: "⚠️ [B-2] 힘이 빠지고 있습니다. 무리한 진입보다 현금 확보가 우선입니다." },
+                    { id: "B-3", img: "subB3.jpg", title: "기간 조정 무한 연장", desc: "거래량 감소 횡보", review: "💤 [B-3] 지루한 장세입니다. 뇌동매매보다는 휴식을 권장합니다." }
+                ],
+                setup: {
+                    "B-1": [ {label:"Entry", desc:"$64.5K", img:"B1_1.jpg", note:"리테스트"}, {label:"Stop Loss", desc:"$63K", img:"B1_2.jpg", note:"이탈 시"}, {label:"Target", desc:"$69K", img:"B1_3.jpg", note:"상단"}, {label:"Invalidation", desc:"$62K", img:"B1_4.jpg", note:"추세 붕괴"} ],
+                    "B-2": [ {label:"Entry", desc:"$69.5K", img:"B2_1.jpg", note:"숏 타점"}, {label:"Stop Loss", desc:"$71.5K", img:"B2_2.jpg", note:"고점 돌파"}, {label:"Target", desc:"$65K", img:"B2_3.jpg", note:"하단 지지"}, {label:"Invalidation", desc:"$72K", img:"B2_4.jpg", note:"강세 전환"} ],
+                    "B-3": [ {label:"Entry", desc:"관망", img:"B3_1.jpg", note:"대기"}, {label:"Stop Loss", desc:"-", img:"B3_2.jpg", note:"-"}, {label:"Target", desc:"-", img:"B3_3.jpg", note:"-"}, {label:"Invalidation", desc:"$60K", img:"B3_4.jpg", note:"위험"} ]
+                }
+            },
+            "C": {
+                subs: [
+                    { id: "C-1", img: "subC1.jpg", title: "임펄스 5파 하락", desc: "$60K 붕괴 임박", review: "🚨 [C-1] 공포 구간입니다. 모든 매수 관점을 접고 숏 대응이 유리합니다." },
+                    { id: "C-2", img: "subC2.jpg", title: "하락 확장형 패턴", desc: "변동성 극대화", review: "📉 [C-2] 바닥 확인 전까지는 절대 손을 대지 마세요. 보수적 대응뿐입니다." },
+                    { id: "C-3", img: "subC3.jpg", title: "데드캣 후 폭락", desc: "기술적 반등 주의", review: "🪤 [C-3] 가짜 반등에 속지 마세요. 하락 추세 속의 일시적인 속임수입니다." }
+                ],
+                setup: {
+                    "C-1": [ {label:"Entry", desc:"$67K 숏", img:"C1_1.jpg", note:"반등 시"}, {label:"Stop Loss", desc:"$69K", img:"C1_2.jpg", note:"추세 전환"}, {label:"Target", desc:"$58K", img:"C1_3.jpg", note:"전저 하향"}, {label:"Invalidation", desc:"$70K", img:"C1_4.jpg", note:"관점 폐기"} ],
+                    "C-2": [ {label:"Entry", desc:"$65K 숏", img:"C2_1.jpg", note:"추격"}, {label:"Stop Loss", desc:"$66.5K", img:"C2_2.jpg", note:"반등 확인"}, {label:"Target", desc:"$55K", img:"C2_3.jpg", note:"하단"}, {label:"Invalidation", desc:"$68K", img:"C2_4.jpg", note:"둔화"} ],
+                    "C-3": [ {label:"Entry", desc:"$66K 숏", img:"C3_1.jpg", note:"지점"}, {label:"Stop Loss", desc:"$68K", img:"C3_2.jpg", note:"전환"}, {label:"Target", desc:"$61K", img:"C3_3.jpg", note:"목표"}, {label:"Invalidation", desc:"$69.5K", img:"C3_4.jpg", note:"반등"} ]
+                }
+            }
+        };
+
+        function renderFeedback() {
+            const container = document.getElementById('feedback-container');
+            masterData.feedback.forEach(item => {
+                const isMaintained = item.status === 'maintained';
+                const card = document.createElement('div');
+                card.className = 'perspective-card p-6 border-slate-200';
+                card.innerHTML = `
+                    <div class="id-badge bg-slate-400 border-none font-black">${item.id}</div>
+                    <div class="status-badge ${isMaintained ? 'status-maintained' : 'status-discarded'}">
+                        ${isMaintained ? '<i class="fas fa-check-circle mr-1"></i> 관점 유지' : '<i class="fas fa-times-circle mr-1"></i> 관점 폐기'}
+                    </div>
+                    <div class="text-[10px] font-black text-slate-400 mb-2 uppercase">${item.date}</div>
+                    <div class="img-frame mb-4 h-[160px] grayscale-[0.6] opacity-70"><img src="${item.img}" class="fit-img"></div>
+                    <h4 class="font-black text-slate-800 mb-1">${item.title}</h4>
+                    <p class="text-[11px] text-slate-500 font-bold mb-3">${item.desc}</p>
+                    ${!isMaintained ? `<div class="bg-red-50 p-3 rounded-xl border border-red-100"><p class="text-[10px] text-red-600 font-black leading-tight">폐기근거: ${item.reason}</p></div>` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        let currentMacroId = null;
+        function selectMacro(id, el) {
+            currentMacroId = id; document.getElementById('macro-container').classList.add('has-active');
+            document.querySelectorAll('#macro-container .perspective-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active'); document.getElementById('macro-id-text').innerText = id;
+            document.getElementById('sub-section').classList.add('hidden'); document.getElementById('setup-section').classList.add('hidden');
+            document.getElementById('floating-bar').classList.add('show');
+        }
+
+        function handleViewDetails() {
+            const section = document.getElementById('sub-section'); const scroller = document.getElementById('sub-scroller');
+            section.classList.remove('hidden'); scroller.innerHTML = '';
+            window.scrollTo({ top: section.offsetTop - 80, behavior: 'smooth' });
+            setTimeout(() => {
+                masterData[currentMacroId].subs.forEach((sub, index) => {
+                    const card = document.createElement('div'); card.className = 'perspective-card p-6 reveal-item is-visible';
+                    card.style.animationDelay = (index * 0.15) + 's';
+                    card.onclick = () => selectSub(sub.id, card);
+                    card.innerHTML = `<div class="id-badge">${sub.id}</div><div class="img-frame mb-6 mt-6"><img src="${sub.img}" class="fit-img"><button onclick="openModal(this)" class="zoom-btn"><i class="fas fa-expand-alt"></i></button></div><h3 class="text-xl font-black mb-2 italic text-center">${sub.title}</h3><p class="text-[11px] text-slate-500 font-bold mb-4 text-center">${sub.desc}</p><div class="strategy-btn-area"></div>`;
+                    scroller.appendChild(card);
+                });
+                section.classList.add('is-visible');
+            }, 450);
+        }
+
+        function selectSub(sId, el) {
+            document.getElementById('sub-scroller').classList.add('has-active');
+            document.querySelectorAll('#sub-scroller .perspective-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            document.querySelectorAll('.strategy-btn-area').forEach(area => area.innerHTML = '');
+            const btnArea = el.querySelector('.strategy-btn-area');
+            const btn = document.createElement('button');
+            btn.className = `w-full bg-indigo-600 text-white py-4 rounded-2xl font-black text-sm shadow-xl mt-4 active:scale-95 transition-transform`;
+            btn.innerHTML = `상세 투자전략 보기 <i class="fas fa-bolt"></i>`;
+            btn.onclick = (e) => { e.stopPropagation(); handleViewStrategy(sId); };
+            btnArea.appendChild(btn);
+        }
+
+        function handleViewStrategy(sId) {
+            const section = document.getElementById('setup-section'); const grid = document.getElementById('setup-grid');
+            section.classList.remove('hidden'); grid.innerHTML = '';
+            window.scrollTo({ top: section.offsetTop - 80, behavior: 'smooth' });
+            setTimeout(() => {
+                const subData = masterData[currentMacroId].subs.find(s => s.id === sId);
+                const setupData = masterData[currentMacroId].setup[sId];
+                if(setupData) {
+                    setupData.forEach((item, index) => {
+                        const card = document.createElement('div'); card.className = 'bg-white rounded-[2.5rem] p-8 border-2 border-slate-100 shadow-sm relative group reveal-item is-visible';
+                        card.style.animationDelay = (index * 0.12) + 's';
+                        card.innerHTML = `<div class="id-badge bg-emerald-600 w-auto px-4 border-none text-[12px]">${item.label}</div><div class="img-frame mb-6 mt-6"><img src="${item.img}" class="fit-img"><button onclick="openModal(this)" class="zoom-btn opacity-0 group-hover:opacity-100"><i class="fas fa-expand-alt"></i></button></div><p class="text-2xl font-black text-slate-900 mb-2 italic">${item.desc}</p><p class="text-xs text-slate-400 font-bold italic">${item.note}</p>`;
+                        grid.appendChild(card);
+                    });
+                    document.getElementById('final-review-text').innerText = subData.review;
+                    section.classList.add('is-visible');
+                    document.getElementById('final-review-section').classList.remove('hidden');
+                    setTimeout(() => document.getElementById('final-review-section').classList.add('is-visible'), 300);
+                }
+            }, 450);
+        }
+
+        function openModal(btn) {
+            const card = btn.closest('.perspective-card') || btn.closest('.group');
+            document.getElementById('modal-img').src = card.querySelector('img').src;
+            document.getElementById('zoom-modal').classList.add('show');
+        }
+
+        window.onload = renderFeedback;
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

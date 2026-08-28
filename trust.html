@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link rel="canonical" href="https://getggul.com/trust.html">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>빗썸 7만원 팩트체크 & 리얼후기 | 겟꿀</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Y028BWS46H');
+        gtag('config', 'G-T4S9FSTXDT');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, #6e5ce6 0%, #f8fafc 35%);
+            color: #1a202c;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* 무한 가로 스크롤 애니메이션 */
+        .review-container {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        /* 끊김 없는 무한 루프를 위한 핵심 CSS */
+        .review-track {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+            /* 속도를 조금 더 빠르게 조정 */
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-50% - 0.75rem));
+            }
+
+            /* gap의 절반만큼 보정하여 정확히 일치시킴 */
+        }
+
+        .review-track:hover {
+            animation-play-state: paused;
+        }
+
+        .review-card {
+            width: 280px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            cursor: pointer;
+        }
+
+        .review-img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 고도화된 후기 상세 모달 */
+        #detailModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #detailModal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 2.5rem;
+            overflow: hidden;
+            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalPop {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .q-card {
+            border-left: 8px solid #6e5ce6;
+            transition: 0.3s;
+        }
+
+        .q-card:hover {
+            background: #ffffff;
+        }
+    
+        /* index.html 100% 모바일 메뉴 애니메이션 및 스타일 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6e5ce6;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-item {
+                color: #1a202c !important;
+            }
+        }
+    
+        /* v3 메인(v3/index.html) 100% 모바일 메뉴 애니메이션 및 동기화 */
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #6366f1;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="leading-snug">
+
+    <header class="site-header" id="site-header">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center h-full">
+
+                <div class="logo-container flex items-center">
+                    <a href="/"
+                        class="logo-main text-white font-black text-[12px] md:text-sm tracking-tighter italic hover:opacity-80 transition mr-2 md:mr-4">
+                        GETGGUL 겟꿀
+                    </a>
+                    <a href="/"
+                        class="logo-sub text-yellow-400 font-black text-lg md:text-2xl tracking-tighter italic hover:opacity-80 transition">
+                        빗썸 7만원 이벤트
+                    </a>
+                </div>
+
+                <button id="menu-toggle"
+                    class="md:hidden text-white text-2xl focus:outline-none transition-transform active:scale-90">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <nav id="mobile-nav"
+                    class="nav-list-wrapper hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-3xl md:static md:block md:w-auto md:bg-transparent md:backdrop-blur-none"
+                    role="navigation">
+                    <ul
+                        class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 p-6 md:p-0 list-none m-0">
+                        <li>
+                            <a href="event.html" target="_blank" rel="noopener noreferrer"
+                                class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
+                                이벤트모음<span
+                                    class="ml-1 px-1 bg-red-500 text-white text-[8px] rounded-sm py-0.5 shadow-sm">HOT</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="support.html" target="_blank" rel="noopener noreferrer"
+                                class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
+                                고객센터 <span
+                                    class="ml-1 px-1 bg-slate-500 text-white text-[8px] rounded-sm py-0.5 shadow-sm">24H</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="trust.html" target="_blank" rel="noopener noreferrer"
+                                class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
+                                수령인증 <span
+                                    class="ml-1 px-1 bg-green-500 text-white text-[8px] rounded-sm py-0.5 border border-white/20 shadow-sm">CHECK</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="benefits.html" target="_blank" rel="noopener noreferrer"
+                                class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
+                                추가혜택 <span
+                                    class="ml-1 px-1 bg-yellow-400 text-slate-900 text-[8px] rounded-sm py-0.5 shadow-sm">HOT</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="guide/index.html" target="_blank" rel="noopener noreferrer"
+                                class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
+                                입문가이드 <span
+                                    class="ml-1 px-1 bg-green-500 text-white text-[8px] rounded-sm py-0.5 border border-white/20 shadow-sm">BEST</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="compare.html" target="_blank" rel="noopener noreferrer"
+                                class="nav-item flex items-center text-[14px] md:text-[14px] text-slate-800 md:text-white">
+                                거래소비교 <span
+                                    class="ml-1 px-1 bg-yellow-400 text-slate-900 text-[8px] rounded-sm py-0.5 shadow-sm">NEW</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-16 fade-in">
+        <div class="text-center mb-20">
+            <div
+                class="inline-block bg-white/20 backdrop-blur-md text-white px-6 py-2 rounded-full text-xs font-black mb-8 border border-white/30 italic tracking-widest">
+                Already Verified via Search</div>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tighter text-white mb-10 italic leading-tight">
+                네이버와 구글에만 검색해도<br><span class="text-yellow-400">수백 개의 뉴스가 쏟아집니다.</span>
+            </h1>
+            <div class="bg-indigo-900/40 p-8 rounded-[2.5rem] border border-white/10">
+                <p class="text-white font-bold text-base md:text-xl leading-relaxed italic">
+                    "단순한 소문이 아닙니다. 빗썸 7만원 이벤트는 공신력 있는 언론사들이 매주 다루는 <span class="text-yellow-400">검증된 공식 혜택</span>입니다. 직접
+                    검색 결과를 확인해 보세요. 지급 사실이 명확하기에 이토록 파격적인 반응을 얻고 있는 것입니다."
+                </p>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-[3rem] p-8 md:p-12 shadow-xl mb-8">
+            <h2 class="text-2xl font-black text-slate-900 mb-8 italic flex items-center gap-3">
+                <i class="fas fa-search text-indigo-600"></i> 증거 01. 실시간 뉴스 보도
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://marketin.edaily.co.kr/News/ReadE?newsId=03535846645347568" target="_blank"
+                    class="block p-6 bg-white rounded-2xl border border-slate-100 hover:border-indigo-400 transition-all shadow-sm">
+                    <span class="news-badge mb-3 inline-block">이데일리</span>
+                    <p class="font-black text-slate-800 leading-snug">"빗썸, 신규 가입자 7만원 지급... 파격적인 점유율 확대 전략"</p>
+                </a>
+                <a href="https://www.industrynews.co.kr/news/articleView.html?idxno=72547" target="_blank"
+                    class="block p-6 bg-white rounded-2xl border border-slate-100 hover:border-indigo-400 transition-all shadow-sm">
+                    <span class="news-badge mb-3 inline-block">인더스트리뉴스</span>
+                    <p class="font-black text-slate-800 leading-snug">"빗썸-KB국민은행, 가입 즉시 혜택 제공하는 공동 프로모션 강화"</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-[3rem] p-8 md:p-12 shadow-xl mb-24 border-2 border-indigo-100">
+            <h2 class="text-2xl font-black text-slate-900 mb-8 italic flex items-center gap-3">
+                <i class="fas fa-university text-indigo-600"></i> 증거 02. 1금융권 공식 제휴
+            </h2>
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="flex-1">
+                    <p class="text-slate-800 leading-relaxed font-bold text-lg mb-4">
+                        허위 업체는 <span class="text-indigo-600">KB국민은행, KB증권</span>과 같은 대형 금융사와 시스템을 연동할 수 없습니다.
+                    </p>
+                    <p class="text-slate-500 font-medium">
+                        빗썸의 리워드는 제휴 금융사의 정식 API를 통해 본인 계좌로 안전하게 정산됩니다. 2026년에도 투명하게 운영되는 공식 제도권 이벤트입니다.
+                    </p>
+                </div>
+                <div class="bg-indigo-50 p-8 rounded-[2rem] text-center w-full md:w-auto">
+                    <div class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-4">Official Partnership
+                    </div>
+                    <div class="flex items-center justify-center gap-6">
+                        <div class="font-black text-slate-900 italic">KB국민은행</div>
+                        <i class="fas fa-link text-indigo-300 text-2xl"></i>
+                        <div class="font-black text-indigo-600 italic">BITHUMB</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-black text-white italic tracking-tighter">당신의 의구심, 팩트로 해결합니다.</h2>
+        </div>
+        <div class="space-y-6 mb-24">
+            <div class="glass-card rounded-[2.5rem] p-10 shadow-xl q-card">
+                <h3 class="text-xl font-black text-indigo-600 mb-4 italic">Q1. 빗썸은 믿을 수 있는 거래소인가요?</h3>
+                <p class="text-slate-600 leading-relaxed font-bold">
+                    빗썸은 대한민국 가상자산 시장의 초창기부터 함께해온 **업계 선두권 제도권 거래소**입니다. 금융정보분석원(FIU)에 가상자산 사업자 신고를 완료했으며, 철저한 내부 통제와 보안
+                    시스템을 바탕으로 수백만 명의 자산을 안전하게 관리하고 있습니다. 이름도 모르는 해외 사이트나 사칭 업체와는 차원이 다른 국내 최정상급 기업입니다.
+                </p>
+            </div>
+            <div class="glass-card rounded-[2.5rem] p-10 shadow-xl q-card">
+                <h3 class="text-xl font-black text-indigo-600 mb-4 italic">Q2. 왜 아무 대가 없이 7만원이나 주나요?</h3>
+                <p class="text-slate-600 leading-relaxed font-bold">
+                    가장 큰 이유는 **거래소 간의 치열한 점유율 경쟁** 때문입니다. 현재 빗썸은 신규 고객 한 명을 모시기 위해 대형 금융사인 KB국민은행과 손잡고 엄청난 마케팅 예산을 쏟아붓고
+                    있습니다. 기업 입장에서는 광고비를 뿌리는 것보다 실제 가입자에게 직접 혜택을 주는 것이 훨씬 효과적인 전략이기에 가능한 구조입니다. 이것은 정당한 마케팅 비용을 유저가 가져가는
+                    것입니다.
+                </p>
+            </div>
+            <div class="glass-card rounded-[2.5rem] p-10 shadow-xl q-card">
+                <h3 class="text-xl font-black text-indigo-600 mb-4 italic">Q3. 받은 돈을 진짜 내 통장으로 뺄 수 있나요?</h3>
+                <p class="text-slate-600 leading-relaxed font-bold">
+                    100% 가능합니다. 지급되는 리워드는 가상의 포인트가 아니라 **즉시 사용 가능한 원화(KRW)**입니다. 가이드에 따라 가입 보상을 받은 뒤, 비트코인 등을 딱 한 번만
+                    사고팔면 출금 제한이 해제됩니다. 이후에는 여러분이 연동한 KB국민은행 계좌로 즉시 현금 인출이 가능하며, 이미 수만 명의 유저가 현금화에 성공했음을 후기를 통해 확인하실 수
+                    있습니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-24 mb-6">
+            <h2 class="text-4xl font-black text-slate-900 italic tracking-tighter">리얼 수령 인증 센터</h2>
+            <p class="text-slate-500 font-bold mt-2">클릭하여 실제 입금 내역과 상세 후기를 확인하세요.</p>
+        </div>
+    </main>
+
+    <div class="review-container mb-32">
+        <div class="review-track" id="reviewTrack">
+            <div class="review-card glass-card p-6 rounded-[2.5rem] shadow-lg"
+                onclick="openReviewModal('https://getggul.com/PROOF1.webp', '10분 컷 7만원 입금 완료!', '가이드 보고 따라하니 진짜 순식간이네요. 점심값 벌었습니다!')">
+                <img src="https://getggul.com/PROOF1.webp" class="review-img">
+                <p class="text-[13px] text-slate-800 font-black mb-1 italic">"10분 컷 7만원 입금 완료!"</p>
+            </div>
+
+            <div class="review-card glass-card p-8 rounded-[2.5rem] shadow-lg border-2 border-indigo-100"
+                onclick="openReviewModal('', '가족 4명 소고기 파티!', '반신반의했는데 팩트체크 보고 믿음이 가서 가족들 다 시켰어요. 총 28만원 수령해서 오늘 저녁 소고기 먹으러 갑니다!')">
+                <div class="flex text-yellow-400 text-[10px] mb-4"><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i></div>
+                <p class="text-sm text-slate-700 font-black italic mb-4">"가족 4명 다 같이 해서 28만원 벌었습니다. KB 계좌만 있으면 난이도
+                    하(下)네요!"</p>
+                <span class="text-[10px] text-indigo-500 font-bold">닉네임: 소고기빌런</span>
+            </div>
+
+            <div class="review-card glass-card p-6 rounded-[2.5rem] shadow-lg"
+                onclick="openReviewModal('https://getggul.com/PROOF2.webp', 'KB연결하고 5만 추가 수령', '축하금 2만 원 받고 계좌 연결하니 바로 5만 원 더 꽂히네요. 진짜 대박입니다.')">
+                <img src="https://getggul.com/PROOF2.webp" class="review-img">
+                <p class="text-[13px] text-slate-800 font-black mb-1 italic">"KB연결하고 5만 추가 수령"</p>
+            </div>
+
+            <div class="review-card glass-card p-8 rounded-[2.5rem] shadow-lg"
+                onclick="openReviewModal('', '알뜰폰 유저도 성공!', '본인인증 안 될까봐 걱정했는데 알뜰폰도 10초 만에 바로 됩니다. 빗썸 어플 처음인데 돈 주니까 너무 좋네요.')">
+                <div class="flex text-yellow-400 text-[10px] mb-4"><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i></div>
+                <p class="text-sm text-slate-700 font-black italic mb-4">"알뜰폰 본인인증 10초 컷! 가이드가 너무 친절해서 금방 끝냈습니다."</p>
+                <span class="text-[10px] text-indigo-500 font-bold">닉네임: 알뜰왕</span>
+            </div>
+
+            <div class="review-card glass-card p-6 rounded-[2.5rem] shadow-lg"
+                onclick="openReviewModal('https://getggul.com/PROOF3.webp', '전액 출금 성공!', '받은 돈으로 코인 한 번 사고팔고 바로 내 통장으로 뺐습니다. 현금화 100% 확실해요!')">
+                <img src="https://getggul.com/PROOF3.webp" class="review-img">
+                <p class="text-[13px] text-slate-800 font-black mb-1 italic">"전액 출금 성공 인증!"</p>
+            </div>
+
+            <div class="review-card glass-card p-8 rounded-[2.5rem] shadow-lg border-2 border-yellow-400"
+                onclick="openReviewModal('', '복잡한 미션 없어서 최고', '다른 사이트는 뭐 사라고 시키던데 여기는 초대코드만 넣으면 되니까 너무 편해요. 겟꿀 사이트 이름값 하네요.')">
+                <div class="flex text-yellow-400 text-[10px] mb-4"><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i></div>
+                <p class="text-sm text-slate-700 font-black italic mb-4">"다른 곳보다 훨씬 간결한 가이드! 덕분에 헷갈리지 않고 7만원 다 챙겼습니다."
+                </p>
+                <span class="text-[10px] text-indigo-500 font-bold">닉네임: 겟꿀러</span>
+            </div>
+
+            <div class="review-card glass-card p-8 rounded-[2.5rem] shadow-lg"
+                onclick="openReviewModal('', '커피값 벌러 왔다가 치킨값!', '가입 보상만 생각했는데 계좌 연결 보너스가 진짜 크네요. KB국민은행 쓰시는 분들은 무조건 추천.')">
+                <p class="text-sm text-slate-700 font-black italic mb-4">"KB국민은행 계좌 연동이 핵심이네요. 5만원 추가로 들어올 때 기분 진짜
+                    좋습니다."</p>
+                <span class="text-[10px] text-indigo-500 font-bold">닉네임: 럭키가이</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center pb-40">
+        <a href="/" onclick="gtag('event', 'trust_complete', {'event_label': '검증후_가입이동'});"
+            class="inline-block bg-yellow-400 text-slate-900 px-16 py-7 rounded-full font-black text-2xl shadow-2xl hover:scale-105 transition-transform italic">
+            검증 끝! 7만원 수령하러 가기 <i class="fas fa-bolt ml-2"></i>
+        </a>
+    </div>
+
+    <div id="detailModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modalImg" src="" class="w-full aspect-video object-cover">
+            <div class="p-8">
+                <div class="flex text-yellow-400 text-xs mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <h4 id="modalTitle" class="text-xl font-black text-slate-900 mb-4"></h4>
+                <p id="modalText" class="text-slate-600 leading-relaxed font-bold mb-8"></p>
+                <button onclick="closeModal()"
+                    class="w-full py-5 bg-slate-100 rounded-2xl font-black text-slate-800 hover:bg-slate-200 transition">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 무한 스크롤 복제 로직
+        // 무한 루프를 위해 기존 내용을 한 번 복제
+        const track = document.getElementById('reviewTrack');
+        track.innerHTML += track.innerHTML;
+
+        function openReviewModal(img, title, text) {
+            const modalImg = document.getElementById('modalImg');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalText = document.getElementById('modalText');
+
+            // 이미지가 있는 경우에만 표시, 없으면 숨김 처리
+            if (img) {
+                modalImg.src = img;
+                modalImg.style.display = 'block';
+            } else {
+                modalImg.style.display = 'none';
+            }
+
+            modalTitle.innerText = title;
+            modalText.innerText = text;
+
+            document.getElementById('detailModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                if (mobileNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
