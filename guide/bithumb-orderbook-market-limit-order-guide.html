@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y028BWS46H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Y028BWS46H');
+    </script>
+
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <link href="https://getggul.com/guide/bithumb-orderbook-market-limit-order-guide.html" rel="canonical"/>
+
+    <title>빗썸 호가창 보는 법 & 시장가 vs 지정가 슬리피지 0원 매매 실전 노하우 | 겟꿀</title>
+    <meta content="빗썸 앱 호가창 보는 법 기초와 시장가 주문 vs 지정가 주문의 차이점, 매수·매도 스프레드 슬리피지 손실 없이 30만원 거래미션 완료하는 실전 테크닉 완벽 정리." name="description"/>
+    <meta content="빗썸 호가창 보는법, 코인 호가창 보는 방법, 지정가 시장가 차이, 빗썸 슬리피지 방어, 겟꿀" name="keywords"/>
+
+    <meta content="article" property="og:type"/>
+    <meta content="GETGGUL 겟꿀" property="og:site_name"/>
+    <meta content="빗썸 호가창 보는 법 & 시장가 vs 지정가 슬리피지 0원 매매 실전 노하우" property="og:title"/>
+    <meta content="빗썸 호가창 기초와 시장가 vs 지정가 차이점, 슬리피지 0원 매매법 완벽 정리." property="og:description"/>
+    <meta content="https://getggul.com/guide/bithumb-orderbook-market-limit-order-guide.html" property="og:url"/>
+    <meta content="https://getggul.com/og-image.webp" property="og:image"/>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "빗썸 호가창 보는 법 & 시장가 vs 지정가 슬리피지 0원 매매 실전 노하우",
+      "description": "빗썸 호가창 기초 분석 및 슬리피지 방어 주문법.",
+      "author": {
+        "@type": "Organization",
+        "name": "GETGGUL 겟꿀 경제연구소"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "GETGGUL",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://getggul.com/og-image.webp"
+        }
+      },
+      "datePublished": "2026-08-29",
+      "dateModified": "2026-08-29"
+    }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            word-break: keep-all;
+        }
+        .article-body h2 {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #0f172a;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-left: 0.85rem;
+            border-left: 4px solid #f59e0b;
+        }
+        .article-body h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-top: 1.6rem;
+            margin-bottom: 0.6rem;
+        }
+        .article-body p {
+            font-size: 0.98rem;
+            line-height: 1.85;
+            color: #334155;
+            margin-bottom: 1.35rem;
+        }
+        .article-body ul, .article-body ol {
+            margin-bottom: 1.35rem;
+            padding-left: 1.25rem;
+            font-size: 0.96rem;
+            color: #334155;
+            line-height: 1.8;
+        }
+        .info-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1.1rem 1.3rem;
+            border-radius: 0 1.2rem 1.2rem 0;
+            margin: 1.6rem 0;
+            font-size: 0.94rem;
+            color: #78350f;
+        }
+        @media (min-width: 1024px) {
+            aside.sticky-sidebar {
+                position: -webkit-sticky !important;
+                position: sticky !important;
+                top: 5.5rem !important;
+                align-self: flex-start !important;
+                z-index: 30 !important;
+            }
+        }
+        @media (max-width: 768px) {
+            #mobile-nav.active {
+                display: block !important;
+                animation: slideDown 0.3s ease-out;
+                border-bottom: 2px solid #f59e0b;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between">
+
+    <header class="bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800 text-white" id="site-header">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <div class="logo-container flex items-center">
+                    <a href="../index.html" class="flex items-center gap-2 group">
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center text-slate-950 font-black shadow-md">
+                            <i class="fas fa-bolt text-xs"></i>
+                        </div>
+                        <span class="text-xl font-black text-white group-hover:text-yellow-300 transition-colors">
+                            GETGGUL
+                        </span>
+                        <span class="hidden sm:inline-block bg-white/10 text-yellow-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-yellow-300/30">
+                            금융허브
+                        </span>
+                    </a>
+                </div>
+
+                <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none transition-transform active:scale-90 p-1" aria-label="메뉴 열기">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <nav id="mobile-nav" class="nav-list-wrapper hidden absolute top-full left-0 w-full bg-slate-900/98 backdrop-blur-3xl md:static md:block md:w-auto md:bg-transparent md:backdrop-blur-none border-b border-slate-800 md:border-none shadow-2xl md:shadow-none" role="navigation">
+                    <ul class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-7 p-6 md:p-0 list-none m-0">
+                        <li>
+                            <a href="../bithumb-event/index.html" class="flex flex-col items-center md:items-start text-center md:text-left leading-tight py-1 group transition-transform hover:-translate-y-0.5">
+                                <div class="flex items-center gap-1.5">
+                                    <i class="fas fa-gift text-yellow-400 text-xs"></i>
+                                    <span class="text-[14px] md:text-[15px] font-black text-white group-hover:text-yellow-300 transition-colors">
+                                        빗썸 7만원 이벤트
+                                    </span>
+                                    <span class="bg-red-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded shadow-sm animate-pulse">
+                                        HOT
+                                    </span>
+                                </div>
+                                <span class="text-[10px] md:text-[11px] font-bold text-yellow-300/90 tracking-tight mt-0.5 pl-4">
+                                    궁금증 및 오류 해결
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../korean-stock/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-purple-300 transition-all hover:-translate-y-0.5">
+                                <i class="fas fa-chart-line text-purple-400 text-xs"></i>
+                                <span>국내주식 이슈</span>
+                                <span class="bg-purple-500/20 text-purple-300 border border-purple-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    KOSPI
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../crypto/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-amber-300 transition-all hover:-translate-y-0.5">
+                                <i class="fab fa-bitcoin text-amber-400 text-sm"></i>
+                                <span>가상화폐 이슈</span>
+                                <span class="bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    BTC
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../finance-tips/index.html" class="nav-item flex items-center gap-1.5 text-[14px] md:text-[15px] font-bold text-white hover:text-indigo-300 transition-all hover:-translate-y-0.5">
+                                <i class="fas fa-coins text-indigo-400 text-xs"></i>
+                                <span>재테크 소식</span>
+                                <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-[9px] font-bold px-1.5 py-0.2 rounded-full">
+                                    NEW
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <main class="lg:col-span-8">
+                
+                <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 font-medium">
+                    <a class="hover:text-amber-600" href="../index.html">홈</a>
+                    <i class="fas fa-chevron-right text-[9px]"></i>
+                    <a class="hover:text-amber-600" href="index.html">초보자 코인 입문 가이드</a>
+                    <i class="fas fa-chevron-right text-[9px]"></i>
+                    <span class="text-slate-600 font-bold truncate max-w-[220px]">호가창 보는 법 &amp; 지정가 매매</span>
+                </nav>
+
+                <header class="mb-8 border-b border-slate-200 pb-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-black px-2.5 py-1 rounded-full">
+                            실전 트레이딩 기술
+                        </span>
+                        <span class="text-xs text-slate-400 font-medium">
+                            <i class="far fa-calendar-alt mr-1"></i>2026년 8월 29일 업로드
+                        </span>
+                    </div>
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 leading-tight mb-4">
+                        빗썸 호가창 보는 법 &amp; 시장가 vs 지정가 슬리피지 0원 매매 실전 노하우
+                    </h1>
+                    <div class="text-sm text-slate-600 leading-relaxed bg-slate-100 p-4 md:p-5 rounded-2xl border-l-4 border-amber-500">
+                        💡 <b>핵심 요약:</b> 파란색 매도 호가와 빨간색 매수 호가의 작동 원리, 시장가 주문 시 발생하는 슬리피지(가격 밀림) 손실 방지법 및 지정가 주문으로 거래미션을 0원에 끝내는 기술.
+                    </div>
+                </header>
+
+                <article class="article-body bg-white p-6 md:p-10 rounded-3xl border border-slate-200 shadow-sm mb-10">
+                    
+                    <h2>1. 파란색(매도) vs 빨간색(매수) 호가창의 기본 구조</h2>
+                    <p>
+                        빗썸 거래소 화면을 켜면 수많은 숫자들이 실시간으로 깜빡입니다. 
+                        중앙을 기준으로 <b>위쪽 파란색 영역은 '팔려는 사람들의 희망 가격(매도 호가)'</b>이고, <b>아래쪽 빨간색 영역은 '사려는 사람들의 희망 가격(매수 호가)'</b>입니다.
+                    </p>
+
+                    <!-- 반응형 SVG 차트: 호가창 및 지정가 매매 메커니즘 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 my-6 shadow-sm">
+                        <div class="text-xs font-black text-slate-900 mb-2 flex items-center justify-between">
+                            <span>📈 빗썸 호가창(Orderbook) 구조 &amp; 지정가 체결 원리 (반응형 다이어그램)</span>
+                            <span class="text-amber-600 font-bold text-[11px]">슬리피지 0원</span>
+                        </div>
+                        <svg viewBox="0 0 700 210" class="w-full h-auto font-sans" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="700" height="210" fill="#f8fafc" rx="12"/>
+                            
+                            <!-- Ask (Sell) -->
+                            <rect x="30" y="25" width="300" height="40" fill="#dbeafe" stroke="#93c5fd" rx="6"/>
+                            <text x="45" y="49" font-size="12" font-weight="bold" fill="#1e40af">매도 1호가: 100,050,000원</text>
+                            <text x="250" y="49" font-size="11" fill="#3b82f6">0.85 BTC</text>
+                            
+                            <!-- Spread -->
+                            <text x="180" y="85" font-size="11" font-weight="bold" fill="#64748b" text-anchor="middle">↕️ 호가 갭 (스프레드 50,000원)</text>
+                            
+                            <!-- Bid (Buy) -->
+                            <rect x="30" y="100" width="300" height="40" fill="#fee2e2" stroke="#fca5a5" rx="6"/>
+                            <text x="45" y="124" font-size="12" font-weight="bold" fill="#991b1b">매수 1호가: 100,000,000원</text>
+                            <text x="250" y="124" font-size="11" fill="#ef4444">1.20 BTC</text>
+                            
+                            <!-- Strategy Box Right -->
+                            <rect x="370" y="25" width="300" height="150" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="10"/>
+                            <text x="390" y="55" font-size="13" font-weight="black" fill="#0f172a">💡 시장가 vs 지정가 차이</text>
+                            <text x="390" y="85" font-size="11" fill="#dc2626">• <b>시장가:</b> 매도 1호가로 즉시 체결</text>
+                            <text x="390" y="105" font-size="10" fill="#64748b">(물량 부족 시 2, 3호가로 밀려 손실 발생)</text>
+                            <text x="390" y="135" font-size="11" font-weight="bold" fill="#059669">• <b>지정가:</b> 내가 정한 가격에만 체결</text>
+                            <text x="390" y="155" font-size="10" font-weight="bold" fill="#b45309">👉 슬리피지 0원으로 4만원 미션 완수!</text>
+                        </svg>
+                        <p class="text-[11px] text-slate-400 text-center mt-2 font-medium">※ 이벤트 거래미션을 채울 때는 무조건 '지정가'로 매매해야 원금 손실을 완벽히 방어합니다.</p>
+                    </div>
+
+                    <div class="info-callout">
+                        ⚠️ <b>초보자가 가장 많이 하는 실수:</b><br/>
+                        빨리 거래미션을 끝내려고 '시장가 매수' ➔ '시장가 매도'를 누르면, 호가 간격(스프레드) 때문에 몇백 원에서 몇천 원의 손실이 발생합니다. 
+                        <b>반드시 '지정가' 버튼을 누르고 매수 1호가에 걸어두는 것</b>이 핵심입니다.
+                    </div>
+
+                    <p>
+                        이 원리만 익히면 <a href="../index.html" class="text-amber-800 font-black underline decoration-2 underline-offset-2">빗썸 7만원 혜택 중 40,000원 거래미션을 수수료 0원으로 1분 만에 완료</a>할 수 있습니다.
+                    </p>
+
+                    <h2>2. 슬리피지 0원 실전 3단계 공식</h2>
+                    <ul>
+                        <li><b>1. 지정가 매수:</b> 빨간색 매수 최상단 가격을 터치하고 금액을 입력한 뒤 [매수] 클릭.</li>
+                        <li><b>2. 체결 대기:</b> 3~5초 이내에 내 주문이 체결되면 즉시 [매도] 탭으로 이동.</li>
+                        <li><b>3. 지정가 매도:</b> 방금 산 가격과 동일한 금액에 100% 수량을 걸어두고 [매도] 클릭.</li>
+                    </ul>
+
+                    <div class="bg-gradient-to-r from-amber-400 to-yellow-300 p-5 md:p-6 rounded-2xl text-slate-950 shadow-md my-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="bg-slate-950 text-yellow-300 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">⚡ 실전 매매 공식</span>
+                            <h4 class="text-base md:text-lg font-black mt-1">70,000원 지원금으로 슬리피지 0원 미션 도전</h4>
+                            <p class="text-xs text-slate-800 mt-0.5">초대코드 GYYE7EEGC6 등록 후 손실 없이 4만원을 수령하세요.</p>
+                        </div>
+                        <a href="../index.html" class="bg-slate-950 hover:bg-slate-800 text-yellow-300 font-black px-5 py-3 rounded-xl text-xs md:text-sm whitespace-nowrap shadow transition-all flex items-center gap-1.5">
+                            <span>미션 가이드 보기</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <h2>3. 수수료 0.04% 쿠폰까지 등록하면 완벽</h2>
+                    <p>
+                        빗썸 앱에서 수수료 무료 쿠폰 및 0.04% 최저 수수료 세팅을 적용하는 법은 <a href="../crypto/bithumb-fee-guide.html" class="text-amber-600 font-bold hover:underline">빗썸 수수료 0.04% 절감 가이드</a>를 참고하세요.
+                    </p>
+
+                </article>
+
+            </main>
+
+            <aside class="lg:col-span-4 sticky-sidebar space-y-6">
+                <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-6 text-white border border-slate-800 shadow-xl text-center">
+                    <span class="bg-yellow-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
+                        ⚡ 기간 한정 이벤트
+                    </span>
+                    <h3 class="text-lg font-black text-white mb-2">
+                        빗썸 7만원 100% 전액 수령
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        가입 2만 + 계좌 1만 + 거래 4만 원!<br/>내 돈 0원으로 70,000원 즉시 챙기기.
+                    </p>
+                    <a class="block w-full bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black py-3 rounded-2xl text-xs shadow-lg transition-all mb-2" href="../index.html">
+                        👉 7만원 1분 완벽 수령법
+                    </a>
+                    <button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-2.5 rounded-2xl text-xs transition-all border border-white/20" onclick="copyCode()">
+                        초대코드 GYYE7EEGC6 복사
+                    </button>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm text-xs font-bold text-slate-700">
+                    <div class="text-slate-900 font-black mb-3 pb-2 border-b border-slate-100 flex items-center justify-between">
+                        <span>🔥 초보자 코인 입문 추천 가이드</span>
+                        <span class="text-[10px] text-amber-600 font-bold">필독</span>
+                    </div>
+                    <ul class="space-y-2.5">
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../guide/coin-basics-1.html">
+                                <span>• 비트코인은 왜 가치가 있을까?</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../guide/coin-basics-5.html">
+                                <span>• 엘리어트 파동 기초 &amp; 실전 매매법</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../crypto/bithumb-fee-guide.html">
+                                <span>• 빗썸 수수료 0.04% 쿠폰 세팅법</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hover:text-amber-600 flex items-center justify-between" href="../crypto/exchange-signup-bonus-compare.html">
+                                <span>• 3대 거래소 가입 혜택 비교</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-100 p-5 rounded-3xl text-xs font-bold text-slate-600">
+                    <div class="text-slate-900 font-black mb-3">📂 카테고리 바로가기</div>
+                    <div class="flex flex-wrap gap-2">
+                        <a class="bg-white px-3 py-1.5 rounded-lg border border-slate-200 hover:text-amber-600" href="../korean-stock/index.html">국내주식 이슈</a>
+                        <a class="bg-white px-3 py-1.5 rounded-lg border border-slate-200 hover:text-amber-600" href="../crypto/index.html">가상화폐 이슈</a>
+                        <a class="bg-white px-3 py-1.5 rounded-lg border border-slate-200 hover:text-amber-600" href="../finance-tips/index.html">재테크 소식</a>
+                        <a class="bg-yellow-100 text-slate-950 px-3 py-1.5 rounded-lg border border-yellow-300 font-black" href="../bithumb-event/index.html">빗썸 7만원 팩트체크</a>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-10 mt-12 text-xs">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-6 h-6 rounded-md bg-yellow-400 flex items-center justify-center text-slate-950 font-black text-xs">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span class="text-base font-black text-white">GETGGUL (겟꿀)</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+                        대한민국 스마트 금융 정보 포털. 빗썸 7만원 혜택 가이드, 국내주식 배당주 분석, 코인 시장 트렌드 및 생활 재테크 소식을 가장 빠르고 정확하게 전달합니다.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold text-xs mb-3 uppercase tracking-wider">주요 바로가기</h5>
+                    <ul class="space-y-2 text-xs font-semibold">
+                        <li><a class="text-yellow-400 hover:text-yellow-300 font-black underline" href="../index.html">빗썸 7만원 이벤트</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../bithumb-event/index.html">궁금증 및 오류해결</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../bithumb-event/kb-account-issue.html">국민은행 ARS 오류 해결</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../bithumb-event/trading-mission-tips.html">나머지 4만원 미션 팁</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold text-xs mb-3 uppercase tracking-wider">카테고리</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a class="hover:text-white transition-colors" href="../korean-stock/index.html">국내주식 이슈</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../crypto/index.html">가상화폐 이슈</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../finance-tips/index.html">재테크 소식</a></li>
+                        <li><a class="hover:text-white transition-colors" href="../sitemap.xml">사이트맵 (Sitemap)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-6 text-center text-slate-500 text-[11px] flex flex-col md:flex-row justify-between items-center gap-2">
+                <p>© 2026 GETGGUL (겟꿀) · 공식 초대코드: <b class="text-slate-300 font-mono">GYYE7EEGC6</b>. All rights reserved.</p>
+                <p>본 사이트의 콘텐츠는 정보 제공 목적으로 작성되었으며, 투자 판단의 최종 책임은 본인에게 있습니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode() {
+            navigator.clipboard.writeText("GYYE7EEGC6").then(() => {
+                alert("초대코드 [GYYE7EEGC6]가 복사되었습니다!\n빗썸 가입창에서 붙여넣기 해주세요.");
+            });
+        }
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    if (mobileNav.classList.contains('hidden')) {
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    } else {
+                        icon.classList.replace('fa-bars', 'fa-times');
+                    }
+                }
+            });
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.add('hidden');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) icon.classList.replace('fa-times', 'fa-bars');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
