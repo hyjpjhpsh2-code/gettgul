@@ -1199,26 +1199,20 @@
         }
 
         function toggleFaq(el) {
+            if (!el) return;
             const item = el.closest ? el.closest('.faq-item') : el.parentElement;
             if (item) {
                 item.classList.toggle('active');
             }
         }
 
-        // DOMContentLoaded 백업 바인딩
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.faq-question').forEach(function(q) {
-                q.onclick = function(e) {
-                    const item = this.closest('.faq-item');
-                    if (item) {
-                        item.classList.toggle('active');
-                    }
-                };
+                q.addEventListener('click', function(e) {
+                    toggleFaq(this);
+                });
             });
         });
-            const item = el.closest('.faq-item') || el;
-            item.classList.toggle('active');
-        }
 
         // 기존 스크립트 하단에 추가
         const menuToggle = document.getElementById('menu-toggle');
