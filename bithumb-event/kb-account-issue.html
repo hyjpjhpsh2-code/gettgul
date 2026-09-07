@@ -161,6 +161,51 @@
                 to { opacity: 1; transform: translateY(0); }
             }
         }
+    
+        /* ========================================================
+           [원천 차단] 다크 컨테이너 / CTA / 인포그래픽 고대비 가독성 보장 규칙
+           .article-body p / h3 가 다크 박스 텍스트를 어둡게 덮어쓰는 버그 영구 방지
+           ======================================================== */
+        .article-body .dark-box,
+        .article-body .cta-box,
+        .article-body .cta-banner,
+        .article-body .infographic-box,
+        .article-body [class*="bg-slate-9"],
+        .article-body [class*="bg-slate-8"],
+        .article-body [class*="bg-gray-9"],
+        .article-body [class*="bg-zinc-9"],
+        .article-body [class*="bg-black"] {
+            color: #ffffff !important;
+        }
+
+        .article-body .dark-box h1, .article-body .dark-box h2, .article-body .dark-box h3, .article-body .dark-box h4,
+        .article-body .cta-box h1, .article-body .cta-box h2, .article-body .cta-box h3, .article-body .cta-box h4,
+        .article-body .cta-banner h1, .article-body .cta-banner h2, .article-body .cta-banner h3, .article-body .cta-banner h4,
+        .article-body .infographic-box h1, .article-body .infographic-box h2, .article-body .infographic-box h3, .article-body .infographic-box h4,
+        .article-body [class*="bg-slate-9"] h1, .article-body [class*="bg-slate-9"] h2, .article-body [class*="bg-slate-9"] h3, .article-body [class*="bg-slate-9"] h4,
+        .article-body [class*="bg-slate-8"] h1, .article-body [class*="bg-slate-8"] h2, .article-body [class*="bg-slate-8"] h3, .article-body [class*="bg-slate-8"] h4 {
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+        }
+
+        .article-body .dark-box p,
+        .article-body .cta-box p,
+        .article-body .cta-banner p,
+        .article-body .infographic-box p,
+        .article-body [class*="bg-slate-9"] p,
+        .article-body [class*="bg-slate-8"] p {
+            color: #f1f5f9 !important;
+        }
+
+        .article-body .dark-box span:not([class*="text-"]),
+        .article-body .cta-box span:not([class*="text-"]),
+        .article-body .cta-banner span:not([class*="text-"]),
+        .article-body .infographic-box span:not([class*="text-"]),
+        .article-body [class*="bg-slate-9"] span:not([class*="text-"]),
+        .article-body [class*="bg-slate-8"] span:not([class*="text-"]) {
+            color: inherit !important;
+        }
+
     </style>
 <!-- Microsoft Clarity Tracking Code -->
 <script type="text/javascript">

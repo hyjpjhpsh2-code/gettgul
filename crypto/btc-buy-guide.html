@@ -132,6 +132,51 @@
                 to { opacity: 1; transform: translateY(0); }
             }
         }
+    
+        /* ========================================================
+           [원천 차단] 다크 컨테이너 / CTA / 인포그래픽 고대비 가독성 보장 규칙
+           .article-body p / h3 가 다크 박스 텍스트를 어둡게 덮어쓰는 버그 영구 방지
+           ======================================================== */
+        .article-body .dark-box,
+        .article-body .cta-box,
+        .article-body .cta-banner,
+        .article-body .infographic-box,
+        .article-body [class*="bg-slate-9"],
+        .article-body [class*="bg-slate-8"],
+        .article-body [class*="bg-gray-9"],
+        .article-body [class*="bg-zinc-9"],
+        .article-body [class*="bg-black"] {
+            color: #ffffff !important;
+        }
+
+        .article-body .dark-box h1, .article-body .dark-box h2, .article-body .dark-box h3, .article-body .dark-box h4,
+        .article-body .cta-box h1, .article-body .cta-box h2, .article-body .cta-box h3, .article-body .cta-box h4,
+        .article-body .cta-banner h1, .article-body .cta-banner h2, .article-body .cta-banner h3, .article-body .cta-banner h4,
+        .article-body .infographic-box h1, .article-body .infographic-box h2, .article-body .infographic-box h3, .article-body .infographic-box h4,
+        .article-body [class*="bg-slate-9"] h1, .article-body [class*="bg-slate-9"] h2, .article-body [class*="bg-slate-9"] h3, .article-body [class*="bg-slate-9"] h4,
+        .article-body [class*="bg-slate-8"] h1, .article-body [class*="bg-slate-8"] h2, .article-body [class*="bg-slate-8"] h3, .article-body [class*="bg-slate-8"] h4 {
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+        }
+
+        .article-body .dark-box p,
+        .article-body .cta-box p,
+        .article-body .cta-banner p,
+        .article-body .infographic-box p,
+        .article-body [class*="bg-slate-9"] p,
+        .article-body [class*="bg-slate-8"] p {
+            color: #f1f5f9 !important;
+        }
+
+        .article-body .dark-box span:not([class*="text-"]),
+        .article-body .cta-box span:not([class*="text-"]),
+        .article-body .cta-banner span:not([class*="text-"]),
+        .article-body .infographic-box span:not([class*="text-"]),
+        .article-body [class*="bg-slate-9"] span:not([class*="text-"]),
+        .article-body [class*="bg-slate-8"] span:not([class*="text-"]) {
+            color: inherit !important;
+        }
+
     </style>
     <!-- Microsoft Clarity Tracking Code -->
     <script type="text/javascript">
@@ -263,12 +308,49 @@
                     </p>
 
                     <!-- SVG 1: 비트코인 소수점 분할 인포그래픽 -->
-                    <div class="my-8 bg-slate-900 p-5 md:p-6 rounded-3xl text-white shadow-xl">
-                        <div class="text-center mb-4">
-                            <span class="bg-amber-500 text-slate-950 font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider">인포그래픽</span>
-                            <h3 class="text-lg md:text-xl font-black mt-2 text-white">비트코인 1개 vs 소수점 분할 구매 비교</h3>
-                            <p class="text-xs text-slate-400 mt-1">1 BTC가 1억 1천만 원일 때 내 자본금에 따라 쪼개지는 실제 수량</p>
+                    <div class="my-8 p-6 md:p-8 rounded-3xl text-white shadow-2xl border-2 border-amber-400/50 relative infographic-box" style="background-color: #0b0f19 !important; color: #ffffff !important;">
+                        <div class="text-center mb-5">
+                            <span class="bg-amber-400 text-slate-950 font-black text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm inline-block mb-2">실전 비교 인포그래픽</span>
+                            <h3 class="text-xl md:text-2xl font-black text-white" style="color: #ffffff !important; margin-top: 0.3rem !important; margin-bottom: 0.5rem !important;">비트코인 1개 통구매 vs 소수점 분할 구매 비교</h3>
+                            <p class="text-xs md:text-sm font-bold" style="color: #f1f5f9 !important; margin-bottom: 0.5rem !important;">1 BTC가 1억 1천만 원이어도 내 자본금(5천원~7만원)에 맞춰 필요한 만큼 쪼개서 매수할 수 있습니다.</p>
                         </div>
+                        
+                        <div class="overflow-x-auto">
+                            <svg viewBox="0 0 700 200" class="w-full min-w-[550px]" xmlns="http://www.w3.org/2000/svg">
+                                <!-- 1 BTC Full Box -->
+                                <rect x="20" y="25" width="180" height="150" fill="#1e293b" stroke="#475569" stroke-width="2" rx="14"/>
+                                <circle cx="110" cy="65" r="24" fill="#f59e0b"/>
+                                <text x="110" y="73" font-size="20" font-weight="900" fill="#0f172a" text-anchor="middle">₿</text>
+                                <text x="110" y="112" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1.00000000 BTC</text>
+                                <text x="110" y="134" font-size="13" font-weight="black" fill="#fbbf24" text-anchor="middle">1억 10,000,000원</text>
+                                <text x="110" y="156" font-size="11" font-weight="bold" fill="#f1f5f9" text-anchor="middle">전체 1개 통구매 (부담)</text>
+
+                                <!-- Arrow 1 -->
+                                <path d="M210 100 L235 100" stroke="#f59e0b" stroke-width="3" fill="none"/>
+
+                                <!-- 7만원 지원금 Box -->
+                                <rect x="245" y="20" width="220" height="160" fill="#050b18" stroke="#facc15" stroke-width="3" rx="14"/>
+                                <rect x="255" y="30" width="85" height="22" fill="#dc2626" rx="6"/>
+                                <text x="297" y="45" font-size="11" font-weight="black" fill="#ffffff" text-anchor="middle">⚡ 빗썸 7만원 혜택</text>
+                                <text x="355" y="75" font-size="16" font-weight="900" fill="#38bdf8" text-anchor="middle">0.00063636 BTC</text>
+                                <text x="355" y="100" font-size="14" font-weight="black" fill="#fde047" text-anchor="middle">70,000원 무료 매수</text>
+                                <text x="355" y="125" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">약 63,636 사토시 보유</text>
+                                <text x="355" y="152" font-size="12" font-weight="black" fill="#4ade80" text-anchor="middle">🎉 내 돈 0원 실물 소유!</text>
+
+                                <!-- Arrow 2 -->
+                                <path d="M475 100 L500 100" stroke="#f59e0b" stroke-width="3" fill="none"/>
+
+                                <!-- 5천원 최소주문 Box -->
+                                <rect x="510" y="25" width="170" height="150" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="14"/>
+                                <text x="595" y="60" font-size="12" font-weight="bold" fill="#a7f3d0" text-anchor="middle">빗썸 최소 주문 한도</text>
+                                <text x="595" y="90" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">0.00004545 BTC</text>
+                                <text x="595" y="115" font-size="14" font-weight="black" fill="#34d399" text-anchor="middle">단돈 5,000원</text>
+                                <text x="595" y="140" font-size="11" font-weight="bold" fill="#f1f5f9" text-anchor="middle">커피 한 잔 값 투자</text>
+                                <text x="595" y="158" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">실전 매매 연습 가능</text>
+                            </svg>
+                        </div>
+                        <p class="text-xs font-bold text-center mt-4" style="color: #fde047 !important; margin-bottom: 0 !important;">※ 비트코인 가격이 아무리 치솟아도 5,000원 단위로 0.000045 BTC씩 얼마든지 소수점 매수할 수 있습니다.</p>
+                    </div>
                         
                         <div class="overflow-x-auto">
                             <svg viewBox="0 0 700 200" class="w-full min-w-[550px]" xmlns="http://www.w3.org/2000/svg">
@@ -350,13 +432,13 @@
                     </div>
 
                     <!-- 1차 킬러 CTA 배너 -->
-                    <div class="my-10 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 p-6 rounded-3xl shadow-xl text-slate-950 flex flex-col md:flex-row items-center justify-between gap-5 border-2 border-yellow-300">
+                    <div class="my-10 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 p-6 rounded-3xl shadow-xl text-slate-950 flex flex-col md:flex-row items-center justify-between gap-5 border-2 border-yellow-300">
                         <div>
                             <span class="bg-slate-950 text-yellow-300 text-[11px] font-black px-3 py-1 rounded-full uppercase">100% 현금 지급</span>
-                            <h3 class="text-xl md:text-2xl font-black mt-2 leading-tight">내 돈 0원으로 비트코인 0.000636개 무료 매수하기</h3>
-                            <p class="text-xs md:text-sm text-slate-900 font-bold mt-1">가입 3분 만에 30,000원 즉시 입금 + 40,000원 추가 미션 완주 가이드</p>
+                            <h3 class="text-xl md:text-2xl font-black mt-2 leading-tight" style="color: #0f172a !important; margin-bottom: 0.3rem !important;">내 돈 0원으로 비트코인 0.000636개 무료 매수하기</h3>
+                            <p class="text-xs md:text-sm font-bold mt-1" style="color: #1e293b !important; margin-bottom: 0 !important;">가입 3분 만에 30,000원 즉시 입금 + 40,000원 추가 미션 완주 가이드</p>
                         </div>
-                        <a href="../index.html" class="bg-slate-950 hover:bg-slate-800 text-yellow-300 font-black px-6 py-4 rounded-2xl text-sm whitespace-nowrap shadow-2xl transition-all flex items-center gap-2 hover:scale-105">
+                        <a href="../index.html" class="bg-slate-950 hover:bg-slate-800 text-yellow-300 font-black px-6 py-4 rounded-2xl text-sm whitespace-nowrap shadow-2xl transition-all flex items-center gap-2 hover:scale-105" style="color: #facc15 !important; text-decoration: none !important;">
                             <span>빗썸 신규가입하고 비트코인 매수하러 가기</span>
                             <i class="fas fa-arrow-right text-xs"></i>
                         </a>
@@ -377,110 +459,110 @@
                     </p>
 
                     <!-- SVG 2: 실제 빗썸 앱 호가창 및 주문창 정밀 시뮬레이터 -->
-                    <div class="my-8 bg-slate-950 p-4 md:p-6 rounded-3xl text-white shadow-2xl border border-slate-800">
+                    <div class="my-8 p-5 md:p-7 rounded-3xl text-white shadow-2xl border-2 border-slate-700/80 infographic-box" style="background-color: #0b0f19 !important; color: #ffffff !important;">
                         <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
                             <div class="flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                                <span class="font-black text-sm md:text-base text-white">BTC/KRW (비트코인 원화마켓 실시간 호가창)</span>
+                                <span class="w-3.5 h-3.5 rounded-full bg-red-500 animate-pulse"></span>
+                                <span class="font-black text-sm md:text-base" style="color: #ffffff !important;">BTC/KRW (비트코인 원화마켓 실시간 호가창)</span>
                             </div>
-                            <span class="text-xs bg-slate-800 text-amber-400 font-mono px-2.5 py-1 rounded-lg">빗썸 실시간 모의화면</span>
+                            <span class="text-xs bg-slate-800 text-amber-400 font-mono font-bold px-3 py-1 rounded-lg border border-amber-400/30">빗썸 실시간 모의화면</span>
                         </div>
 
                         <div class="overflow-x-auto">
                             <svg viewBox="0 0 740 380" class="w-full min-w-[620px]" xmlns="http://www.w3.org/2000/svg">
                                 <!-- 호가창 배경 (좌측) -->
-                                <rect x="10" y="10" width="350" height="360" fill="#0f172a" rx="12" stroke="#334155"/>
-                                <text x="25" y="35" font-size="12" font-weight="black" fill="#94a3b8">호가(KRW)</text>
-                                <text x="180" y="35" font-size="12" font-weight="black" fill="#94a3b8">잔량(BTC)</text>
-                                <text x="300" y="35" font-size="12" font-weight="black" fill="#94a3b8">등락</text>
+                                <rect x="10" y="10" width="350" height="360" fill="#0f172a" rx="12" stroke="#475569"/>
+                                <text x="25" y="35" font-size="12" font-weight="900" fill="#ffffff">호가(KRW)</text>
+                                <text x="180" y="35" font-size="12" font-weight="900" fill="#ffffff">잔량(BTC)</text>
+                                <text x="300" y="35" font-size="12" font-weight="900" fill="#ffffff">등락</text>
 
                                 <!-- 매도 호가 (파란색 영역) -->
-                                <rect x="15" y="45" width="340" height="26" fill="#1e3a8a" opacity="0.3"/>
-                                <text x="25" y="63" font-size="13" font-weight="bold" fill="#60a5fa">110,030,000</text>
-                                <text x="180" y="63" font-size="12" fill="#93c5fd">0.4512</text>
-                                <text x="310" y="63" font-size="11" fill="#60a5fa">+1.85%</text>
+                                <rect x="15" y="45" width="340" height="26" fill="#1e3a8a" opacity="0.4"/>
+                                <text x="25" y="63" font-size="13" font-weight="bold" fill="#93c5fd">110,030,000</text>
+                                <text x="180" y="63" font-size="12" fill="#dbeafe">0.4512</text>
+                                <text x="310" y="63" font-size="11" fill="#93c5fd">+1.85%</text>
 
-                                <rect x="15" y="75" width="340" height="26" fill="#1e3a8a" opacity="0.45"/>
-                                <text x="25" y="93" font-size="13" font-weight="bold" fill="#60a5fa">110,020,000</text>
-                                <text x="180" y="93" font-size="12" fill="#93c5fd">1.1205</text>
-                                <text x="310" y="93" font-size="11" fill="#60a5fa">+1.84%</text>
+                                <rect x="15" y="75" width="340" height="26" fill="#1e3a8a" opacity="0.55"/>
+                                <text x="25" y="93" font-size="13" font-weight="bold" fill="#93c5fd">110,020,000</text>
+                                <text x="180" y="93" font-size="12" fill="#dbeafe">1.1205</text>
+                                <text x="310" y="93" font-size="11" fill="#93c5fd">+1.84%</text>
 
-                                <rect x="15" y="105" width="340" height="26" fill="#1e3a8a" opacity="0.6"/>
-                                <text x="25" y="123" font-size="13" font-weight="bold" fill="#60a5fa">110,010,000</text>
-                                <text x="180" y="123" font-size="12" fill="#93c5fd">2.3840</text>
-                                <text x="310" y="123" font-size="11" fill="#60a5fa">+1.83%</text>
+                                <rect x="15" y="105" width="340" height="26" fill="#1e3a8a" opacity="0.7"/>
+                                <text x="25" y="123" font-size="13" font-weight="bold" fill="#bfdbfe">110,010,000</text>
+                                <text x="180" y="123" font-size="12" fill="#eff6ff">2.3840</text>
+                                <text x="310" y="123" font-size="11" fill="#bfdbfe">+1.83%</text>
 
                                 <!-- 현재가 중앙 바 -->
                                 <rect x="15" y="135" width="340" height="34" fill="#1e293b" stroke="#f59e0b" stroke-width="2" rx="6"/>
-                                <text x="25" y="158" font-size="16" font-weight="900" fill="#fbbf24">110,000,000 KRW</text>
-                                <text x="240" y="157" font-size="12" font-weight="bold" fill="#ef4444">▲ +1,980,000 (+1.82%)</text>
+                                <text x="25" y="158" font-size="16" font-weight="900" fill="#fde047">110,000,000 KRW</text>
+                                <text x="240" y="157" font-size="12" font-weight="bold" fill="#f87171">▲ +1,980,000 (+1.82%)</text>
 
                                 <!-- 매수 호가 (빨간색 영역) -->
-                                <rect x="15" y="175" width="340" height="26" fill="#7f1d1d" opacity="0.6"/>
-                                <text x="25" y="193" font-size="13" font-weight="bold" fill="#f87171">109,990,000</text>
-                                <text x="180" y="193" font-size="12" fill="#fca5a5">3.1250</text>
-                                <text x="310" y="193" font-size="11" fill="#f87171">+1.81%</text>
+                                <rect x="15" y="175" width="340" height="26" fill="#7f1d1d" opacity="0.7"/>
+                                <text x="25" y="193" font-size="13" font-weight="bold" fill="#fca5a5">109,990,000</text>
+                                <text x="180" y="193" font-size="12" fill="#fee2e2">3.1250</text>
+                                <text x="310" y="193" font-size="11" fill="#fca5a5">+1.81%</text>
 
-                                <rect x="15" y="205" width="340" height="26" fill="#7f1d1d" opacity="0.45"/>
-                                <text x="25" y="223" font-size="13" font-weight="bold" fill="#f87171">109,980,000</text>
-                                <text x="180" y="223" font-size="12" fill="#fca5a5">1.8490</text>
-                                <text x="310" y="223" font-size="11" fill="#f87171">+1.80%</text>
+                                <rect x="15" y="205" width="340" height="26" fill="#7f1d1d" opacity="0.55"/>
+                                <text x="25" y="223" font-size="13" font-weight="bold" fill="#fca5a5">109,980,000</text>
+                                <text x="180" y="223" font-size="12" fill="#fee2e2">1.8490</text>
+                                <text x="310" y="223" font-size="11" fill="#fca5a5">+1.80%</text>
 
-                                <rect x="15" y="235" width="340" height="26" fill="#7f1d1d" opacity="0.3"/>
-                                <text x="25" y="253" font-size="13" font-weight="bold" fill="#f87171">109,970,000</text>
-                                <text x="180" y="253" font-size="12" fill="#fca5a5">0.7620</text>
-                                <text x="310" y="253" font-size="11" fill="#f87171">+1.79%</text>
+                                <rect x="15" y="235" width="340" height="26" fill="#7f1d1d" opacity="0.4"/>
+                                <text x="25" y="253" font-size="13" font-weight="bold" fill="#fca5a5">109,970,000</text>
+                                <text x="180" y="253" font-size="12" fill="#fee2e2">0.7620</text>
+                                <text x="310" y="253" font-size="11" fill="#fca5a5">+1.79%</text>
 
                                 <!-- 호가창 팁 -->
                                 <rect x="15" y="275" width="340" height="85" fill="#020617" rx="8" stroke="#334155"/>
-                                <text x="25" y="298" font-size="11" font-weight="bold" fill="#fbbf24">💡 실전 호가창 팁:</text>
-                                <text x="25" y="318" font-size="11" fill="#cbd5e1">• 지정가 주문 시 현재가(110,000,000)를 클릭하면</text>
-                                <text x="25" y="336" font-size="11" fill="#cbd5e1">  우측 주문창에 가격이 1초 만에 자동 입력됩니다.</text>
-                                <text x="25" y="352" font-size="10" fill="#64748b">• 시장가는 수수료 갭이 생기므로 반드시 '지정가' 추천!</text>
+                                <text x="25" y="298" font-size="12" font-weight="900" fill="#fde047">💡 실전 호가창 팁:</text>
+                                <text x="25" y="318" font-size="11" font-weight="bold" fill="#ffffff">• 지정가 주문 시 현재가(110,000,000)를 클릭하면</text>
+                                <text x="25" y="336" font-size="11" font-weight="bold" fill="#ffffff">  우측 주문창에 가격이 1초 만에 자동 입력됩니다.</text>
+                                <text x="25" y="352" font-size="11" font-weight="bold" fill="#fde047">• 시장가는 슬리피지(가격밀림)가 있으니 꼭 '지정가' 사용!</text>
 
                                 <!-- 주문창 (우측) -->
-                                <rect x="380" y="10" width="350" height="360" fill="#0f172a" rx="12" stroke="#334155"/>
+                                <rect x="380" y="10" width="350" height="360" fill="#0f172a" rx="12" stroke="#475569"/>
                                 <!-- 매수/매도 탭 -->
                                 <rect x="390" y="20" width="160" height="32" fill="#dc2626" rx="6"/>
                                 <text x="470" y="42" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">매수 (Buy)</text>
                                 <rect x="560" y="20" width="160" height="32" fill="#1e293b" rx="6"/>
-                                <text x="640" y="42" font-size="14" font-weight="bold" fill="#64748b" text-anchor="middle">매도 (Sell)</text>
+                                <text x="640" y="42" font-size="14" font-weight="bold" fill="#94a3b8" text-anchor="middle">매도 (Sell)</text>
 
                                 <!-- 지정가 선택 -->
                                 <rect x="390" y="65" width="80" height="24" fill="#334155" rx="4"/>
-                                <text x="430" y="81" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">지정가 ✔</text>
+                                <text x="430" y="81" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle">지정가 ✔</text>
                                 <rect x="480" y="65" width="80" height="24" fill="#1e293b" rx="4"/>
-                                <text x="520" y="81" font-size="11" fill="#64748b" text-anchor="middle">시장가</text>
+                                <text x="520" y="81" font-size="11" fill="#94a3b8" text-anchor="middle">시장가</text>
 
                                 <!-- 매수가격 입력란 -->
-                                <text x="390" y="112" font-size="11" font-weight="bold" fill="#94a3b8">매수가격 (KRW)</text>
-                                <rect x="390" y="120" width="330" height="36" fill="#1e293b" rx="6" stroke="#475569"/>
+                                <text x="390" y="112" font-size="11" font-weight="900" fill="#ffffff">매수가격 (KRW)</text>
+                                <rect x="390" y="120" width="330" height="36" fill="#1e293b" rx="6" stroke="#64748b"/>
                                 <text x="405" y="143" font-size="14" font-weight="bold" fill="#ffffff">110,000,000</text>
-                                <text x="700" y="143" font-size="12" fill="#64748b" text-anchor="end">원</text>
+                                <text x="700" y="143" font-size="12" font-weight="bold" fill="#cbd5e1" text-anchor="end">원</text>
 
                                 <!-- 핵심: 수량 vs 금액 탭 강조 -->
-                                <text x="390" y="178" font-size="11" font-weight="bold" fill="#94a3b8">주문 구분 선택 (★초보자 필수)</text>
+                                <text x="390" y="178" font-size="11" font-weight="900" fill="#fde047">주문 구분 선택 (★초보자 필수 주의)</text>
                                 <rect x="390" y="185" width="100" height="28" fill="#1e293b" rx="5" stroke="#ef4444"/>
-                                <text x="440" y="203" font-size="11" fill="#ef4444" text-anchor="middle">수량(BTC) ❌</text>
-                                <rect x="500" y="185" width="130" height="28" fill="#16a34a" rx="5" stroke="#22c55e"/>
-                                <text x="565" y="203" font-size="11" font-weight="black" fill="#ffffff" text-anchor="middle">금액(KRW) 탭 ✔</text>
+                                <text x="440" y="203" font-size="11" font-weight="bold" fill="#f87171" text-anchor="middle">수량(BTC) ❌</text>
+                                <rect x="500" y="185" width="130" height="28" fill="#16a34a" rx="5" stroke="#4ade80" stroke-width="2"/>
+                                <text x="565" y="203" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle">금액(KRW) 탭 ✔</text>
 
                                 <!-- 주문금액 입력란 -->
                                 <rect x="390" y="222" width="330" height="38" fill="#020617" rx="6" stroke="#22c55e" stroke-width="2"/>
-                                <text x="405" y="247" font-size="15" font-weight="black" fill="#4ade80">5,000</text>
-                                <text x="700" y="247" font-size="12" font-weight="bold" fill="#4ade80" text-anchor="end">원 (5천원 입력)</text>
+                                <text x="405" y="247" font-size="16" font-weight="900" fill="#4ade80">5,000</text>
+                                <text x="700" y="247" font-size="13" font-weight="bold" fill="#4ade80" text-anchor="end">원 (5천원 입력)</text>
 
                                 <!-- 자동 계산된 소수점 수량 표기 -->
                                 <rect x="390" y="270" width="330" height="28" fill="#1e293b" rx="4"/>
-                                <text x="405" y="288" font-size="11" fill="#94a3b8">자동 환산 수량:</text>
-                                <text x="700" y="288" font-size="12" font-weight="bold" fill="#facc15" text-anchor="end">0.00004545 BTC</text>
+                                <text x="405" y="288" font-size="11" font-weight="bold" fill="#cbd5e1">자동 환산 수량:</text>
+                                <text x="700" y="288" font-size="12" font-weight="900" fill="#fde047" text-anchor="end">0.00004545 BTC</text>
 
                                 <!-- 주문 실행 버튼 -->
                                 <rect x="390" y="310" width="330" height="46" fill="#dc2626" rx="8"/>
                                 <text x="555" y="338" font-size="15" font-weight="900" fill="#ffffff" text-anchor="middle">비트코인 매수 주문 (5,000원)</text>
                             </svg>
                         </div>
-                        <p class="text-[11px] text-slate-400 text-center mt-3">※ [금액] 탭에 5,000원을 넣으면 소수점 자리가 자동 계산되어 1초 만에 즉시 체결됩니다.</p>
+                        <p class="text-xs font-bold text-center mt-3" style="color: #fde047 !important; margin-bottom: 0 !important;">※ [금액] 탭에 5,000원을 넣으면 소수점 자리가 자동 계산되어 1초 만에 즉시 안전하게 체결됩니다.</p>
                     </div>
 
                     <h2>4. '지정가' vs '시장가' 차이와 슬리피지(수수료) 0원 방어법</h2>
@@ -533,23 +615,25 @@
                     </div>
 
                     <!-- 2차 메인 하단 대형 CTA 배너 -->
-                    <div class="my-12 bg-slate-950 p-8 md:p-10 rounded-3xl text-center text-white shadow-2xl border-2 border-yellow-400 relative overflow-hidden">
+                    <div class="my-12 p-8 md:p-10 rounded-3xl text-center shadow-2xl border-2 border-yellow-400 relative overflow-hidden cta-box cta-banner" style="background-color: #0b0f19 !important; color: #ffffff !important;">
                         <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-400/10 rounded-full blur-2xl"></div>
-                        <span class="bg-yellow-400 text-slate-950 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider mb-4 inline-block">
+                        <span class="bg-yellow-400 text-slate-950 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider mb-4 inline-block shadow-md">
                             2026년 9월 최신 공식 이벤트
                         </span>
-                        <h3 class="text-2xl md:text-3xl font-black text-white mb-3">
+                        <h3 class="text-2xl md:text-3xl font-black mb-3" style="color: #ffffff !important; margin-top: 0.5rem !important; margin-bottom: 0.75rem !important;">
                             지금 바로 빗썸 신규가입하고 비트코인 매수하러 가기
                         </h3>
-                        <p class="text-xs md:text-sm text-slate-300 max-w-xl mx-auto mb-6 leading-relaxed">
+                        <p class="text-sm md:text-base max-w-xl mx-auto mb-6 leading-relaxed font-bold" style="color: #f8fafc !important; margin-bottom: 1.5rem !important;">
                             내 돈 0원으로 70,000원 전액 지원금 받고, 커피 한 잔 값으로 비트코인 0.000636개 실물 소유를 시작하세요!
                         </p>
                         <div class="flex flex-col sm:flex-row justify-center gap-3">
-                            <a href="../index.html" class="bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black px-8 py-4 rounded-2xl text-sm md:text-base shadow-xl transition-all flex items-center justify-center gap-2 hover:scale-105">
+                            <a href="../index.html" class="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black px-8 py-4 rounded-2xl text-sm md:text-base shadow-2xl transition-all flex items-center justify-center gap-2 hover:scale-105" style="color: #0f172a !important; text-decoration: none !important;">
                                 <span>빗썸 신규가입하고 비트코인 매수하러 가기 (7만원 전액 받기 ➔)</span>
                             </a>
                         </div>
-                        <p class="text-[11px] text-slate-500 mt-4">공식 초대코드: <b class="text-yellow-400 font-mono">GYYE7EEGC6</b> (가입 시 자동 입력 연동)</p>
+                        <p class="text-xs font-bold mt-4" style="color: #f1f5f9 !important; margin-bottom: 0 !important;">
+                            공식 초대코드: <b style="color: #fde047 !important; font-family: monospace; font-size: 1rem;">GYYE7EEGC6</b> (가입 시 자동 입력 연동)
+                        </p>
                     </div>
 
                     <!-- FAQ 아코디언 섹션 -->
