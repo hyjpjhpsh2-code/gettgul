@@ -147,51 +147,6 @@
                 to { opacity: 1; transform: translateY(0); }
             }
         }
-    
-        /* ========================================================
-           [원천 차단] 다크 컨테이너 / CTA / 인포그래픽 고대비 가독성 보장 규칙
-           .article-body p / h3 가 다크 박스 텍스트를 어둡게 덮어쓰는 버그 영구 방지
-           ======================================================== */
-        .article-body .dark-box,
-        .article-body .cta-box,
-        .article-body .cta-banner,
-        .article-body .infographic-box,
-        .article-body [class*="bg-slate-9"],
-        .article-body [class*="bg-slate-8"],
-        .article-body [class*="bg-gray-9"],
-        .article-body [class*="bg-zinc-9"],
-        .article-body [class*="bg-black"] {
-            color: #ffffff !important;
-        }
-
-        .article-body .dark-box h1, .article-body .dark-box h2, .article-body .dark-box h3, .article-body .dark-box h4,
-        .article-body .cta-box h1, .article-body .cta-box h2, .article-body .cta-box h3, .article-body .cta-box h4,
-        .article-body .cta-banner h1, .article-body .cta-banner h2, .article-body .cta-banner h3, .article-body .cta-banner h4,
-        .article-body .infographic-box h1, .article-body .infographic-box h2, .article-body .infographic-box h3, .article-body .infographic-box h4,
-        .article-body [class*="bg-slate-9"] h1, .article-body [class*="bg-slate-9"] h2, .article-body [class*="bg-slate-9"] h3, .article-body [class*="bg-slate-9"] h4,
-        .article-body [class*="bg-slate-8"] h1, .article-body [class*="bg-slate-8"] h2, .article-body [class*="bg-slate-8"] h3, .article-body [class*="bg-slate-8"] h4 {
-            color: #ffffff !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
-        }
-
-        .article-body .dark-box p,
-        .article-body .cta-box p,
-        .article-body .cta-banner p,
-        .article-body .infographic-box p,
-        .article-body [class*="bg-slate-9"] p,
-        .article-body [class*="bg-slate-8"] p {
-            color: #f1f5f9 !important;
-        }
-
-        .article-body .dark-box span:not([class*="text-"]),
-        .article-body .cta-box span:not([class*="text-"]),
-        .article-body .cta-banner span:not([class*="text-"]),
-        .article-body .infographic-box span:not([class*="text-"]),
-        .article-body [class*="bg-slate-9"] span:not([class*="text-"]),
-        .article-body [class*="bg-slate-8"] span:not([class*="text-"]) {
-            color: inherit !important;
-        }
-
     </style>
 
     <!-- Microsoft Clarity Tracking Code -->
@@ -341,7 +296,11 @@
                             <thead class="bg-slate-100 font-black text-slate-900">
                                 <tr>
                                     <th class="p-3 border">비교 항목</th>
-                                    <th class="p-3 border text-center bg-yellow-50 text-amber-700 font-black">빗썸 (Bithumb)</th>
+                                    <th class="p-3 border text-center bg-yellow-100 text-amber-900 font-black">
+                                        <a href="../index.html" class="inline-flex items-center gap-1 hover:underline text-amber-900" title="빗썸 7만원 가이드 바로가기">
+                                            빗썸 (Bithumb) <i class="fas fa-arrow-circle-right text-xs text-amber-600"></i>
+                                        </a>
+                                    </th>
                                     <th class="p-3 border text-center">코인원 (Coinone)</th>
                                     <th class="p-3 border text-center">업비트 (Upbit)</th>
                                 </tr>
@@ -367,7 +326,12 @@
                                 </tr>
                                 <tr>
                                     <td class="p-3 border font-black bg-slate-50">총 실질 현금 수령액</td>
-                                    <td class="p-3 border text-center font-black text-base text-red-600 bg-yellow-100">최대 70,000원 전액</td>
+                                    <td class="p-3 border text-center font-black text-base text-red-600 bg-yellow-100 hover:bg-yellow-200 transition-colors">
+                                        <a href="../index.html" class="block group" title="빗썸 7만원 수령 가이드 보기">
+                                            <span class="block font-black text-red-600 group-hover:underline">최대 70,000원 전액</span>
+                                            <span class="inline-block mt-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm transition-colors">수령 가이드 ➔</span>
+                                        </a>
+                                    </td>
                                     <td class="p-3 border text-center font-black text-slate-800">최대 20,000원</td>
                                     <td class="p-3 border text-center font-black text-slate-400">0원 (상시 없음)</td>
                                 </tr>
@@ -379,6 +343,18 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+
+                    <!-- 비교표 직후 전환 CTA 배너 -->
+                    <div class="my-5 p-4 bg-gradient-to-r from-amber-500/10 via-yellow-400/20 to-amber-500/10 rounded-2xl border border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+                        <div class="flex items-center gap-2 text-slate-900 font-black text-xs md:text-sm text-center sm:text-left">
+                            <span class="text-2xl">🎁</span>
+                            <span>빗썸 신규가입 70,000원 전액 수령 프로모션 진행 중</span>
+                        </div>
+                        <a href="../index.html" class="w-full sm:w-auto px-5 py-2.5 bg-slate-900 hover:bg-amber-600 text-white font-black text-xs rounded-xl shadow-md transition-all text-center flex-shrink-0 flex items-center justify-center gap-1.5 active:scale-95">
+                            <span>7만원 혜택 받으러 가기</span>
+                            <i class="fas fa-arrow-right text-[10px]"></i>
+                        </a>
                     </div>
 
                     <div class="info-callout">
@@ -419,9 +395,14 @@
                         초보 투자자가 1개의 거래소를 선택해야 한다면, <b>내 돈 0원으로 70,000원의 시드머니를 확보하고 최저 수수료 0.04% 혜택을 누릴 수 있는 빗썸</b>으로 시작하는 것이 경제학적으로 가장 합리적인 선택입니다.
                     </p>
 
-                    <p class="text-sm md:text-base font-black text-indigo-700 bg-indigo-50 p-4 rounded-2xl border border-indigo-200">
-                        👉 <a href="../index.html" class="underline hover:text-indigo-900">신규가입하고 빗썸 7만원 이벤트 참여하기. 오늘 바로 70,000원 지원금을 수령하고 코인투자를 시작해보세요 ➔</a>
-                    </p>
+                    <div class="my-8 p-6 md:p-8 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl text-white shadow-xl text-center border border-indigo-500/30">
+                        <span class="bg-yellow-400 text-slate-950 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">2026년 9월 한정 프로모션</span>
+                        <h3 class="text-xl md:text-2xl font-black text-yellow-300 mb-2">빗썸 70,000원 지원금 지금 바로 수령하기</h3>
+                        <p class="text-xs md:text-sm text-slate-300 mb-6 max-w-md mx-auto leading-relaxed">내 돈 0원으로 7만원 시드머니를 확보하고, 국내 최저 수수료 0.04% 혜택을 즉시 시작하세요.</p>
+                        <a href="../index.html" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-yellow-400 to-amber-400 hover:from-yellow-300 hover:to-amber-300 text-slate-950 font-black text-base md:text-lg rounded-full shadow-2xl transition-all active:scale-95">
+                            <i class="fas fa-gift"></i> 빗썸 7만원 수령 완벽 가이드 바로가기 ➔
+                        </a>
+                    </div>
 
                     <!-- FAQ 아코디언 섹션 -->
                     <div class="mt-12 pt-8 border-t border-slate-200">
